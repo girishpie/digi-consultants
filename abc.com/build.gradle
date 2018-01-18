@@ -29,7 +29,7 @@ node
 {
             version = "6.11.3"
             download = false
-            nodeModulesDir = file("digi-client")
+            nodeModulesDir = file("client")
 }
 
 task buildClientDev(type: NpmTask, dependsOn: 'npmInstall') {

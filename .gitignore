@@ -17,3 +17,7 @@ abc.com/.gradle/**/*.*
 /abc.com/.settings/org.eclipse.wst.common.project.facet.core.xml
 /abc.com/build/**/*
 /npm-debug.log
+/abc.com/client/node_modules/**/*.*
+/abc.com/client/node_modules/**/*
+/abc.com/.settings/**/*
+/abc.com/digi-client/npm-debug.log
