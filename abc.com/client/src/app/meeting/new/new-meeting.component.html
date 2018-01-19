@@ -2,6 +2,14 @@
 <div class="container-fluid rounded" style="background-color:white;">
     <form >
         <div class="form-group">
+            <label for="meeting-tittle" class="form-control-label">Project</label>
+            <select    [(ngModel)]="projectId" name="projects" (change)="onProjectChange()">
+                <option *ngFor="let project of projects.projects" [value]="project.id">
+                    {{ project.projectName }}
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
             <label for="meeting-tittle" class="form-control-label">Tittle</label>
             <input type="text" class="form-control" id="meeting-tittle" [(ngModel)]="tittle" name="tittle">
           </div>
@@ -11,32 +19,92 @@
           </div>
           <hr>
       <label style="text-decoration: underline;">Summary</label>
-      <div class="row">
-        <div class="col-25 form-group">
-          <label for="meeting-type" class="form-control-label">Meeting Type:</label>
-        </div>
-        <div class="col-75">
+        <table>
+        <tr >
+            <td>Date Of Meeting:
+            </td>
+            <td >
+                <input type="date" class="form-control" id="meeting-date" name="date" [(ngModel)]="date">
+            </td>
+        </tr>
+
+        <tr>
+        <td>Meeting Type:
+        </td>
+        <td>
           <input type="text" class="form-control" id="meeting-type" name="type" [(ngModel)]="type">
-        </div>
-      </div>
-      <div class="row">
-          <div class="col-25 form-group">
-            <label for="meeting-venue"  class="form-control-label">Venue:</label>
-          </div>
-          <div class="col-75">
+        </td>
+      </tr>
+      <tr >
+          <td>Venue:
+          </td>
+          <td >
             <input type="text" class="form-control" id="meeting-venue" name="venue" [(ngModel)]="venue">
-          </div>
-        </div>
-        <div class="row">
-            <div class="col-25 form-group">
-              <label for="meeting-date" class="form-control-label">Date:</label>
-            </div>
-            <div class="col-75">
-              <input type="date" class="form-control" id="meeting-date" name="date" [(ngModel)]="date">
-            </div>
-          </div>
-   
-      
+          </td>
+        </tr>
+            <tr>
+                <td>Meeting Commenced:
+                </td>
+                <td>
+                    <input type="text" class="form-control" id="meeting-commenced" name="type" [(ngModel)]="meetingCommenced">
+                </td>
+            </tr>
+            <tr>
+                <td>Meeting Adjourned:
+                </td>
+                <td>
+                    <input type="text" class="form-control" id="meeting-adjourned" name="type" [(ngModel)]="meetingAdjourned">
+                </td>
+            </tr>
+            <tr>
+                <td>Meeting No:
+                </td>
+                <td>
+                    <input type="text" class="form-control" id="meeting-no" name="type" [(ngModel)]="meetingNo">
+                </td>
+            </tr>
+
+        </table>
+
+        <table class="table ">
+            <thead>
+            <tr>
+                <th>Sl No</th>
+                <th>Name</th>
+                <th>Company</th>
+                <th>Role</th>
+                <th>Initials</th>
+                <th>Present</th>
+                <th>Absent</th>
+                <th>Appologies</th>
+                <th>DistributionList</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let employee of this.employees">
+                <td class = "table-cell"></td>
+                <td class = "table-cell">{{employee.firstname}}</td>
+                <td class = "table-cell">{{employee.companyName}}</td>
+                <td class = "table-cell">{{employee.role}}</td>
+                <td class = "table-cell">{{employee.companyName}}</td>
+                <td>
+                    <input type="checkbox" name="present" [(ngModel)]="employee.isPresent" style="text-align:center; vertical-align: middle;" (click)="onPresent(employee)">
+                </td>
+                <td>
+                    <input type="checkbox" name="absent" [(ngModel)]="employee.isAbsent" style="text-align:center; vertical-align: middle;"(click)="onAbsent(employee)">
+                </td>
+                <td>
+                    <input type="checkbox" name="appologized" [(ngModel)]="employee.isAppologized" style="text-align:center; vertical-align: middle;"(click)="onApologized(employee)">
+                </td>
+                <td>
+                    <input type="checkbox" name="partofdl" [(ngModel)]="employee.isPartOfDL" style="text-align:center; vertical-align: middle;">
+                </td>
+
+                <td class = "table-cell"></td>
+            </tr>
+            </tbody>
+        </table>
       <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="goBack()">Cancel</button>
           <button type="button" class="btn btn-primary" (click)="addNewMeeting()" >Add</button>

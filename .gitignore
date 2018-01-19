@@ -21,3 +21,5 @@ abc.com/.gradle/**/*.*
 /abc.com/client/node_modules/**/*
 /abc.com/.settings/**/*
 /abc.com/digi-client/npm-debug.log
+/abc.com/client/.idea/**/*
+/abc.com/src/.idea/**/*

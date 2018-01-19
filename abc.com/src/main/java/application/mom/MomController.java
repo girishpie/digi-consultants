@@ -47,6 +47,7 @@ public class MomController {
 		mom.setTitle(input.getTitle());
 		mom.setObjective(input.getObjective());
 		mom.setDate(input.getDate());
+		mom.setMeetingType(input.getMeetingType());
 		mom.setVenue(input.getVenue());
 		mom.setMeetingNo(input.getMeetingNo());
 		mom.setPplList(input.getPplList());

@@ -6,6 +6,7 @@ import {Project} from './project';
 import {QueryParams} from "../home/query-obeservables/query-params";
 import {Projects} from "./projects";
 import {Globals} from "../globals/globals";
+import {Employee} from "../employee/employee";
 
 @Injectable()
 export class ProjectService {
@@ -49,7 +50,20 @@ export class ProjectService {
             project.setStartDate(new Date(response[i].startDate));
             project.setClientName(response[i].clientName);
             project.setId(response[i].id);
+            if(response[i].employees) {
+                for (let j = 0; j < response[i].employees.length; j++) {
+                    var emp = new Employee();
+                    emp.setFirstname(response[i].employees[j].firstname);
+                    emp.setLastname(response[i].employees[j].lastname);
+                    emp.setId(response[i].employees[j].id);
+                    emp.setCompanyName(response[i].employees[j].companyName);
+                    emp.setRole(response[i].employees[j].role);
+                    project.addEmployee(emp);
+
+                }
+            }
             projects.push(project);
+
           }
           this.projects.setProjects(projects);
           this.projects.setTotalItems(res1.totalElements);

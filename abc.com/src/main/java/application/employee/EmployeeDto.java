@@ -24,12 +24,12 @@ public class EmployeeDto {
 	
 	public EmployeeDto() {}
 	
-	public EmployeeDto(Employee employee, String name) {
+	public EmployeeDto(Employee employee, String companyName) {
 		this.id = employee.getId();
 		this.firstname = employee.getFirstname();
 		this.email = employee.getEmail();
 		this.lastname = employee.getLastname();
-		this.companyName = name;
+		this.companyName = companyName;
 		this.DOB = employee.getDOB();
 		this.gender = employee.getGender();
 		this.role = employee.getRole();

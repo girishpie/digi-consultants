@@ -6,6 +6,7 @@
         <table class="table">
           <thead>
           <tr>
+              <th>Meeting Type</th>
             <th>Meeting Type</th>
             <th>Venue</th>
             <th>Date</th>
@@ -14,10 +15,11 @@
           </thead>
           <tbody>
               <tr *ngFor="let meeting of meetings.meetings | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: meetings.totalItems, id:'server'} ">
-                <td class = "table-cell">{{ meeting.type }}</td>
+                  <td class = "table-cell">{{ meeting.meetingNo }}</td>
+                  <td class = "table-cell">{{ meeting.type }}</td>
                 <td class = "table-cell">{{ meeting.venue }}</td>
                 <td class = "table-cell">{{ meeting.ondate |  date:'MM/dd/yyyy'}}</td>
-                <td class = "table-cell">{{ meeting.uploaded }}</td>
+                <td class = "table-cell">{{ meeting.createdBy }}</td>
                 
                  <td class = "table-cell">
                

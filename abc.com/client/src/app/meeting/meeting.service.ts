@@ -46,8 +46,8 @@ export class MeetingService
                 meeting.setMeetingType(response[i].type);
                 meeting.setVenue(response[i].venue);
                 meeting.setDate(response[i].date);
-                //meeting.setUploaded(response[i].uploaded);
-                meeting.setId(response[i].id);
+                meeting.setMeetingNo(response[i].meetingNo);
+                meeting.setCreatedBy(response[i].createdBy);
                 meetings.push(meeting);
               }
               this.meetings.setMeeting(meetings);
@@ -57,7 +57,8 @@ export class MeetingService
           );
   }
       public save(meeting: Meeting)  {
-        const endPoint = this.meetingUrl;
+        const endPoint = this.meetingUrl + meeting.getProjectId();
+
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         // Returns response

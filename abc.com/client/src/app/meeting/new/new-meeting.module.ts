@@ -4,12 +4,15 @@ import { MeetingComponent } from '../meeting.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { UIRouterModule} from '@uirouter/angular';
-
+import {ProjectModule} from '../../project/project.module'
+import {EmployeeModule} from '../../employee/employee.module'
 
 @NgModule({
   imports: [
     FormsModule,
-    BrowserModule
+    BrowserModule,
+    ProjectModule,
+    EmployeeModule
     ],
   declarations: [
     NewMeetingComponent

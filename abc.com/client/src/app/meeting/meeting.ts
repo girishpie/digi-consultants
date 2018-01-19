@@ -1,4 +1,5 @@
 import { Class } from '@angular/core';
+import {MeetingEmployee} from "./meeting-employee";
 
 export class Meeting {
     private date: Date;
@@ -8,6 +9,9 @@ export class Meeting {
     private  meetingNo: string;
     private objective: string;
     private title: string;
+    private projectId:string;
+    private createdBy:string;
+    private pplList:Array<MeetingEmployee> = new Array<MeetingEmployee>() ;
 
     constructor() {
     }
@@ -53,4 +57,30 @@ export class Meeting {
       return this.objective ;
     }
 
+    public setProjectId ( projectId: string ) {
+        this.projectId = projectId;
+    }
+    public getProjectId (): string {
+        return this.projectId ;
+    }
+
+    public setMeetingNo(meetingNo:string){
+        this.meetingNo = meetingNo;
+    }
+
+    public getMeetingNo(){
+        return this.meetingNo;
+    }
+
+    public setCreatedBy(createdBy:string){
+        this.createdBy = createdBy;
+    }
+
+    public getCreatedBy(){
+        return this.createdBy;
+    }
+
+    public setPplList(employees:Array<MeetingEmployee>){
+        this.pplList = employees;
+    }
 }

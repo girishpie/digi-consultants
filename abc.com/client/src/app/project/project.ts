@@ -1,4 +1,5 @@
 import { Class } from '@angular/core';
+import {Employee} from "../employee/employee";
 
 export class Project {
 
@@ -10,6 +11,7 @@ export class Project {
   private  startDate: Date;
   private  clientName: string;
   private  phaseName: string;
+  private  pplList : Array<Employee> = new Array<Employee>();
 
   private  clientId: string;
   private  phase: string;
@@ -77,7 +79,20 @@ export class Project {
    public setPhase(phase: string ) {
     this.phase = phase;
   }
+
   public getPhase(): string {
     return this.phase;
+  }
+
+  public getPplList() : Array<Employee>{
+      return this.pplList;
+  }
+
+  public setPplList(employees : Array<Employee>) {
+     this.pplList = employees;
+  }
+
+  public addEmployee (employee :Employee){
+    this.pplList.push(employee);
   }
 }

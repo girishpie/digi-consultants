@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import application.client.Client;
 import application.client.ClientRepository;
+import application.company.CompanyRepository;
 import application.employee.Employee;
 import application.employee.EmployeeRepository;
 import application.response.IResponse;
@@ -36,12 +37,18 @@ public class ProjectController {
 	private final EmployeeRepository employeeRepository;
 	@Autowired
 	private final ClientRepository clientRepository;
+	@Autowired
+	private final CompanyRepository companyRepository;
 	
 	
-	ProjectController(ClientRepository clientRepository, ProjectRepository projectRepository,EmployeeRepository employeeRepository) {
+	ProjectController(ClientRepository clientRepository, 
+			ProjectRepository projectRepository,
+			EmployeeRepository employeeRepository,
+			CompanyRepository companyRepository) {
         this.projectRepository = projectRepository;
         this.clientRepository = clientRepository;
         this.employeeRepository = employeeRepository;
+        this.companyRepository = companyRepository;
     }
 	
 	@PreAuthorize("hasAuthority('CREATE_PROJECT')")
@@ -152,10 +159,10 @@ public class ProjectController {
         	Client client = clientRepository.findById(projects.get(i).getClientId());
         	ProjectDto projectDto = null;
         	if(client == null){
-        		 projectDto = new ProjectDto(projects.get(i), "");
+        		 projectDto = new ProjectDto(projects.get(i), "",employeeRepository,companyRepository);
             }
         	else {
-        		 projectDto = new ProjectDto(projects.get(i), client.getName());
+        		 projectDto = new ProjectDto(projects.get(i), client.getName(),employeeRepository,companyRepository);
         	}
         	projectDtos.add(projectDto);
         }
@@ -171,7 +178,9 @@ public class ProjectController {
             return ResponseWrapper.getResponse( new RestError("Project With: " + id + " Does not exist", HttpStatus.NOT_FOUND));
         }
         Client client = clientRepository.findById(project.getClientId());
-        ProjectDto projectDto = new ProjectDto(project, client.getName());
+        ProjectDto projectDto = new ProjectDto(project, client.getName(),employeeRepository,companyRepository);
+        
+       
         return ResponseWrapper.getResponse( new RestResponse(projectDto));
     }
 }
