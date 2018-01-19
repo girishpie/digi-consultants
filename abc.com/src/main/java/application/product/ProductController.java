@@ -44,14 +44,20 @@ public class ProductController {
 	    ResponseEntity<?> add(@PathVariable String sectionId, @RequestBody Product input ) {
 	    	Section section = sectionRepository.findById(sectionId);
 	        if(section == null){
-	            return ResponseWrapper.getResponse(new RestError("Section With: "+ sectionId + " does not exist", HttpStatus.NOT_FOUND));
+	            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "SECTION_NOT_FOUND", sectionId));
 	        }
-	    	Product prod = new Product(input.getName(), input.getQuantity(), input.getBimId(), input.getAmount(), input.getUnit(), 
-	    			 sectionId, input.getDescription(), input.getProductCatId());
-	    	Product product = productRepository.save(prod);
-	    	section.addProduct(product.getId());
-	    	sectionRepository.save(section);
-	        return ResponseWrapper.getResponse(new RestResponse( product.getId()));
+	        if(input.getName() != null && !input.getName().isEmpty()) {
+		    	Product prod = new Product(input.getName(), input.getQuantity(), input.getBimId(), input.getAmount(), input.getUnit(), 
+		    			 sectionId, input.getDescription(), input.getProductCatId());
+		    	Product product = productRepository.save(prod);
+		    	section.addProduct(product.getId());
+		    	sectionRepository.save(section);
+		        return ResponseWrapper.getResponse(new RestResponse( product.getId()));
+	        }
+	        else
+	        {
+	        	return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST,"PRODUCT_NAME_NULL"));
+	        }
 	    }
 
 
@@ -60,15 +66,15 @@ public class ProductController {
 	    ResponseEntity<?> delete(@PathVariable String id) {
 	    	Product product = productRepository.findById(id);
 	        if(product == null){
-	            return ResponseWrapper.getResponse( new RestError("product With: "+ id + " does not exist", HttpStatus.NOT_FOUND));
+	            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "PRODUCT_NOT_FOUND", id));
 	        }
 	        Section section = sectionRepository.findById(product.getSectionId());
-	        if(section == null){
-	            return ResponseWrapper.getResponse( new RestError("Company With: "+ product.getSectionId() + " does not exist", HttpStatus.NOT_FOUND));
+	        if(section != null){
+		        section.deleteProduct(id);
+		        productRepository.save(product);
 	        }
 	        long res = productRepository.deleteById(id);
-	        section.deleteProduct(id);
-	        productRepository.save(product);
+
 	        return ResponseWrapper.getResponse( new RestResponse(id));
 
 	    }
@@ -78,21 +84,26 @@ public class ProductController {
 	    ResponseEntity<IResponse> update(@PathVariable String prodID, @RequestBody Product input){
 	    	Product product = productRepository.findById(prodID);
 	        if(product == null){
-	            return ResponseWrapper.getResponse(new RestError("Update failed as product with id " + prodID + " doesnot exist" , HttpStatus.NOT_FOUND));
+	            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "PRODUCT_NOT_FOUND" , prodID));
 	        }
-
-	        product.setName(input.getName());
-	        product.setQuantity(input.getQuantity());
-	        product.setAmount(input.getAmount());
-	        product.setBimId(input.getBimId());
-	        product.setUnit(input.getUnit());
-	        product.setProductCatId(input.getProductCatId());
-	        product.setProductSubCatId(input.getProductSubCatId());
-	        product.setSectionId(input.getSectionId());
-	        product.setDescription(input.getDescription());
-	        product.update();
-	        product = productRepository.save(product);
-	        return ResponseWrapper.getResponse(new RestResponse(product));
+	        if(input.getName() != null && !input.getName().isEmpty()) {
+		        product.setName(input.getName());
+		        product.setQuantity(input.getQuantity());
+		        product.setAmount(input.getAmount());
+		        product.setBimId(input.getBimId());
+		        product.setUnit(input.getUnit());
+		        product.setProductCatId(input.getProductCatId());
+		        product.setProductSubCatId(input.getProductSubCatId());
+		        product.setSectionId(input.getSectionId());
+		        product.setDescription(input.getDescription());
+		        product.update();
+		        product = productRepository.save(product);
+		        return ResponseWrapper.getResponse(new RestResponse(product));
+	        }
+	        else
+	        {
+	        	return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST,"PRODUCT_NAME_NULL"));
+	        }
 	    }
 
 	    @PreAuthorize("hasAuthority('READ_PRODUCT')")
@@ -100,7 +111,7 @@ public class ProductController {
 	    public ResponseEntity<?> getAll(@RequestBody(required = false) String sectionId) {
 	        List<Product> products = productRepository.findAll();
 	        if (products.isEmpty()) {
-	            return ResponseWrapper.getResponse( new RestError("No products exist", HttpStatus.NOT_FOUND));
+	            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "PRODUCTS_NOT_FOUND"));
 	         }
 	        List<ProductDto> productDtos = new ArrayList<ProductDto>();
 	        if(sectionId != null) {
@@ -146,7 +157,7 @@ public class ProductController {
 	    public ResponseEntity<?> get(@PathVariable("id") String id) {
 	    	Product product = productRepository.findById(id);
 	        if (product == null) {
-	            return ResponseWrapper.getResponse( new RestError("Product With: " + id + " Does not exist", HttpStatus.NOT_FOUND));
+	            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "PRODUCT_NOT_FOUND", id));
 	        }
 	        Section section = sectionRepository.findById(product.getSectionId());
 	        String productCat = "", productSubCat = "";

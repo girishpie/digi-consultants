@@ -35,10 +35,15 @@ public class RoleController {
     @PreAuthorize("hasAuthority('CREATE_ROLE')")
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity<RestResponse> add(@RequestBody Role input) {
-        Role role = roleRepository.save(new Role(input.getName(),input.getPermissions()));
-        RestResponse response = new RestResponse( role.getId());
-        return new ResponseEntity<RestResponse>(response,  new HttpHeaders(), HttpStatus.OK);
-
+    	if(input.getName() != null && !input.getName().isEmpty()) {
+	        Role role = roleRepository.save(new Role(input.getName(),input.getPermissions()));
+	        RestResponse response = new RestResponse( role.getId());
+	        return new ResponseEntity<RestResponse>(response,  new HttpHeaders(), HttpStatus.OK);
+    	}
+    	else {
+    		RestResponse response = new RestResponse("ROLE_NAME_NULL");
+	        return new ResponseEntity<RestResponse>(response,  new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    	}
     }
     
     @PreAuthorize("hasAuthority('DELETE_ROLE')")
@@ -54,14 +59,18 @@ public class RoleController {
     ResponseEntity<IResponse> update(@PathVariable String roleId, @RequestBody Role input){
     	Role role = roleRepository.findById(roleId);
         if(role == null){
-            return ResponseWrapper.getResponse(new RestError("Update failed as role with id " + roleId + " doesnot exist" , HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "ROLE_UPDATE_FAIL", roleId ));
         }
-
-        role.setName(input.getName());
-        role.setPermissions(input.getPermissions());
-        role.update();
-        role = roleRepository.save(role);
-        return ResponseWrapper.getResponse(new RestResponse(role));
+        if(input.getName() != null && !input.getName().isEmpty()) {
+	        role.setName(input.getName());
+	        role.setPermissions(input.getPermissions());
+	        role.update();
+	        role = roleRepository.save(role);
+	        return ResponseWrapper.getResponse(new RestResponse(role));
+        }
+        else {
+        	return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST,"ROLE_NAME_NULL"));
+        }
     }
     
     @PreAuthorize("hasAuthority('READ_ROLE')")
@@ -69,7 +78,7 @@ public class RoleController {
     public ResponseEntity<?> listAllRoles() {
         List<Role> roles = roleRepository.findAll();
         if (roles.isEmpty()) {
-            RestError restError = new RestError("No Roles found", HttpStatus.NOT_FOUND);
+            RestError restError = new RestError(HttpStatus.NOT_FOUND, "ROLES_NOT_FOUND");
             return new ResponseEntity<Object>(restError, new HttpHeaders(), restError.getStatus());
         }
         List<RoleDto> roleDtos = new ArrayList<RoleDto>();
@@ -85,7 +94,7 @@ public class RoleController {
     public ResponseEntity<?> get(@PathVariable("id") String id) {
         Role role = roleRepository.findById(id);
         if (role == null) {
-        	return ResponseWrapper.getResponse( new RestError("Role With: " + id + " Does not exist", HttpStatus.NOT_FOUND));
+        	return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "ROLE_NOT_FOUND", id));
         }
         return ResponseWrapper.getResponse( new RestResponse(new RoleDto(role)));
     }

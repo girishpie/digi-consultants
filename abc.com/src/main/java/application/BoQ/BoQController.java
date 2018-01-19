@@ -41,7 +41,7 @@ public class BoQController {
     ResponseEntity<?> add(@PathVariable String bodDepartId , @RequestBody BoQ input ) {
 		BoQDepartment boqDepartment = boqDepartmentRepository.findById(bodDepartId);
         if(boqDepartment == null){
-            return ResponseWrapper.getResponse(new RestError("BoQ Department With: "+ bodDepartId + " does not exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "BOQDEPARTMENT_NOT_EXSITS", bodDepartId));
 
         }
         BoQ boq = new BoQ(bodDepartId);  
@@ -74,15 +74,14 @@ public class BoQController {
     	BoQ boq = boQRepository.findById(id);
 
         if(boq == null){
-            return ResponseWrapper.getResponse( new RestError("BoQ With: "+ id + " does not exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "BOQ_NOT_EXISTS", id));
         }
         BoQDepartment boqDepartment = boqDepartmentRepository.findById(boq.getBoqDepartmentId());
-        if(boqDepartment == null){
-            return ResponseWrapper.getResponse( new RestError("BoQ Department With: "+ boq.getBoqDepartmentId() + " does not exist", HttpStatus.NOT_FOUND));
+        if(boqDepartment != null){
+        	boqDepartment.setBoqId("");
+            boqDepartmentRepository.save(boqDepartment);
         }
-        long res = boQRepository.deleteById(id);
-        boqDepartment.setBoqId("");
-        boqDepartmentRepository.save(boqDepartment);
+        long res = boQRepository.deleteById(id);      
         return ResponseWrapper.getResponse( new RestResponse(id));
 
     }
@@ -92,7 +91,7 @@ public class BoQController {
     ResponseEntity<IResponse> update(@PathVariable String boqId, @RequestBody BoQ input){
     	BoQ boq = boQRepository.findById(boqId);
         if(boq == null){
-            return ResponseWrapper.getResponse(new RestError("Update failed as project with id " + boqId + " doesnot exist" , HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "BOQ_UPDATE_FAIL", boqId));
         }
         List<BoQVersion> versions = boq.getVersions();
         int majorVersion = versions.get(versions.size()-1).getVersionNumber() + 1;
@@ -118,7 +117,7 @@ public class BoQController {
         List<BoQ> boqs = boQRepository.findAll();
         
         if (boqs.isEmpty()) {
-            return ResponseWrapper.getResponse( new RestError("No projects are exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "BOQS_NOT_FOUND"));
          }
         List<BoQDto> boQDtos = new ArrayList<BoQDto>();
         for(int i = 0; i < boqs.size(); i++ ) {
@@ -135,7 +134,7 @@ public class BoQController {
     public ResponseEntity<?> get(@PathVariable("id") String id) {
     	BoQ boq = boQRepository.findById(id);
         if (boq == null) {
-            return ResponseWrapper.getResponse( new RestError("BoQ With: " + id + " Does not exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "BOQ_NOT_FOUND", id));
         }
         BoQDepartment boQDepartment = boqDepartmentRepository.findById(boq.getBoqDepartmentId());
         BoQDto boqDto = new BoQDto(boq, boQDepartment.getDepartmentName(), boQDepartment.getProjectId());

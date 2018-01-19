@@ -49,14 +49,19 @@ public class CompanyController {
     ResponseEntity<IResponse> update(@PathVariable String companyId, @RequestBody Company input){
         Company company = companyRepository.findById(companyId);
         if(company == null){
-            return ResponseWrapper.getResponse(new RestError("Update failed as company with id " + companyId + " doesnot exist" , HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "COMPANY_UPDATE_FAIL",  companyId));
         }
-
-        company.setCompanyName(input.getCompanyName());
-        company.setAddress(input.getAddress());
-        company.update();
-        company = companyRepository.save(company);
-        return ResponseWrapper.getResponse(new RestResponse(company));
+        if(input.getCompanyName() != null && !input.getCompanyName().isEmpty()) {
+	        company.setCompanyName(input.getCompanyName());
+	        company.setAddress(input.getAddress());
+	        company.update();
+	        company = companyRepository.save(company);
+	        return ResponseWrapper.getResponse(new RestResponse(company));
+        }
+        else
+        {
+        	return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST,"COMPANY_NAME_NULL"));
+        }
     }
     
     @PreAuthorize("hasAuthority('READ_COMPANY')")
@@ -64,7 +69,7 @@ public class CompanyController {
     public ResponseEntity<IResponse> getAll() {
         List<Company> companies = companyRepository.findAll();
         if (companies.isEmpty()) {
-            return ResponseWrapper.getResponse(new RestError("No Companies found", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "COMPANIES_NOT_FOUND"));
         }
         return ResponseWrapper.getResponse( new RestResponse( companies));
     }
@@ -74,7 +79,7 @@ public class CompanyController {
     public ResponseEntity<IResponse> get(@PathVariable("id") String id) {
         Company company = companyRepository.findById(id);
         if (company == null) {
-            return ResponseWrapper.getResponse( new RestError("Company With: "+ id + " does not exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "COMPANY_NOT_FOUND", id));
 
         }
         return ResponseWrapper.getResponse(  new RestResponse( company));

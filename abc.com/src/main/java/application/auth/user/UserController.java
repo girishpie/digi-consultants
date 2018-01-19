@@ -40,10 +40,10 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity<IResponse> add(@RequestBody User input) {
         if(input.getUserId()== null || input.getUserId().isEmpty()){
-            return ResponseWrapper.getResponse( new RestError( "User name can not be null or empty", HttpStatus.BAD_REQUEST));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.BAD_REQUEST, "USER_ID_NULL"));
         }
         if(userRepository.findByUserId(input.getUserId())!= null) {
-            return ResponseWrapper.getResponse( new RestError( "User with same id can not be created", HttpStatus.BAD_REQUEST));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.BAD_REQUEST, "USER_ID_EXISTS"));
 
         }
         User user = userRepository.save(input);
@@ -65,7 +65,7 @@ public class UserController {
             return ResponseWrapper.getResponse(new RestResponse( user.getUserId()));
 
         }
-        return ResponseWrapper.getResponse( new RestError("Super user alrady exists",HttpStatus.NOT_MODIFIED));
+        return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_MODIFIED, "SUPERUSER_EXISTS"));
 
     }
 
@@ -82,7 +82,10 @@ public class UserController {
     ResponseEntity<IResponse> update(@PathVariable String id, @RequestBody User input){
         User user = userRepository.findById(id);
         if(user == null){
-            return ResponseWrapper.getResponse(new RestError("Update failed as user with id " + id + " doesnot exist" , HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "USER_UPDATE_FAIL" , id));
+        }
+        if(input.getUserId()== null || input.getUserId().isEmpty()){
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.BAD_REQUEST, "USER_ID_NULL"));
         }
         user.setUserId(input.getUserId());
         user.setFirstName(input.getFirstName());
@@ -101,7 +104,7 @@ public class UserController {
     public ResponseEntity<IResponse> getAll() {
         List<User> users = userRepository.findAll();
         if (users.isEmpty()) {
-            return ResponseWrapper.getResponse( new RestError("No Users found", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "USERS_NOT_FOUND"));
         }
         return ResponseWrapper.getResponse( new RestResponse( users));
 
@@ -115,7 +118,7 @@ public class UserController {
 
         List<User> users = page.getContent();
         if (users.isEmpty()) {
-            return ResponseWrapper.getResponse( new RestError("No Users found", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "USERS_NOT_FOUND"));
         }
         return ResponseWrapper.getResponse(  new PageResponse(users,page.getTotalElements(), pageNumber,size));
 
@@ -132,7 +135,7 @@ public class UserController {
 
         List<User> users = page.getContent();
         if (users.isEmpty()) {
-            return ResponseWrapper.getResponse( new RestError("No Users found", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "USERS_NOT_FOUND"));
         }
         return ResponseWrapper.getResponse( new PageResponse(users,page.getTotalElements(), pageNumber,size));
 
@@ -143,7 +146,7 @@ public class UserController {
     public ResponseEntity<IResponse> get(@PathVariable("id") String id) {
         User user = userRepository.findById(id);
         if (user == null) {
-            return ResponseWrapper.getResponse( new RestError("User With: "+ id + " does not exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "USER_NOT_FOUND", id));
         }
         return ResponseWrapper.getResponse( new RestResponse(user));
     }

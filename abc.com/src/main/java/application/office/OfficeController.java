@@ -34,7 +34,7 @@ public class OfficeController {
     ResponseEntity<?> add(@PathVariable String companyId , @RequestBody Office input ) {
         Company company = companyRepository.findById(companyId);
         if(company == null){
-            RestError restError = new RestError("Company With: "+ companyId + " does not exist", HttpStatus.NOT_FOUND);
+            RestError restError = new RestError(HttpStatus.NOT_FOUND, "COMPANY_NOT_FOUND", companyId);
             return new ResponseEntity<Object>(restError, new HttpHeaders(), restError.getStatus());
         }
         Office office = new Office(input.getAddress(), input.getTel(), input.getTel(), company.getId());
@@ -52,17 +52,16 @@ public class OfficeController {
         Office office = officeRepository.findById(id);
         RestError restError ;
         if(office == null){
-            restError = new RestError("Office With: "+ id + " does not exist", HttpStatus.NOT_FOUND);
+            restError = new RestError(HttpStatus.NOT_FOUND, "OFFICE_NOT_FOUND", id);
             return new ResponseEntity<Object>(restError, new HttpHeaders(), restError.getStatus());
         }
         Company company = companyRepository.findById(office.getId());
-        if(company == null){
-            restError = new RestError("Company With: "+ office.getId() + " does not exist", HttpStatus.NOT_FOUND);
-            return new ResponseEntity<Object>(restError, new HttpHeaders(), restError.getStatus());
+        if(company != null){
+            company.deleteOffice(id);
+            companyRepository.save(company);
         }
         long res = officeRepository.deleteById(id);
-        company.deleteOffice(id);
-        companyRepository.save(company);
+
         RestResponse response = new RestResponse(id);
         return new ResponseEntity<Object>(response,  new HttpHeaders(),HttpStatus.OK);
     }
@@ -72,7 +71,7 @@ public class OfficeController {
     public ResponseEntity<?> getAll() {
         List<Office> offices = officeRepository.findAll();
         if (offices.isEmpty()) {
-            RestError restError = new RestError("No offices are exist", HttpStatus.NOT_FOUND);
+            RestError restError = new RestError(HttpStatus.NOT_FOUND, "OFFICES_NOT_FOUND");
             return new ResponseEntity<Object>(restError, new HttpHeaders(), restError.getStatus());
         }
         RestResponse response = new RestResponse(offices);
@@ -84,7 +83,7 @@ public class OfficeController {
     public ResponseEntity<?> get(@PathVariable("id") String id) {
         Office office = officeRepository.findById(id);
         if (office == null) {
-            RestError restError = new RestError("Office With: "+ id + " does not exist", HttpStatus.NOT_FOUND);
+            RestError restError = new RestError(HttpStatus.NOT_FOUND, "OFFICE_NOT_FOUND", id);
             return new ResponseEntity<Object>(restError, new HttpHeaders(), restError.getStatus());
         }
         RestResponse response = new RestResponse(office);

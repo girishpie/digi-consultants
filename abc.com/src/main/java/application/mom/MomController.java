@@ -41,23 +41,28 @@ public class MomController {
     ResponseEntity<?> add(@PathVariable String projectId, @RequestBody Mom input ) {
 		Project project = projectRepository.findById(projectId);
         if(project == null){
-            return ResponseWrapper.getResponse(new RestError("Project With: "+ projectId + " does not exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "PROJECT_NOT_FOUND", projectId));
         }
-		Mom mom = new Mom();
-		mom.setTitle(input.getTitle());
-		mom.setObjective(input.getObjective());
-		mom.setDate(input.getDate());
+    	if(input.getTitle() != null && !input.getTitle().isEmpty()) {
+			Mom mom = new Mom();
+			
+			mom.setTitle(input.getTitle());
+			mom.setObjective(input.getObjective());
+			mom.setDate(input.getDate());
 		mom.setMeetingType(input.getMeetingType());
-		mom.setVenue(input.getVenue());
-		mom.setMeetingNo(input.getMeetingNo());
-		mom.setPplList(input.getPplList());
-		///mom.setAbsentees(input.getAbsentees());
-		mom.setDiscussionItems(input.getDiscussionItems());
-		//mom.setDiscussedItems(input.getDiscussedItems());
-		mom = momRepository.save(mom);
-		project.addMeeting(mom.getId());
-		projectRepository.save(project);
-        return ResponseWrapper.getResponse(new RestResponse(mom));
+			mom.setVenue(input.getVenue());
+			mom.setMeetingNo(input.getMeetingNo());
+			mom.setPplList(input.getPplList());
+			///mom.setAbsentees(input.getAbsentees());
+			mom.setDiscussionItems(input.getDiscussionItems());
+			//mom.setDiscussedItems(input.getDiscussedItems());
+			mom = momRepository.save(mom);
+			project.addMeeting(mom.getId());
+			projectRepository.save(project);
+	        return ResponseWrapper.getResponse(new RestResponse(mom));
+    	}else {
+    		return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST,"MOM_TITLE_NULL"));
+    	}
     }
 
 	 @PreAuthorize("hasAuthority('DELETE_MOM')")
@@ -65,15 +70,15 @@ public class MomController {
 	    ResponseEntity<?> delete(@PathVariable String id) {
 	    	Mom mom = momRepository.findById(id);
 	        if(mom == null){
-	            return ResponseWrapper.getResponse( new RestError("Mom With: "+ id + " does not exist", HttpStatus.NOT_FOUND));
+	            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "MOM_NOT_FOUND", id));
 	        }
 	        Project project = projectRepository.findById(mom.getProjectId());
 	        if(project != null){
 	        	project.deleteMeeting(id);
+	        	projectRepository.save(project);
 	            //return ResponseWrapper.getResponse( new RestError("Project With: "+ mom.getProjectId()+ " does not exist", HttpStatus.NOT_FOUND));
 	        }
 	        long res = momRepository.deleteById(id);
-	        //project.deleteMeeting(id);
 	        return ResponseWrapper.getResponse( new RestResponse(res));
 
 	    }
@@ -83,21 +88,25 @@ public class MomController {
 	    ResponseEntity<IResponse> update(@PathVariable String id, @RequestBody Mom input){
 	    	Mom mom = momRepository.findById(id);
 	        if(mom == null){
-	            return ResponseWrapper.getResponse( new RestError("Mom With: "+ id + " does not exist", HttpStatus.NOT_FOUND));
+	            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "MOM_NOT_FOUND", id));
 	        }
-	        mom.setTitle(input.getTitle());
-			mom.setObjective(input.getObjective());
-			mom.setDate(input.getDate());
-			mom.setVenue(input.getVenue());
-			mom.setMeetingNo(input.getMeetingNo());
-			mom.setPplList(input.getPplList());
-		//	mom.setAgenda(input.getAgenda());
-			//mom.setDiscussionItems(input.getDiscussionItems());
-		//	mom.setDiscussedItems(input.getDiscussedItems());
-			mom.update();
-			mom = momRepository.save(mom);
-	      
-	        return ResponseWrapper.getResponse(new RestResponse(mom));
+	        if(input.getTitle() != null && !input.getTitle().isEmpty()) {
+		        mom.setTitle(input.getTitle());
+				mom.setObjective(input.getObjective());
+				mom.setDate(input.getDate());
+				mom.setVenue(input.getVenue());
+				mom.setMeetingNo(input.getMeetingNo());
+				mom.setPplList(input.getPplList());
+			//	mom.setAgenda(input.getAgenda());
+				//mom.setDiscussionItems(input.getDiscussionItems());
+			//	mom.setDiscussedItems(input.getDiscussedItems());
+				mom.update();
+				mom = momRepository.save(mom);
+		      
+		        return ResponseWrapper.getResponse(new RestResponse(mom));
+	        }else {
+	    		return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST,"MOM_TITLE_NULL"));
+	    	}
 	    }
 
 	    @PreAuthorize("hasAuthority('READ_MOM')")
@@ -105,7 +114,7 @@ public class MomController {
 	    public ResponseEntity<?> getAll() {
 	        List<Mom> meetings = momRepository.findAll();
 	        if (meetings.isEmpty()) {
-	            RestError restError = new RestError("No meetings are exist", HttpStatus.NOT_FOUND);
+	            RestError restError = new RestError(HttpStatus.NOT_FOUND, "MEETIGNS_NOT_FOUND");
 	            return new ResponseEntity<Object>(restError, new HttpHeaders(), restError.getStatus());
 	        }
 	        RestResponse response = new RestResponse(meetings);
@@ -118,7 +127,7 @@ public class MomController {
 	    public ResponseEntity<?> get(@PathVariable("id") String id) {
 	    	Mom meeting = momRepository.findById(id);
 	        if (meeting == null) {
-	            RestError restError = new RestError("Meeting With: "+ id + " does not exist", HttpStatus.NOT_FOUND);
+	            RestError restError = new RestError(HttpStatus.NOT_FOUND, "MOM_NOT_FOUND", id);
 	            return new ResponseEntity<Object>(restError, new HttpHeaders(), restError.getStatus());
 	        }
 	        RestResponse response = new RestResponse(meeting);

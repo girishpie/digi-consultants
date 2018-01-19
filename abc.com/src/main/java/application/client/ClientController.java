@@ -45,14 +45,19 @@ public class ClientController {
     ResponseEntity<?> add(@PathVariable String companyId , @RequestBody Client input ) {
         Company company = companyRepository.findById(companyId);
         if(company == null){
-            return ResponseWrapper.getResponse(new RestError("Company With: "+ companyId + " does not exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "COMPANY_NOT_FOUND", companyId));
 
         }
-        Client clie= new Client(input.getName(),company.getId(), input.getAddress());
-        Client client = clientRepository.save(clie);
-        company.addClient(clie.getId());
-        companyRepository.save(company);
-        return ResponseWrapper.getResponse(new RestResponse(client.getId()));
+        if(input.getName() != null && !input.getName().isEmpty()) {
+	        Client clie= new Client(input.getName(),company.getId(), input.getAddress());
+	        Client client = clientRepository.save(clie);
+	        company.addClient(clie.getId());
+	        companyRepository.save(company);
+	        return ResponseWrapper.getResponse(new RestResponse(client.getId()));
+        }
+        else {
+        	return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST,"CLIENT_NAME_NULL"));
+        }
     }
 
     //Delete Specific client
@@ -62,15 +67,15 @@ public class ClientController {
     	Client client = clientRepository.findById(id);
         RestError restError ;
         if(client == null){
-            return ResponseWrapper.getResponse( new RestError("Client With: "+ id + " does not exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "CLIENT_NOT_FOUND", id));
         }
         Company company = companyRepository.findById(client.getCompanyId());
-        if(company == null){
-            return ResponseWrapper.getResponse( new RestError("Company With: "+ client.getCompanyId() + " does not exist", HttpStatus.NOT_FOUND));
+        if(company != null){
+        	company.deleteClient(id);
+            companyRepository.save(company);
         }
         long res = clientRepository.deleteById(id);
-        company.deleteClient(id);
-        companyRepository.save(company);
+        
         return ResponseWrapper.getResponse( new RestResponse(id));
 
     }
@@ -81,14 +86,18 @@ public class ClientController {
     ResponseEntity<IResponse> update(@PathVariable String clientId, @RequestBody Client input){
         Client client = clientRepository.findById(clientId);
         if(client == null){
-            return ResponseWrapper.getResponse(new RestError("Update failed as client with id " + clientId + " doesnot exist" , HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "CLIENT_NOT_FOUND", clientId ));
         }
-
-        client.setName(input.getName());
-        client.setAddress(input.getAddress());
-        client.update();
-        client = clientRepository.save(client);
-        return ResponseWrapper.getResponse(new RestResponse(client));
+        if(input.getName() != null && !input.getName().isEmpty()) {
+	        client.setName(input.getName());
+	        client.setAddress(input.getAddress());
+	        client.update();
+	        client = clientRepository.save(client);
+	        return ResponseWrapper.getResponse(new RestResponse(client));
+        }
+        else {
+        	return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST,"CLIENT_NAME_NULL"));
+        }
     }
 
     @PreAuthorize("hasAuthority('READ_CLIENT')")
@@ -96,7 +105,7 @@ public class ClientController {
     public ResponseEntity<?> getAll() {
         List<Client> clients = clientRepository.findAll();
         if (clients.isEmpty()) {
-            return ResponseWrapper.getResponse( new RestError("No clients exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "CLIENTS_NOT_FOUND"));
          }
         List<ClientDto> clientDtos = new ArrayList<ClientDto>();
         for(int i = 0; i < clients.size(); i++ ) {
@@ -125,7 +134,7 @@ public class ClientController {
     	Company company = companyRepository.findById(client.getCompanyId());
     	ClientDto clientDto = new ClientDto(client, company.getCompanyName(), projectNames);
         if (client == null) {
-            return ResponseWrapper.getResponse( new RestError("Client With: " + id + " Does not exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "CLIENT_NOT_FOUND", id));
         }
         return ResponseWrapper.getResponse( new RestResponse(clientDto));
     }

@@ -46,7 +46,7 @@ public class DocumentController {
     ResponseEntity<IResponse> add(@PathVariable("projectId") String projectId, @RequestParam("file")  MultipartFile file) {
     	Project project = projectRepository.findById(projectId);
         if(project == null){
-            return ResponseWrapper.getResponse(new RestError("Project With: "+ projectId + " does not exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "PROJECT_NOT_FOUND", projectId));
 
         }
         try {
@@ -118,7 +118,7 @@ public class DocumentController {
     public ResponseEntity<IResponse> getAllDocumentVersions(@PathVariable("id") String id ) {
         DocumentCatalog catalog = documentCatalogRepository.findById(id);
         if (catalog == null) {
-            return ResponseWrapper.getResponse( new RestError("Document with : "+ id + " does not exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "DOCUMENT_NOT_FOUND", id));
         }
         return ResponseWrapper.getResponse( new RestResponse(catalog.getVersions()));
     }
@@ -128,7 +128,7 @@ public class DocumentController {
     public ResponseEntity<?> getAll() {
         List<DocumentCatalog> catalogs = documentCatalogRepository.findAll();
         if (catalogs.isEmpty()) {
-            return ResponseWrapper.getResponse( new RestError("No docuemnts exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "DOCUMENTS_NOT_FOUND"));
          }
         List<DocumentCatalogDto> catalogDtos = new ArrayList<DocumentCatalogDto>();
         for(int i = 0; i < catalogs.size(); i++ ) {

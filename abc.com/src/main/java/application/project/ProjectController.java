@@ -56,19 +56,25 @@ public class ProjectController {
     ResponseEntity<?> add(@PathVariable String clientId , @RequestBody Project input ) {
         Client client = clientRepository.findById(clientId);
         if(client == null){
-            return ResponseWrapper.getResponse(new RestError("Client With: "+ clientId + " does not exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "CLIENT_NOT_FOUND", clientId));
 
         }
-        Random rand = new Random(); 
-        int value = rand.nextInt(100); 
-        String loggedinUser = SecurityContextHolder.getContext().getAuthentication().getName();
-        loggedinUser = loggedinUser + Integer.toString(value);
-        Project project = new Project(input.getProjectName(), loggedinUser, input.getSiteAddress(), input.getDescription(),
-    			input.getStartDate(), input.getClientId(), input.getPhase());
-        Project proj = projectRepository.save(project);
-        client.addProject(proj.getId());
-        clientRepository.save(client);
-        return ResponseWrapper.getResponse(new RestResponse(proj.getId()));
+        if(input.getProjectName() != null && !input.getProjectName().isEmpty()) {
+	        Random rand = new Random(); 
+	        int value = rand.nextInt(100); 
+	        String loggedinUser = SecurityContextHolder.getContext().getAuthentication().getName();
+	        loggedinUser = loggedinUser + Integer.toString(value);
+	        Project project = new Project(input.getProjectName(), loggedinUser, input.getSiteAddress(), input.getDescription(),
+	    			input.getStartDate(), input.getClientId(), input.getPhase());
+	        Project proj = projectRepository.save(project);
+	        client.addProject(proj.getId());
+	        clientRepository.save(client);
+	        return ResponseWrapper.getResponse(new RestResponse(proj.getId()));
+        }
+        else
+        {
+        	return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST,"PROJECT_NAME_NULL"));
+        }
     }
 
     //Delete Specific project
@@ -81,12 +87,12 @@ public class ProjectController {
             return ResponseWrapper.getResponse( new RestError("Project With: "+ id + " does not exist", HttpStatus.NOT_FOUND));
         }
         Client client = clientRepository.findById(project.getClientId());
-        if(client == null){
-            return ResponseWrapper.getResponse( new RestError("Client With: "+ project.getClientId() + " does not exist", HttpStatus.NOT_FOUND));
+        if(client != null){
+        	client.deleteProject(id);
+            clientRepository.save(client);
         }
         long res = projectRepository.deleteById(id);
-        client.deleteProject(id);
-        clientRepository.save(client);
+        
         return ResponseWrapper.getResponse( new RestResponse(id));
 
     }
@@ -97,7 +103,7 @@ public class ProjectController {
     ResponseEntity<IResponse> update(@PathVariable String projectId, @RequestBody Project input){
         Project project = projectRepository.findById(projectId);
         if(project == null){
-            return ResponseWrapper.getResponse(new RestError("Update failed as project with id " + projectId + " doesnot exist" , HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "PROJECT_NOT_FOUND" , projectId));
         }
 
         List<String> existingEmployees = project.getEmployeeIds();
@@ -152,7 +158,7 @@ public class ProjectController {
         List<Project> projects = projectRepository.findAll();
         
         if (projects.isEmpty()) {
-            return ResponseWrapper.getResponse( new RestError("No projects are exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "PROJECTS_NOT_FOUND"));
          }
         List<ProjectDto> projectDtos = new ArrayList<ProjectDto>();
         for(int i = 0; i < projects.size(); i++ ) {
@@ -175,7 +181,7 @@ public class ProjectController {
     public ResponseEntity<?> get(@PathVariable("id") String id) {
     	Project project = projectRepository.findById(id);
         if (project == null) {
-            return ResponseWrapper.getResponse( new RestError("Project With: " + id + " Does not exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "PROJECT_NOT_FOUND", id));
         }
         Client client = clientRepository.findById(project.getClientId());
         ProjectDto projectDto = new ProjectDto(project, client.getName(),employeeRepository,companyRepository);

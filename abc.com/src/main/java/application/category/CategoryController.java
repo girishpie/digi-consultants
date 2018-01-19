@@ -31,7 +31,7 @@ public class CategoryController {
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity<IResponse> add(@RequestBody Category input){
         if(input.getName()== null || input.getName().isEmpty()){
-            return ResponseWrapper.getResponse(new RestError("Category name must not be null or empty", HttpStatus.BAD_REQUEST));
+            return ResponseWrapper.getResponse(new RestError( HttpStatus.BAD_REQUEST, "CATEGORY_NAME_NULL"));
         }
         input = categoryRepository.save(input);
 
@@ -60,17 +60,16 @@ public class CategoryController {
     @RequestMapping(value = "/{parentCategoryId}/" ,method = RequestMethod.POST)
     ResponseEntity<IResponse> addSubCategoryWithNoParent(@PathVariable String parentCategoryId, @RequestBody Category input){
         if(input.getName()== null || input.getName().isEmpty()){
-            return ResponseWrapper.getResponse(new RestError("SubCategory name must not be null or empty", HttpStatus.BAD_REQUEST));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST, "SUBCATEGORY_NAME_NULL"));
         }
         Category parentCategory = categoryRepository.findById(parentCategoryId);
         if(parentCategory == null){
-            return ResponseWrapper.getResponse(new RestError("Parent Category with id: " + parentCategoryId+  "does not exist", HttpStatus.BAD_REQUEST));
-
+            return ResponseWrapper.getResponse(new RestError( HttpStatus.BAD_REQUEST, "PARENTCATEGORY_NOT_EXSITS", parentCategoryId));
         }
 
         boolean isSucess = parentCategory.addSubCategory(input);
         if(!isSucess){
-            return ResponseWrapper.getResponse(new RestError("SubCategory with name " + input.getName() + "already exisits", HttpStatus.BAD_REQUEST));
+            return ResponseWrapper.getResponse(new RestError( HttpStatus.BAD_REQUEST, "SUBCATEGORY_NAME_EXISTS",  input.getName() ));
         }
         input = categoryRepository.save(parentCategory);
         return ResponseWrapper.getResponse(new RestResponse(input));
@@ -81,21 +80,21 @@ public class CategoryController {
     @RequestMapping(value = "/{parentCategoryId}/{path}" ,method = RequestMethod.POST)
     ResponseEntity<IResponse> addSubCategoryWithParent(@PathVariable String parentCategoryId,@PathVariable String path, @RequestBody Category input){
         if(input.getName()== null || input.getName().isEmpty()){
-            return ResponseWrapper.getResponse(new RestError("SubCategory name must not be null or empty", HttpStatus.BAD_REQUEST));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST, "SUBCATEGORY_NAME_NULL"));
         }
         Category parentCategory = categoryRepository.findById(parentCategoryId);
         if(parentCategory == null){
-            return ResponseWrapper.getResponse(new RestError("Parent Category with id: " + parentCategoryId+  "does not exist", HttpStatus.BAD_REQUEST));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST, "PARENTCATEGORY_NOT_EXSITS", parentCategoryId));
 
         }
         Category subCategoryParent = getParentSubCategory(parentCategory,path);
         if(subCategoryParent == null){
-            return ResponseWrapper.getResponse(new RestError("Could not find the path " + path, HttpStatus.BAD_REQUEST));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST, "PATH_NOT_FOUND ", path));
 
         }
         boolean isSucess = subCategoryParent.addSubCategory(input);
         if(!isSucess){
-            return ResponseWrapper.getResponse(new RestError("SubCategory with name " + input.getName() + "already exisits", HttpStatus.BAD_REQUEST));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST, "SUBCATEGORY_NAME_EXISTS",  input.getName() ));
         }
         input = categoryRepository.save(parentCategory);
         return ResponseWrapper.getResponse(new RestResponse(input));
@@ -122,16 +121,16 @@ public class CategoryController {
     @RequestMapping(value = "/{categoryId}/{path}" ,method = RequestMethod.GET)
     ResponseEntity<IResponse> get(@PathVariable String categoryId,@PathVariable String path){
         if(categoryId== null || categoryId.isEmpty()){
-            return ResponseWrapper.getResponse(new RestError("Id of category must not be null or empty", HttpStatus.BAD_REQUEST));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST, "CATEGORY_ID_NULL"));
         }
         Category category = categoryRepository.findById(categoryId);
         Category subCategoryParent = getParentSubCategory(category,path);
         if(subCategoryParent == null){
-            return ResponseWrapper.getResponse(new RestError("Could not find the path " + path, HttpStatus.BAD_REQUEST));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST, "PATH_NOT_FOUND", path));
 
         }
         if(category == null){
-            return ResponseWrapper.getResponse(new RestError("Parent Category with id: " + categoryId+  "does not exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "PARENTCATEGORY_NOT_EXSITS", categoryId));
 
         }
         return ResponseWrapper.getResponse(new RestResponse(subCategoryParent));
@@ -143,7 +142,7 @@ public class CategoryController {
     ResponseEntity<IResponse> get(){
         List<Category> categories = categoryRepository.findAll();
         if(categories.isEmpty()){
-            return ResponseWrapper.getResponse(new RestError("No categories found", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "CATEGORIES_NOT_FOUND"));
         }
         List<CategoryDto> categoryDtos = new ArrayList<CategoryDto>();
         for(int i = 0; i < categories.size(); i++ ) {
@@ -163,7 +162,7 @@ public class CategoryController {
     ResponseEntity<IResponse> get(@PathVariable String categoryId){
     	List<Category> categories = categoryRepository.findAll();
         if(categories.isEmpty()){
-            return ResponseWrapper.getResponse(new RestError("No categories found", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "CATEGORIES_NOT_FOUND"));
         }
         List<CategoryDto> categoryDtos = new ArrayList<CategoryDto>();
         for(int i = 0; i < categories.size(); i++ ) {
@@ -182,9 +181,11 @@ public class CategoryController {
     ResponseEntity<IResponse> update(@PathVariable String categoryId, @RequestBody Category input){
         Category category = categoryRepository.findById(categoryId);
         if(category == null){
-            return ResponseWrapper.getResponse(new RestError("Update failed as caetgory with id " +categoryId + " doesnot exist" , HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "CATEGORY_UPDATE_FAIL",categoryId));
         }
-
+        if(input.getName()== null || input.getName().isEmpty()){
+        	return ResponseWrapper.getResponse(new RestError( HttpStatus.BAD_REQUEST, "CATEGORY_NAME_NULL"));
+        }
         category.setName(input.getName());
         category.setDescription(input.getDescription());
         category.update();
@@ -197,13 +198,16 @@ public class CategoryController {
     ResponseEntity<IResponse> update(@PathVariable String categoryId, @PathVariable String path,@RequestBody Category input){
         Category category = categoryRepository.findById(categoryId);
         if(category == null){
-            return ResponseWrapper.getResponse(new RestError("Update failed as caetgory with id " +categoryId + " doesnot exist" , HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "CATEGORY_UPDATE_FAIL", categoryId));
         }
         Category subCategoryParent = getParentSubCategory(category,path);
 
         if(subCategoryParent == null){
-            return ResponseWrapper.getResponse(new RestError("Could not find the path " + path, HttpStatus.BAD_REQUEST));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST, "PATH_NOT_FOUND", path));
 
+        }
+        if(input.getName()== null || input.getName().isEmpty()){
+        	return ResponseWrapper.getResponse(new RestError( HttpStatus.BAD_REQUEST, "SUBCATEGORY_NAME_NULL"));
         }
         subCategoryParent.setName(input.getName());
         subCategoryParent.setDescription(input.getDescription());
@@ -217,7 +221,7 @@ public class CategoryController {
     ResponseEntity<IResponse> delete(@PathVariable String categoryId,@RequestBody Category input){
         Category category = categoryRepository.findById(categoryId);
         if(category == null){
-            return ResponseWrapper.getResponse(new RestError("Delete failed as caetgory with id " +categoryId + " doesnot exist" , HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "CATEGORY_NOT_EXSITS" , categoryId));
         }
         categoryRepository.delete(category);
         return ResponseWrapper.getResponse(new RestResponse(category));
@@ -228,14 +232,14 @@ public class CategoryController {
         Category category = categoryRepository.findById(categoryId);
 
         if(category == null){
-            return ResponseWrapper.getResponse(new RestError("Delete failed as caetgory with id " +categoryId + " doesnot exist" , HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "CATEGORY_NOT_EXSITS", categoryId));
         }
         String[] paths = path.split(":");
         String subcategoryId = paths[paths.length-1];
         path = path.substring(0,path.length() - (subcategoryId.length()+1));
         Category subCategoryParent = getParentSubCategory(category,path);
         if(subCategoryParent == null){
-            return ResponseWrapper.getResponse(new RestError("Could not find the path " + path, HttpStatus.BAD_REQUEST));
+            return ResponseWrapper.getResponse(new RestError( HttpStatus.BAD_REQUEST, "PATH_NOT_FOUND" , path));
         }
         subCategoryParent.removeSubCategory(subcategoryId);
         categoryRepository.save(category);

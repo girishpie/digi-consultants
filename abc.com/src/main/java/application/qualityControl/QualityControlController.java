@@ -48,7 +48,7 @@ public class QualityControlController {
     ResponseEntity<IResponse> add(@PathVariable("projectId") String projectId, @RequestParam("file")  MultipartFile file, @RequestBody QualityControl input ) {
         Project project = projectRepository.findById(projectId);
         if(project == null){
-            return ResponseWrapper.getResponse(new RestError("Project with: "+ projectId + " does not exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "PROJECT_NOT_FOUND", projectId ));
 
         } 
         try {
@@ -73,16 +73,16 @@ public class QualityControlController {
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
     ResponseEntity<?> delete(@PathVariable String id) {
     	QualityControl qc = qualityControlRepository.findById(id);
-        if(qc == null){
-            return ResponseWrapper.getResponse( new RestError("Change request with: "+ qc + " does not exist", HttpStatus.NOT_FOUND));
+        if(qc == null){ 
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "CR_NOT_FOUND", id));
         }
         Project project = projectRepository.findById(qc.getProjectId());
-        if(project == null){
-            return ResponseWrapper.getResponse( new RestError("project With: " + qc.getProjectId() + " does not exist", HttpStatus.NOT_FOUND));
+        if(project != null){
+            project.deleteCR(id);
+            projectRepository.save(project);
         }
         long res = qualityControlRepository.deleteById(id);
-        project.deleteCR(id);
-        projectRepository.save(project);
+
         return ResponseWrapper.getResponse( new RestResponse(id));
 
     }
@@ -93,7 +93,7 @@ public class QualityControlController {
     ResponseEntity<IResponse> update(@PathVariable String id, @RequestBody QualityControl input){
     	QualityControl qc = qualityControlRepository.findById(id);
         if(qc == null){
-            return ResponseWrapper.getResponse(new RestError("Update failed as CR with id " + id + " doesnot exist" , HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "QUALITYCONTROL_NOT_FOUND", id));
         }
         
         qc.setStatus(input.getStatus());
@@ -108,7 +108,7 @@ public class QualityControlController {
     public ResponseEntity<?> getAll() {
         List<QualityControl> qcs = qualityControlRepository.findAll();
         if (qcs.isEmpty()) {
-            return ResponseWrapper.getResponse( new RestError("No CRs exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "CRS_NOT_FOUNDN"));
          }
         List<QualityControlDto> qcDtos = new ArrayList<QualityControlDto>();
         for(int i = 0; i < qcs.size(); i++ ) {
@@ -125,7 +125,7 @@ public class QualityControlController {
     public ResponseEntity<?> get(@PathVariable("id") String id) {
     	QualityControl qc = qualityControlRepository.findById(id);
     	if (qc == null) {
-            return ResponseWrapper.getResponse( new RestError("CR With: " + id + " does not exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "CR_NOT_FOUND", id));
         }
     	Project project = projectRepository.findById(qc.getProjectId());
     	QualityControlDto qcDto = new QualityControlDto(qc, project.getProjectName());

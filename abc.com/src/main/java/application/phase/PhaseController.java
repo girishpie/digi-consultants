@@ -31,9 +31,15 @@ public class PhaseController {
     @PreAuthorize("hasAuthority('CREATE_PHASE')")
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity<IResponse> add(@RequestBody Phase input) {
-    	Phase phase = new Phase(input.getName());
-        Phase phase1 = phaseRepository.save(phase);
-        return ResponseWrapper.getResponse(new RestResponse(phase1.getId()));
+    	if(input.getName() != null && !input.getName().isEmpty()) {
+	    	Phase phase = new Phase(input.getName());
+	        Phase phase1 = phaseRepository.save(phase);
+	        return ResponseWrapper.getResponse(new RestResponse(phase1.getId()));
+    	}
+        else
+        {
+        	return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST,"PHASE_NAME_NULL"));
+        }
     }
 
     @PreAuthorize("hasAuthority('DELETE_PHASE')")
@@ -49,7 +55,7 @@ public class PhaseController {
     ResponseEntity<IResponse> update(@PathVariable String phaseId, @RequestBody Phase input){
     	Phase phase = phaseRepository.findById(phaseId);
         if(phase == null){
-            return ResponseWrapper.getResponse(new RestError("Update failed as phase with id " + phaseId + " doesnot exist" , HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "PHASE_NOT_FOUND", phaseId));
         }
 
         phase.setName(input.getName());
@@ -64,7 +70,7 @@ public class PhaseController {
     public ResponseEntity<IResponse> getAll() {
         List<Phase> phases = phaseRepository.findAll();
         if (phases.isEmpty()) {
-            return ResponseWrapper.getResponse(new RestError("No Phases found", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "PHASES_NOT_FOUND"));
         }
         return ResponseWrapper.getResponse( new RestResponse( phases));
     }
@@ -74,7 +80,7 @@ public class PhaseController {
     public ResponseEntity<IResponse> get(@PathVariable("id") String id) {
     	Phase phase = phaseRepository.findById(id);
         if (phase == null) {
-            return ResponseWrapper.getResponse( new RestError("Phase With: "+ id + " does not exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "PHASE_NOT_FOUND", id));
 
         }
         return ResponseWrapper.getResponse(  new RestResponse( phase));

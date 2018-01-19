@@ -40,14 +40,19 @@ import application.response.RestResponse;
 	    ResponseEntity<?> add(@PathVariable String projectId , @RequestBody BoQDepartment input ) {
 	        Project project = projectRepository.findById(projectId);
 	        if(project == null){
-	            return ResponseWrapper.getResponse(new RestError("Project With: "+ projectId + " does not exist", HttpStatus.NOT_FOUND));
+	            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "PROJECT_NOT_FOUND", projectId));
 
 	        }
-	        BoQDepartment boqDepartment = new BoQDepartment(input.getDepartmentName(), project.getId());
-	        BoQDepartment boqDepart = boqDepartmentRepository.save(boqDepartment);
-	        project.addBoQDepartment(boqDepart.getId());
-	        projectRepository.save(project);
-	        return ResponseWrapper.getResponse(new RestResponse(boqDepart.getId()));
+	        if(input.getDepartmentName() != null && !input.getDepartmentName().isEmpty()) {
+		        BoQDepartment boqDepartment = new BoQDepartment(input.getDepartmentName(), project.getId());
+		        BoQDepartment boqDepart = boqDepartmentRepository.save(boqDepartment);
+		        project.addBoQDepartment(boqDepart.getId());
+		        projectRepository.save(project);
+		        return ResponseWrapper.getResponse(new RestResponse(boqDepart.getId()));
+	        }
+	        else {
+	        	return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST,"BOQDEPARTMENT_NAME_NULL"));
+	        }
 	    }
 
 	    @PreAuthorize("hasAuthority('DELETE_BOQDEPARTMENT')")
@@ -56,15 +61,15 @@ import application.response.RestResponse;
 	    	BoQDepartment boqDepartment = boqDepartmentRepository.findById(id);
 	        RestError restError ;
 	        if(boqDepartment == null){
-	            return ResponseWrapper.getResponse( new RestError("BoQDepartment With: "+ id + " does not exist", HttpStatus.NOT_FOUND));
+	            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "BOQDEPARTMENT_NOT_EXSITS", id));
 	        }
 	        Project project = projectRepository.findById(boqDepartment.getProjectId());
-	        if(project == null){
-	            return ResponseWrapper.getResponse( new RestError("Project With: "+ boqDepartment.getProjectId() + " does not exist", HttpStatus.NOT_FOUND));
+	        if(project != null){
+	        	project.deleteBoQDepartment(id);
+		        projectRepository.save(project);
 	        }
 	        long res = boqDepartmentRepository.deleteById(id);
-	        project.deleteBoQDepartment(id);
-	        projectRepository.save(project);
+	        
 	        return ResponseWrapper.getResponse( new RestResponse(id));
 
 	    }
@@ -75,7 +80,7 @@ import application.response.RestResponse;
 	    ResponseEntity<IResponse> update(@PathVariable String boqId, @RequestBody BoQDepartment input){
 	    	BoQDepartment boqDepartment = boqDepartmentRepository.findById(boqId);
 	        if(boqDepartment == null){
-	            return ResponseWrapper.getResponse(new RestError("Update failed as BoQ department with id " + boqId + " doesnot exist" , HttpStatus.NOT_FOUND));
+	            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "BOQDEPARTMENT_UPDATE_FAIL",  boqId));
 	        }
 
 	        boqDepartment.setDepartmentName(input.getDepartmentName());
@@ -91,7 +96,7 @@ import application.response.RestResponse;
 	        List<BoQDepartment> boqDepartments = boqDepartmentRepository.findAll();
 	        
 	        if (boqDepartments.isEmpty()) {
-	            return ResponseWrapper.getResponse( new RestError("No projects are exist", HttpStatus.NOT_FOUND));
+	            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "BOQDEPARTMENTS_NOT_FOUND"));
 	         }
 	        List<BoQDepartmentDto> boqDepartmentDtos = new ArrayList<BoQDepartmentDto>();
 	        for(int i = 0; i < boqDepartments.size(); i++ ) {
@@ -108,7 +113,7 @@ import application.response.RestResponse;
 	    public ResponseEntity<?> get(@PathVariable("id") String id) {
 	    	BoQDepartment boqDepartment = boqDepartmentRepository.findById(id);
 	        if (boqDepartment == null) {
-	            return ResponseWrapper.getResponse( new RestError("BoQ Department With: " + id + " Does not exist", HttpStatus.NOT_FOUND));
+	            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "BOQDEPARTMENT_NOT_EXSITS"));
 	        }
 	        Project project = projectRepository.findById(boqDepartment.getProjectId());
 	        BoQDepartmentDto boqDepartmentDto = new BoQDepartmentDto(boqDepartment, project.getProjectName());

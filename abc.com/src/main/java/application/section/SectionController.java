@@ -47,14 +47,20 @@ public class SectionController {
     ResponseEntity<?> add(@PathVariable String boqId , @RequestBody Section input ) {
         BoQ boq = boqRepository.findById(boqId);
         if(boq == null){
-            return ResponseWrapper.getResponse(new RestError("BoQ With: "+ boqId + " does not exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "BOQ_NOT_EXISTS", boqId));
 
         }
-        Section section = new Section(input.getSectionName(), boqId);
-        Section sec = sectionRepository.save(section);
-        boq.addSection(sec.getId());
-        boqRepository.save(boq);
-        return ResponseWrapper.getResponse(new RestResponse(sec.getId()));
+        if(input.getSectionName() != null && !input.getSectionName().isEmpty()) {
+	        Section section = new Section(input.getSectionName(), boqId);
+	        Section sec = sectionRepository.save(section);
+	        boq.addSection(sec.getId());
+	        boqRepository.save(boq);
+	        return ResponseWrapper.getResponse(new RestResponse(sec.getId()));
+        }
+        else
+        {
+        	return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST,"SECTION_NAME_NULL"));
+        }
     }
 
     @PreAuthorize("hasAuthority('DELETE_SECTION')")
@@ -63,15 +69,15 @@ public class SectionController {
     	Section section = sectionRepository.findById(id);
         RestError restError ;
         if(section == null){
-            return ResponseWrapper.getResponse( new RestError("Section With: "+ id + " does not exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError( HttpStatus.NOT_FOUND, "SECTION_NOT_FOUND", id));
         }
         BoQ boq = boqRepository.findById(section.getBoqId());
-        if(boq == null){
-            return ResponseWrapper.getResponse( new RestError("BoQ With: "+ section.getBoqId()+ " does not exist", HttpStatus.NOT_FOUND));
+        if(boq != null){
+        	 boq.deleteSection(id);
+             boqRepository.save(boq);
         }
         long res = sectionRepository.deleteById(id);
-        boq.deleteSection(id);
-        boqRepository.save(boq);
+       
         return ResponseWrapper.getResponse( new RestResponse(id));
 
     }
@@ -82,15 +88,21 @@ public class SectionController {
     ResponseEntity<IResponse> update(@PathVariable String sectionId, @RequestBody Section input){
         Section section = sectionRepository.findById(sectionId);
         if(section == null){
-            return ResponseWrapper.getResponse(new RestError("Update failed as section with id " + sectionId + " doesnot exist" , HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "SECTION_NOT_FOUND" ,  sectionId));
         }
 
-        section.setSectionName(input.getSectionName());
-        section.setBoqId(input.getBoqId());
-       
-        section.update();
-        section = sectionRepository.save(section);
-        return ResponseWrapper.getResponse(new RestResponse(section));
+        if(input.getSectionName() != null && !input.getSectionName().isEmpty()) {
+	        section.setSectionName(input.getSectionName());
+	        section.setBoqId(input.getBoqId());
+	       
+	        section.update();
+	        section = sectionRepository.save(section);
+	        return ResponseWrapper.getResponse(new RestResponse(section));
+        } 
+        else
+        {
+        	return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST,"SECTION_NAME_NULL"));
+        }
     }
 
     @PreAuthorize("hasAuthority('READ_SECTION')")
@@ -100,7 +112,7 @@ public class SectionController {
         List<SectionDto> sectionDtos = new ArrayList<SectionDto>();
         
         if (sections.isEmpty()) {
-            return ResponseWrapper.getResponse( new RestError("No sections are exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "SECTIONS_NOT_FOUND"));
          }
         for(int i = 0; i < sections.size(); i++ ) {
         	List<String> productNames = new ArrayList<String>();
@@ -128,7 +140,7 @@ public class SectionController {
     public ResponseEntity<?> get(@PathVariable("id") String id) {
     	Section section = sectionRepository.findById(id);
         if (section == null) {
-            return ResponseWrapper.getResponse( new RestError("Section With: " + id + " Does not exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "SECTION_NOT_FOUND", id));
         }
     	List<String> productNames = new ArrayList<String>();
     	if(!section.getProductIds().isEmpty()) {

@@ -41,15 +41,19 @@ public class EmployeeController {
     ResponseEntity<?> add(@PathVariable String companyId , @RequestBody Employee input ) {
 		Company company = companyRepository.findById(companyId);
         if(company == null){
-            return ResponseWrapper.getResponse(new RestError("Company With: "+ companyId + " does not exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "COMPANY_NOT_FOUND", companyId));
 
         }
-        Employee employee = new Employee(input.getFirstname(), input.getLastname(), input.getDOB(), input.getGender(), input.getRole(), input.getEmail(),
-    			input.getAddress(), input.getCity(), input.getCountry(), input.getMobile(), input.getTelephone(), input.getCompanyId(), input.getProjectIds());
-        Employee emp = employeeRepository.save(employee);
-        company.addEmployee(emp.getId());
-        companyRepository.save(company);
-        return ResponseWrapper.getResponse(new RestResponse(emp.getId()));
+        if(input.getFirstname() != null && !input.getFirstname().isEmpty()) {
+	        Employee employee = new Employee(input.getFirstname(), input.getLastname(), input.getDOB(), input.getGender(), input.getRole(), input.getEmail(),
+	    			input.getAddress(), input.getCity(), input.getCountry(), input.getMobile(), input.getTelephone(), input.getCompanyId(), input.getProjectIds());
+	        Employee emp = employeeRepository.save(employee);
+	        company.addEmployee(emp.getId());
+	        companyRepository.save(company);
+	        return ResponseWrapper.getResponse(new RestResponse(emp.getId()));
+    	}else {
+    		return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST,"EMPLOYEE_NAME_NULL"));
+    	}
     }
 
     @PreAuthorize("hasAuthority('DELETE_EMPLOYEE')")
@@ -58,15 +62,15 @@ public class EmployeeController {
     	Employee employee = employeeRepository.findById(id);
         RestError restError ;
         if(employee == null){
-            return ResponseWrapper.getResponse( new RestError("Employee With: "+ id + " does not exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "EMPLOYEE_NOT_FOUND", id));
         }
         Company company = companyRepository.findById(employee.getCompanyId());
-        if(company == null){
-            return ResponseWrapper.getResponse( new RestError("Company With: "+ company.getId() + " does not exist", HttpStatus.NOT_FOUND));
-        }
+        if(company != null){
+            company.deleteEmployee(id);
+            companyRepository.save(company);
+         }
         long res = employeeRepository.deleteById(id);
-        company.deleteEmployee(id);
-        companyRepository.save(company);
+
         return ResponseWrapper.getResponse( new RestResponse(id));
 
     }
@@ -76,24 +80,27 @@ public class EmployeeController {
     ResponseEntity<IResponse> update(@PathVariable String empId, @RequestBody Employee input){
     	Employee employee = employeeRepository.findById(empId);
         if(employee == null){
-            return ResponseWrapper.getResponse(new RestError("Update failed as employee with id " + empId + " doesnot exist" , HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "EMPLOYEE_NOT_FOUND", empId));
         }
-
-        employee.setFirstname(input.getFirstname());
-        employee.setLastname(input.getLastname());
-        employee.setEmail(input.getEmail());
-        employee.setDOB(input.getDOB());
-        employee.setGender(input.getGender());
-        employee.setRole(input.getRole());
-        employee.setCountry(input.getCountry());
-        employee.setAddress(input.getAddress());
-        employee.setCity(input.getCity());
-        employee.setMobile(input.getMobile());
-        employee.setTelephone(input.getTelephone());
-        employee.setCompanyId(input.getCompanyId());
-        employee.update();
-        employee = employeeRepository.save(employee);
-        return ResponseWrapper.getResponse(new RestResponse(employee));
+        if(input.getFirstname() != null && !input.getFirstname().isEmpty()) {
+	        employee.setFirstname(input.getFirstname());
+	        employee.setLastname(input.getLastname());
+	        employee.setEmail(input.getEmail());
+	        employee.setDOB(input.getDOB());
+	        employee.setGender(input.getGender());
+	        employee.setRole(input.getRole());
+	        employee.setCountry(input.getCountry());
+	        employee.setAddress(input.getAddress());
+	        employee.setCity(input.getCity());
+	        employee.setMobile(input.getMobile());
+	        employee.setTelephone(input.getTelephone());
+	        employee.setCompanyId(input.getCompanyId());
+	        employee.update();
+	        employee = employeeRepository.save(employee);
+	        return ResponseWrapper.getResponse(new RestResponse(employee));
+        }else {
+    		return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST,"EMPLOYEE_NAME_NULL"));
+    	}
     }
 
     @PreAuthorize("hasAuthority('READ_EMPLOYEE')")
@@ -102,7 +109,7 @@ public class EmployeeController {
         List<Employee> employees = employeeRepository.findAll();
         
         if (employees.isEmpty()) {
-            return ResponseWrapper.getResponse( new RestError("No employees are exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "EMPLOYEES_NOT_FOUND"));
          }
         List<EmployeeDto> employeeDtos = new ArrayList<EmployeeDto>();
         for(int i = 0; i < employees.size(); i++ ) {
@@ -119,7 +126,7 @@ public class EmployeeController {
     public ResponseEntity<?> get(@PathVariable("id") String id) {
     	Employee employee = employeeRepository.findById(id);
         if (employee == null) {
-            return ResponseWrapper.getResponse( new RestError("Employee With: " + id + " Does not exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "EMPLOYEE_NOT_FOUND", id));
         }
         Company company = companyRepository.findById(employee.getCompanyId());
         EmployeeDto employeeDto = new EmployeeDto(employee, company.getCompanyName());
@@ -132,7 +139,7 @@ public class EmployeeController {
         List<Employee> employees = employeeRepository.findByProjectId(projectId);
         
         if (employees.isEmpty()) {
-            return ResponseWrapper.getResponse( new RestError("No employees are exist", HttpStatus.NOT_FOUND));
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "EMPLOYEES_NOT_FOUND"));
          }
         List<EmployeeDto> employeeDtos = new ArrayList<EmployeeDto>();
         for(int i = 0; i < employees.size(); i++ ) {
