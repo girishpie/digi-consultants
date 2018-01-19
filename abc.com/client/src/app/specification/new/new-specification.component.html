@@ -1,0 +1,115 @@
+
+<div class="container-fluid rounded" style="background-color:white;">
+  <form style=" margin-left:5px;margin-right:5px;">
+    <div class="row">  
+    <div class="col-75 form-group">
+          <label for="specification-specificationName" class="form-control-label">Specification Tittle</label>
+          <input type="text" class="form-control" id="specification-specificationName" [(ngModel)]="specificationName" name="specificationName">
+        </div>
+        <div class="tab">
+            <a (click)='toggleDetailsB()'>{{showDetails ? '+' : '+'}} </a>   
+            <a (click)='toggleDetails()'> {{showDetails ? 'Tt':'Tt'}} </a>
+            <a (click)='toggleDetailsA()'>{{showDetails ? '=' : '='}} </a>
+        </div>
+    </div>
+        <hr style="margin-top: 4px;">
+    <label style="text-decoration: underline;">Description</label>
+    <div class="row">
+      <div class="col-25 form-group">
+        <label for="specification-label" class="form-control-label">Labels:</label>
+      </div>
+      <div class="col-75">
+        <input type="text" class="form-control" id="specification-label" name="label" [(ngModel)]="label">
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-25 form-group">
+          <label for="specification-answer"  class="form-control-label">Answers:</label>
+        </div>
+        <div class="col-75">
+          <input type="text" class="form-control" id="apecification-answer" name="answer" [(ngModel)]="answer">
+        </div>
+      </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="goBack()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="addNewSpecification()" >Add</button>
+    </div>
+  </form>
+</div>
+<div>
+    
+    <div *ngIf='showDetails'>
+        <div class="container-fluid rounded" style="background-color:white;">
+            <form style=" margin-left:5px;margin-right:5px;">
+              <div class="row">  
+                  <div class="col-75 form-group">
+                        <label for="specification-SpecificationName" class="form-control-label">New Tittle</label>
+                        <input type="text" class="form-control" id="specification-SpecificationName" [(ngModel)]="SpecificationName" name="SpecificationName">
+                      </div>
+                  </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="addNewSpecification()" >Add</button>
+                </div>
+            </form>
+         </div>   
+    </div>
+
+    <div *ngIf='showDetailsB'>
+        <div class="container-fluid rounded" style="background-color:white;">
+            <form style=" margin-left:5px;margin-right:5px;">
+              <div class="row">  
+              <div class="col-75 form-group">
+                    <label for="specification-SpecificationName" class="form-control-label">Specification Tittle</label>
+                    <input type="text" class="form-control" id="specification-SpecificationName" [(ngModel)]="SpecificationName" name="SpecificationName">
+                  </div>
+                  <div class="tab">
+                      <a (click)='toggleDetailsB()'>{{showDetails ? '+' : '+'}} </a>
+                      <a (click)='toggleDetails()'> {{showDetails ? 'Tt':'Tt'}} </a>
+                      <a (click)='toggleDetailsA()'>{{showDetails ? '=' : '='}} </a>
+                  </div>
+              </div>
+                  <hr>
+              <label style="text-decoration: underline;">Description</label>
+              <div class="row">
+                <div class="col-25 form-group">
+                  <label for="specification-label" class="form-control-label">Labels:</label>
+                </div>
+                <div class="col-75">
+                  <input type="text" class="form-control" id="specification-label" name="label" [(ngModel)]="label">
+                </div>
+              </div>
+              <div class="row">
+                  <div class="col-25 form-group">
+                    <label for="specification-answer"  class="form-control-label">Answers:</label>
+                  </div>
+                  <div class="col-75">
+                    <input type="text" class="form-control" id="apecification-answer" name="answer" [(ngModel)]="answer">
+                  </div>
+                </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" (click)="goBack()">Cancel</button>
+                  <button type="button" class="btn btn-primary" (click)="addNewSpecification()" >Add</button>
+              </div>
+            </form>
+          </div>
+      </div>
+
+      <div *ngIf='showDetailsA'>
+          <div class="container-fluid rounded" style="background-color:white;">
+              <form style=" margin-left:5px;margin-right:5px;">
+              <div class="row">  
+                  <div class="col-75 form-group">
+                        <label for="specification-section" class="form-control-label">Section</label>
+                        <input type="text" class="form-control" id="specification-section" [(ngModel)]="section" name="section">
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" (click)="addNewSpecification()" >Add</button>
+                  </div>
+              </div>
+              </form>
+          </div>    
+      </div>    
+   
+
+
+ 

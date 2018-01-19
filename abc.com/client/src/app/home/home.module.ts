@@ -24,12 +24,12 @@ import { PhaseComponent } from '../phase/phase.component';
 import { PhaseModule } from '../phase/phase.module';
 import { NewPhaseComponent } from '../phase/new/new-phase.component';
 import { NewPhaseModule } from '../phase/new/new-phase.module';
-import {QueryParamsService} from './query-obeservables/query-params.service';
-import {NgxPaginationModule} from 'ngx-pagination';
-import {RoleComponent} from '../roles/role.component';
-import {NewRoleModule} from '../roles/new/new-role.module';
-import {NewRoleComponent} from '../roles/new/new-role.component';
-import {RoleModule} from '../roles/role.module';
+import { QueryParamsService} from './query-obeservables/query-params.service';
+import { NgxPaginationModule} from 'ngx-pagination';
+import { RoleComponent} from '../roles/role.component';
+import { NewRoleModule} from '../roles/new/new-role.module';
+import { NewRoleComponent} from '../roles/new/new-role.component';
+import { RoleModule} from '../roles/role.module';
 import { DocumentComponent } from '../document/document.component';
 import { DocumentModule } from '../document/document.module';
 import { NewDocumentComponent } from '../document/new/new-file.component';
@@ -67,6 +67,20 @@ import { MeetingModule } from '../meeting/meeting.module';
 import { NewMeetingComponent } from '../meeting/new/new-meeting.component';
 import { NewMeetingModule } from '../meeting/new/new-meeting.module';
 import { LoginComponent } from '../login/login.component';
+import { QualityModule} from '../quality/quality.module';
+import { QualityComponent} from '../quality/quality.component';
+import { NewQualityModule} from '../quality/new/new-quality.module';
+import { NewQualityComponent} from '../quality/new/new-quality.component';
+import { RequestModule} from '../request/request.module';
+import { RequestComponent} from '../request/request.component';
+import { NewRequestModule} from '../request/new/new-request.module';
+import { NewRequestComponent} from '../request/new/new-request.component';
+import { ProjectListModule} from '../Projectlist/projectlist.module';
+import { ProjectListComponent} from '../Projectlist/projectlist.component';
+import { SpecificationModule} from '../specification/specification.module';
+import { SpecificationComponent} from '../specification/specification.component';
+import { NewSpecificationModule} from '../specification/new/new-specification.module';
+import { NewSpecificationComponent} from '../specification/new/new-specification.component';
 
 const userState = { name: 'user', url: '/user',  component: UserComponent };
 const newUserState = { name: 'new-user', url: '/new-user',  component: NewUserComponent };
@@ -99,6 +113,13 @@ const newEmployeeState = { name: 'new-employee', url: '/new-employee',  componen
 const meetingState = { name: 'meeting', url: '/meeting',  component: MeetingComponent };
 const newMeetingState = { name: 'new-meeting', url: '/new-meeting',  component: NewMeetingComponent };
 const loginState = { name: 'login', url: '/user-login',  component: LoginComponent };
+const qualityState ={ name: 'quality', url :'/quality', component: QualityComponent};
+const newQualityState ={ name:'new-quality',url:'/new-quality', component:NewQualityComponent};
+const requestState = { name:'request', url:'/request', component:RequestComponent};
+const newRequestState = {name:'new-request', url:'/new-request', component: NewRequestComponent};
+const projectlistState ={ name: 'projectlist', url:'/projectlist', component:ProjectListComponent};
+const specificationState={ name:'specification', url:'/specification', component:SpecificationComponent};
+const NewSpecificationState={ name:'new-specification', url:'/new-specification', component:NewSpecificationComponent};
 
 @NgModule({
   declarations: [
@@ -140,12 +161,20 @@ const loginState = { name: 'login', url: '/user-login',  component: LoginCompone
     NewEmployeeModule,
     MeetingModule,
     NewMeetingModule,
+    QualityModule,
+    NewQualityModule,
+    RequestModule,
+    NewRequestModule,
+    ProjectListModule,
+    SpecificationModule,
+    NewSpecificationModule,
 
     UIRouterModule.forRoot({ states: [ userState, newUserState, roleState, newRoleState, projectState,
       newProjectState, clientState, newClientState, companyState, newCompanyState, phaseState,
       newPhaseState, documentState, newDocumentState, boqState, newBoQState, departmentState, newDepartmentState,
       sectionState, newSectionState, productState, newProductState, categoryState, newCategoryState,
-      subcategoryState, newSubcategoryState, employeeState, newEmployeeState, meetingState, newMeetingState], useHash: true })
+      subcategoryState, newSubcategoryState, employeeState, newEmployeeState, meetingState, newMeetingState,
+    qualityState,newQualityState,requestState,newRequestState,projectlistState,specificationState,NewSpecificationState], useHash: true })
   ],
   exports : [HomeComponent],
   providers: [QueryParamsService],

@@ -1,0 +1,36 @@
+<div class="container-fluid digi-specification rounded" >
+    <div class="column">
+    <div class = "glyphicon glyphicon-cog">MANAGE SPECIFICATION</div>
+        <a href="#/new-specification" class="btn btn-primary round pull-right" role="button">+Add Specifiaction</a>
+    </div>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Sr.No</th>
+        <th>Specification</th>
+        <th>Answer</th>
+        <th>Section</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+          <tr>
+            <td class = "table-cell">{{specification.specificationName}}</td>
+            <td class = "table-cell">{{specification.answer}}</td>
+            <td class = "table-cell">{{specification.section}}</td>
+            <td class = "table-cell"></td>
+             <td class = "table-cell">
+                 <!-- <tooltip-content #screeningOptions class="recommended-programs-tooltip">
+                    <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
+                      <div class="tooltip-text-regisnation">edit</div>
+                    </div>
+                  </tooltip-content> -->
+             <img src="assets/edit.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions">
+             <img src="assets/delete.svg" (click) = "deleteSpecification(specification)" style="width:30px">
+            </td>
+         </tr>
+      </tbody>
+     </table>
+     <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+</div>
+    
