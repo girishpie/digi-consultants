@@ -42,10 +42,10 @@ export class SpecificationService {
           const specifications: Array<Specification> =  new Array<Specification>();
           for ( i = 0 ; i < response.length ; i++) {
             const specification: Specification = new Specification();
-            specification.setId(response[i].id);
+            specification.setId(response[i].Id);
             specification.setSpecificationName(response[i].specificationName);
             specification.setDOB(response[i].DOB);
-            specification.setSection(response[i].section);
+            specification.setSectionId(response[i].sectionId);
             specification.setAnswer(response[i].answer);
             specifications.push(specification);
         

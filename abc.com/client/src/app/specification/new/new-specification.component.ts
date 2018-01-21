@@ -17,10 +17,10 @@ const specificationState ={name:'specification', url:'/specification', component
 
 export class NewSpecificationComponent implements OnInit {
 
-    private id: string ;
+    private Id: string ;
     private DOB: Date;
     private specificationName: string;
-    private section: string;
+    private sectionId: string;
     private answer: string;
     showDetails: boolean = false;
     showDetailsA: boolean = false;
@@ -46,10 +46,10 @@ export class NewSpecificationComponent implements OnInit {
     addNewSpecification() 
     {
      let specification: Specification = new Specification();
-     specification.setId(this.id);
+     specification.setId(this.Id);
      specification.setSpecificationName(this.specificationName);
      specification.setDOB(this.DOB);
-     specification.setSection(this.section);
+     specification.setSectionId(this.sectionId);
      specification.setAnswer(this.answer);
    this.specificationService.save(specification).subscribe(data => {
         console.log(data);

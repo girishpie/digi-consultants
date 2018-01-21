@@ -2,21 +2,21 @@ import { Class } from '@angular/core';
 
 export class Specification 
 {
-    private  id: string;
+    private  Id: string;
     private  specificationName: string;
-    private  section: string;
+    private  sectionId: string;
     private  answer : string;
     private  DOB:Date;
      
     constructor() 
     {}
-    public setId ( id: string ) 
+    public setId ( Id: string ) 
       {
-      this.id = id;
+      this.Id = Id;
       }
     public getId (): string 
       {
-      return this.id ;
+      return this.Id ;
       }
       public setDOB ( DOB: Date ) 
       {
@@ -37,14 +37,14 @@ export class Specification
       return this.specificationName ;
     }
 
-    public setSection ( sections: string ) 
+    public setSectionId ( sectionsId: string ) 
     {
-      this.section = sections;
+      this.sectionId = sectionsId;
     }
 
-    public getSection(): string 
+    public getSectionId(): string 
     {
-      return this.section ;
+      return this.sectionId ;
     }
     public setAnswer (answer: string) 
     {
