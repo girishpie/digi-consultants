@@ -83,4 +83,6 @@ export class Meeting {
     public setPplList(employees:Array<MeetingEmployee>){
         this.pplList = employees;
     }
+
+
 }

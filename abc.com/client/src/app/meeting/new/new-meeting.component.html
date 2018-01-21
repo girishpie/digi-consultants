@@ -105,6 +105,40 @@
             </tr>
             </tbody>
         </table>
+
+        <label style="text-decoration: underline;">Discussed Items</label>
+        <table class="table ">
+        <thead>
+        <tr>
+            <th>
+                Item
+            </th>
+            <th>
+                Discussion
+            </th>
+            <th>
+                Edit
+            </th>
+            <th>
+                Info/Action By
+            </th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let discussion of this.discussions">
+            <td class = "table-cell">{{discussion.item}}</td>
+            <td class = "table-cell">
+                <input type="text" [(ngModel)]="discussion.text" >
+            </td>
+            <td class = "table-cell" >
+                <input type="button" [hidden] =  "discussion.getType()== 0? false : true" value="AddTopic" (click) = "onAddNewDiscussion()">
+                <input type="button" value="AddSubTopic" [hidden] =  "discussion.getType()== 0? false : true" (click) = "onAddNewSubDiscussion(discussion)">
+            </td>
+            <td class = "table-cell">{{discussion.infoActionBy}}</td>
+        </tr>
+        </tbody>
+        </table>
       <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="goBack()">Cancel</button>
           <button type="button" class="btn btn-primary" (click)="addNewMeeting()" >Add</button>
