@@ -49,7 +49,7 @@ export class ProductComponent implements OnInit {
     this.productService.getProducts(queryParams, this.sectionId).subscribe(data => {
       },
     error => {
-      console.log(error._body.toString() + " No products found");
+      window.alert(error._body);
     });
 
   }

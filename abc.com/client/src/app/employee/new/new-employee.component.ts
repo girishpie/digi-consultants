@@ -37,6 +37,7 @@ export class NewEmployeeComponent implements OnInit {
    private mobile: string ;
    private companyId: string ;
    private projectIds: string[];
+   private file:File;
   
   constructor(private  employeeService: EmployeeService, private companyService: CompanyService, private projectService: ProjectService,
               private employees: Employees, private companies: Companies, private projects: Projects,
@@ -65,7 +66,8 @@ export class NewEmployeeComponent implements OnInit {
     employee.setDOB(this.DOB);
     employee.setCompanyId(this.companyId);
     employee.setProjectIds(this.projectIds);
-    this.employeeService.save(employee).subscribe(data => {
+    
+    this.employeeService.save(employee, this.file).subscribe(data => {
         console.log(data);
         employee.setId(data);
         this.employees.addEmployee(employee);
@@ -81,17 +83,32 @@ export class NewEmployeeComponent implements OnInit {
     this.companyService.getCompanies(null).subscribe( data => {
       this.availableCompanies = this.companies.getCompanies();
     }, error => {
-       console.log(error._body.toString() + " No companies found");
+       window.alert(error._body);
     });
   }
+  
   getProjects() {
     this.projectService.getProjects(null).subscribe( data => {
       this.availableProjects = this.projects.getProjects();
     }, error => {
-      console.log(error._body.toString() + " No projects found");
+      window.alert(error._body);
     });
   }
   
+  add(e: any) {
+    let r = new FileReader();
+
+    r.onload = (e:any) =>  {    
+       document.getElementById("preview").setAttribute("src", e.target.result); 
+    };
+
+    r.readAsDataURL(e.target.files[0]);
+    let fileList: FileList = e.target.files;
+    if(fileList.length > 0) {
+      	this.file = fileList[0];
+    }
+}
+
   goBack() {
     window.history.back();
   }

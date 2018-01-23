@@ -53,7 +53,7 @@ export class NewClientComponent implements OnInit {
     this.companyService.getCompanies(null).subscribe( data => {
       this.availableCompanies = this.companies.getCompanies();
     }, error => {
-      console.log(error._body.toString() + " No companies found");
+      window.alert(error._body);
     });
   }
 

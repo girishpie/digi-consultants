@@ -50,7 +50,7 @@ export class QualityComponent implements OnInit {
     this.qualityService.getQualities(queryParams).subscribe(data => {
       },
     error => {
-      console.log(error._body.toString() + " No products found");
+      window.alert(error._body);
     });
 
   }

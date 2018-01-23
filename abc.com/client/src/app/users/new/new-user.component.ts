@@ -79,7 +79,7 @@ export class NewUserComponent implements OnInit {
     this.roleService.getRoles(null).subscribe( data => {
       this.availableRoles = this.roles.getRoles();
   }, error => {
-     console.log(error._body.toString() + " No roles found");
+     window.alert(error._body);
     });
   }
 }

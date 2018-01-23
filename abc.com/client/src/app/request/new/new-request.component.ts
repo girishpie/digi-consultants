@@ -50,7 +50,7 @@ export class NewRequestComponent implements OnInit {
        this.stateService.go('request');
    
      }, error => {
-       console.log(error._body.toString());
+       window.alert(error._body);
      });
    }
    

@@ -2,6 +2,7 @@ package application.employee;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,12 +10,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.eclipse.jetty.http.HttpHeader;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import application.company.Company;
 import application.company.CompanyRepository;
+import application.dms.DocumentRepository;
 
 import application.response.IResponse;
 import application.response.ResponseWrapper;
@@ -29,35 +39,58 @@ public class EmployeeController {
 	private final EmployeeRepository employeeRepository;
 	@Autowired
 	private final CompanyRepository companyRepository;
+	@Autowired
+    private final DocumentRepository documentRepository;
 	
-	
-	EmployeeController(EmployeeRepository employeeRepository, CompanyRepository companyRepository) {
+	EmployeeController(EmployeeRepository employeeRepository, CompanyRepository companyRepository, DocumentRepository documentRepository) {
         this.employeeRepository = employeeRepository;
         this.companyRepository = companyRepository;
+        this.documentRepository = documentRepository;
     }
 	
 	@PreAuthorize("hasAuthority('CREATE_EMPLOYEE')")
-    @RequestMapping(value = "/{companyId}", method = RequestMethod.POST)
-    ResponseEntity<?> add(@PathVariable String companyId , @RequestBody Employee input ) {
+    @RequestMapping(value = "/{companyId}", headers = "content-type=multipart/*", method = RequestMethod.POST)
+    ResponseEntity<?> add(@PathVariable("companyId") String companyId , @RequestPart("inputStr") String inputStr, @RequestPart("file")  MultipartFile file ) {
 		Company company = companyRepository.findById(companyId);
         if(company == null){
             return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "COMPANY_NOT_FOUND", companyId));
 
         }
-        if(input.getFirstname() != null && !input.getFirstname().isEmpty()) {
-	        Employee employee = new Employee(input.getFirstname(), input.getLastname(), input.getDOB(), input.getGender(), input.getRole(), input.getEmail(),
-	    			input.getAddress(), input.getCity(), input.getCountry(), input.getMobile(), input.getTelephone(), input.getCompanyId(), input.getProjectIds());
-	        Employee emp = employeeRepository.save(employee);
-	        company.addEmployee(emp.getId());
-	        companyRepository.save(company);
-	        return ResponseWrapper.getResponse(new RestResponse(emp.getId()));
-    	}else {
-    		return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST,"EMPLOYEE_NAME_NULL"));
-    	}
+        try {
+        	Employee input = new ObjectMapper().readValue(inputStr, Employee.class);
+        
+	        if(input.getFirstname() != null && !input.getFirstname().isEmpty()) {
+	        	if(file != null) {
+		        	try {
+		            	String id = documentRepository.storeDocument(file.getOriginalFilename(),
+		                    file.getContentType(),
+		                    file.getInputStream());
+		            	
+		            	input.setImgId(id);
+		            } catch (IOException e) {
+		                e.printStackTrace();
+		                return ResponseWrapper.getResponse(new RestError(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
+		            }
+	        	}
+		        Employee employee = new Employee(input.getImgId(), input.getFirstname(), input.getLastname(), input.getDOB(), input.getGender(), input.getRole(), input.getEmail(),
+		    			input.getAddress(), input.getCity(), input.getCountry(), input.getMobile(), input.getTelephone(), input.getCompanyId(), input.getProjectIds());
+		        Employee emp = employeeRepository.save(employee);
+		        company.addEmployee(emp.getId());
+		        companyRepository.save(company);
+		        return ResponseWrapper.getResponse(new RestResponse(emp.getId()));
+	    	}else {
+	    		return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST,"EMPLOYEE_NAME_NULL"));
+	    	}
+        
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseWrapper.getResponse(new RestError(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
+        }
+        
     }
 
     @PreAuthorize("hasAuthority('DELETE_EMPLOYEE')")
-    @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}",  method = RequestMethod.DELETE)
     ResponseEntity<?> delete(@PathVariable String id) {
     	Employee employee = employeeRepository.findById(id);
         RestError restError ;
@@ -76,31 +109,49 @@ public class EmployeeController {
     }
     
     @PreAuthorize("hasAuthority('UPDATE_EMPLOYEE')")
-    @RequestMapping(value = "/{empId}", method = RequestMethod.PATCH)
-    ResponseEntity<IResponse> update(@PathVariable String empId, @RequestBody Employee input){
+    @RequestMapping(value = "/{empId}", headers = "content-type=multipart/*", method = RequestMethod.PATCH)
+    ResponseEntity<IResponse> update(@PathVariable("empId") String empId, @RequestPart("inputStr") String inputStr, @RequestPart("file")  MultipartFile file){
     	Employee employee = employeeRepository.findById(empId);
         if(employee == null){
             return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "EMPLOYEE_NOT_FOUND", empId));
         }
-        if(input.getFirstname() != null && !input.getFirstname().isEmpty()) {
-	        employee.setFirstname(input.getFirstname());
-	        employee.setLastname(input.getLastname());
-	        employee.setEmail(input.getEmail());
-	        employee.setDOB(input.getDOB());
-	        employee.setGender(input.getGender());
-	        employee.setRole(input.getRole());
-	        employee.setCountry(input.getCountry());
-	        employee.setAddress(input.getAddress());
-	        employee.setCity(input.getCity());
-	        employee.setMobile(input.getMobile());
-	        employee.setTelephone(input.getTelephone());
-	        employee.setCompanyId(input.getCompanyId());
-	        employee.update();
-	        employee = employeeRepository.save(employee);
-	        return ResponseWrapper.getResponse(new RestResponse(employee));
-        }else {
-    		return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST,"EMPLOYEE_NAME_NULL"));
-    	}
+        try {
+        	Employee input = new ObjectMapper().readValue(inputStr, Employee.class);
+	        if(input.getFirstname() != null && !input.getFirstname().isEmpty()) {
+	        	if(file != null) {
+		        	try {
+		            	String id = documentRepository.storeDocument(file.getOriginalFilename(),
+		                    file.getContentType(),
+		                    file.getInputStream());
+		            	
+		            	employee.setImgId(id);
+		            } catch (IOException e) {
+		                e.printStackTrace();
+		                return ResponseWrapper.getResponse(new RestError(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
+		            }
+	        	}
+		        employee.setFirstname(input.getFirstname());
+		        employee.setLastname(input.getLastname());
+		        employee.setEmail(input.getEmail());
+		        employee.setDOB(input.getDOB());
+		        employee.setGender(input.getGender());
+		        employee.setRole(input.getRole());
+		        employee.setCountry(input.getCountry());
+		        employee.setAddress(input.getAddress());
+		        employee.setCity(input.getCity());
+		        employee.setMobile(input.getMobile());
+		        employee.setTelephone(input.getTelephone());
+		        employee.setCompanyId(input.getCompanyId());
+		        employee.update();
+		        employee = employeeRepository.save(employee);
+		        return ResponseWrapper.getResponse(new RestResponse(employee));
+	        }else {
+	    		return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST,"EMPLOYEE_NAME_NULL"));
+	    	}
+    	} catch (IOException e) {
+            e.printStackTrace();
+            return ResponseWrapper.getResponse(new RestError(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
+        }
     }
 
     @PreAuthorize("hasAuthority('READ_EMPLOYEE')")

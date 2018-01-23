@@ -56,7 +56,7 @@ export class NewSpecificationComponent implements OnInit {
        this.stateService.go('specification');
    
      }, error => {
-       console.log(error._body.toString());
+      	window.alert(error._body);
      });
    }
    

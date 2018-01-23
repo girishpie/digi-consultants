@@ -43,7 +43,7 @@ export class DepartmentComponent implements OnInit {
     this.departmentService.getDepartments(queryParams).subscribe(data => {
       },
     error => {
-      console.log(error._body.toString());
+      window.alert(error._body);
     });
 
   }

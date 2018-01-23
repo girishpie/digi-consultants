@@ -41,7 +41,7 @@ export class NewSubcategoryComponent implements OnInit {
       this.stateService.go('subcategory');
 
     }, error => {
-      console.log(error._body.toString());
+      window.alert(error._body);
     });
   }
 
@@ -49,7 +49,7 @@ export class NewSubcategoryComponent implements OnInit {
     this.categoryService.getCategories(null).subscribe( data => {
       this.availableCategories = this.categories.getCategories();
     }, error => {
-       console.log(error._body.toString());
+       window.alert(error._body);
     });
   }
   

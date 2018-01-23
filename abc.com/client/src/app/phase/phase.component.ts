@@ -45,7 +45,7 @@ export class PhaseComponent implements OnInit {
     this.phaseService.getPhases(queryParams).subscribe(data => {
       },
     error => {
-      console.log(error._body.toString() + " No phases found");
+      window.alert(error._body);
     });
 
   }

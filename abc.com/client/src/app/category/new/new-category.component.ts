@@ -33,7 +33,7 @@ export class NewCategoryComponent implements OnInit {
       this.stateService.go('category');
 
     }, error => {
-      console.log(error._body.toString());
+      window.alert(error._body);
     });
   }
   

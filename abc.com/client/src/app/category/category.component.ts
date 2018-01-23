@@ -51,14 +51,14 @@ export class CategoryComponent implements OnInit {
 	    this.subcategoryService.getSubcategories(null).subscribe( data => {
 	      this.availableSubcat = this.subcategories.getSubcategories();
 	    }, error => {
-	       console.log(error._body.toString() + " No companies found");
+	       window.alert(error._body);
 	    });
 	  }
   public getCategories(queryParams: QueryParams) {
     this.categoryService.getCategories(queryParams).subscribe(data => {
       },
     error => {
-      console.log(error._body.toString());
+      window.alert(error._body);
     });
 
   }

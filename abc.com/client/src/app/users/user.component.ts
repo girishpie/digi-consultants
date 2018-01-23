@@ -43,7 +43,7 @@ export class UserComponent implements OnInit {
     this.userService.getUsers(queryParams).subscribe(data => {
       },
     error => {
-      console.log(error._body.toString() + " No users found");
+      window.alert(error._body);
     });
 
   }

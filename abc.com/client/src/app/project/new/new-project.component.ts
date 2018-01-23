@@ -74,7 +74,7 @@ export class NewProjectComponent implements OnInit {
     this.clientService.getClients(null).subscribe( data => {
       this.availableClients = this.clients.getClients();
     }, error => {
-      console.log(error._body.toString() + " No clients found");
+      window.alert(error._body);
     });
   }
   

@@ -43,7 +43,7 @@ export class DocumentComponent implements OnInit {
     this.documentService.getDocuments(queryParams).subscribe(data => {
       },
     error => {
-      console.log(error._body.toString() + " No documents are available");
+      window.alert(error._body);
     });
 
   }
