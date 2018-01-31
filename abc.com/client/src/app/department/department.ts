@@ -3,7 +3,7 @@ import { Class } from '@angular/core';
 export class Department {
 
   private  id: string;
-  private  boqDepartmentName: string;
+  private  departmentName: string;
   private  projectName: string;
   private projectId: string;
   
@@ -17,10 +17,10 @@ export class Department {
     return this.id ;
   }
    public setBoqDepartmentName( name: string ) {
-    this.boqDepartmentName = name;
+    this.departmentName = name;
   }
   public getBoqDepartmentName (): string {
-    return this.boqDepartmentName ;
+    return this.departmentName ;
   }
   public setProjectName ( projectName: string ) {
     this.projectName = projectName;
