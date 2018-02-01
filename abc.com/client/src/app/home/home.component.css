@@ -17,10 +17,23 @@
 .right {
    position: absolute;
     right: 0px;
-    //width: 300px;
+    /* //width: 300px; */
    
 }
 .panel-title {
 	 font-size: 12px;
 
-	}
+    }
+.panel-heading{
+           background-color: #0099cc;
+           color:white;
+           
+       }
+.panel-default{
+           border-color:#0099cc;
+       }
+        .panel-heading:hover {
+           background-color:#ddd; 
+           
+           color: black;
+       }
