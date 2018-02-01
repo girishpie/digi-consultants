@@ -46,7 +46,7 @@ export class NewDocumentComponent implements OnInit {
     this.projectService.getProjects(null).subscribe( data => {
       this.availableProjects = this.projects.getProjects();
     }, error => {
-      console.log(error._body.toString() + " No Projects found");
+      window.alert(error._body);
     });
   }
 

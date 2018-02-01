@@ -43,12 +43,10 @@ export class ProjectComponent implements OnInit {
     this.projectService.getProjects(queryParams).subscribe(data => {
       },
     error => {
-      console.log(error._body.toString() + " No projects found");
+      window.alert(error._body);
     });
 
   }
-
-
 
   public deleteProject(project: Project) {
     this.projectService.delete(project.getId()).subscribe(data => {

@@ -14,6 +14,7 @@ public class Employee extends BasicInfo{
 	
 	@Id
 	private String id;
+	private String imgId;
 	private String firstname;
 	private String lastname;
 	private Date DOB; 
@@ -30,8 +31,9 @@ public class Employee extends BasicInfo{
 	
 	public Employee() {};
 	
-	public Employee(String firstname, String lastname, Date dOB, String gender, String role, String email,
+	public Employee(String imgId, String firstname, String lastname, Date dOB, String gender, String role, String email,
 			String address, String city, String country, String mobile, String telephone, String companyId, List<String> projectIds ) {
+		this.imgId = imgId;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.DOB = dOB;
@@ -52,6 +54,12 @@ public class Employee extends BasicInfo{
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getImgId() {
+		return imgId;
+	}
+	public void setImgId(String id) {
+		this.imgId = imgId;
 	}
 	public String getFirstname() {
 		return firstname;

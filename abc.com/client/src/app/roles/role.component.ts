@@ -46,7 +46,7 @@ export class RoleComponent {
       }
       },
       error => {
-       console.log(error._body.toString() + " No roles found");
+       window.alert(error._body);
       });
 
   }

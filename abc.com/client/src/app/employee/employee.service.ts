@@ -61,13 +61,19 @@ export class EmployeeService {
 
 
 
-  public save(employee: Employee)  {
+  public save(employee: Employee, file:File)  {
     const endPoint = this.employeeUrl + employee.getCompanyId();
     var headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    headers.append('Content-Type', undefined);
     let options = new RequestOptions({ headers: headers });
+   
+    let formData:FormData = new FormData();
+    //if(file !== null){
+    	formData.append('file', file, file.name);
+    	formData.append('inputStr', JSON.stringify(employee));
+    //}
     // Returns response
-    return this.http.post(endPoint, employee, options)
+    return this.http.post(endPoint, formData)
       .map(res => {
           const res1 = res.json();
           employee.setId(res1.id);

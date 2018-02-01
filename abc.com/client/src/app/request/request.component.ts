@@ -46,7 +46,7 @@ export class RequestComponent implements OnInit {
     this.requestService.getRequests(queryParams).subscribe(data => {
       },
     error => {
-      console.log(error._body.toString() + " No requests found");
+      window.alert(error._body);
     });
 
   }

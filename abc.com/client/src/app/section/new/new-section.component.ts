@@ -50,7 +50,7 @@ export class NewSectionComponent implements OnInit {
     this.boQService.getBoQs(null).subscribe( data => {
       this.availableBoQs = this.boQs.getBoQs();
     }, error => {
-      console.log(error._body.toString() + " No boqs found");
+      window.alert(error._body);
     });
   }
 

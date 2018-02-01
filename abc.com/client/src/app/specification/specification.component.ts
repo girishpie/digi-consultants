@@ -46,7 +46,7 @@ export class SpecificationComponent implements OnInit {
     this.specificationService.getSpecifications(queryParams).subscribe(data => {
       },
     error => {
-      console.log(error._body.toString() + " No specifications found");
+      window.alert(error._body);
     });
 
   }

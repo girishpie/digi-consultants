@@ -57,7 +57,7 @@ export class NewProductComponent implements OnInit {
       this.stateService.go('product');
 
     }, error => {
-      console.log(error._body.toString());
+      window.alert(error._body);
     });
   }
 
@@ -65,14 +65,14 @@ export class NewProductComponent implements OnInit {
     this.sectionService.getSections(null).subscribe( data => {
       this.availableSections = this.sections.getSections();
     }, error => {
-      console.log(error._body.toString());
+      window.alert(error._body);
     });
   }
   getCategories() {
     this.categoryService.getCategories(null).subscribe( data => {
       this.availableCategories = this.categories.getCategories();
     }, error => {
-       console.log(error._body.toString());
+       window.alert(error._body);
     });
   }
   

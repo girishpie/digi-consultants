@@ -43,7 +43,7 @@ export class SectionComponent implements OnInit {
     this.sectionService.getSections(queryParams).subscribe(data => {
       },
     error => {
-      console.log(error._body.toString());
+      window.alert(error._body);
     });
 
   }

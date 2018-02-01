@@ -43,7 +43,7 @@ export class CompanyComponent implements OnInit {
     this.companyService.getCompanies(queryParams).subscribe(data => {
       },
     error => {
-       console.log(error._body.toString());
+       window.alert(error._body);
     });
 
   }

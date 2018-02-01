@@ -49,7 +49,7 @@ export class NewBoQComponent implements OnInit {
     this.departmentService.getDepartments(null).subscribe( data => {
       this.availableDepartments = this.departments.getDepartments();
     }, error => {
-       console.log(error._body.toString() + " No Departments found");
+       window.alert(error._body);
     });
   }
   

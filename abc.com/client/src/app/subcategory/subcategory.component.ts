@@ -43,7 +43,7 @@ export class SubcategoryComponent implements OnInit {
      console.log(data);
       },
     error => {
-      console.log(error._body.toString() + " No subcategories found");
+      window.alert(error._body);
     });
 
   }

@@ -1,6 +1,10 @@
 <div class="container-fluid rounded" >
  	<div class = "glyphicon glyphicon-cog">ADD EMPLOYEE</div>
         <form>
+          <div class="form-group">
+   			  <img id="preview" src="http://placehold.it/180" alt="your image" />
+			  <input type="file" id="file" name="file" (change) ="add($event)" />
+		   </div>
           <label>Personal Information</label>
           <div class="form-group">
             <label for="employee-name" class="form-control-label">First Name:</label>

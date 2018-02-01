@@ -43,7 +43,7 @@ export class ClientComponent implements OnInit {
     this.clientService.getClients(queryParams).subscribe(data => {
       },
     error => {
-      console.log(error._body.toString());
+      window.alert(error._body);
     });
 
   }
