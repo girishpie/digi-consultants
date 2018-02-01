@@ -8,7 +8,8 @@ import {HttpModule} from '@angular/http';
 import {NewSpecificationModule} from './new/new-specification.module';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { TooltipModule } from "ngx-tooltip";
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,8 @@ import { TooltipModule } from "ngx-tooltip";
     NgxPaginationModule,
     NewSpecificationModule,
     TooltipModule,
+    Ng2SearchPipeModule,
+    FormsModule
 
   ],
   exports : [SpecificationComponent],

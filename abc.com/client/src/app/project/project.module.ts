@@ -6,13 +6,17 @@ import {HttpModule} from '@angular/http';
 import {NewProjectModule} from './new/new-project.module';
 import {Projects} from './projects';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     BrowserModule,
     HttpModule,
     NgxPaginationModule,
-    NewProjectModule
+    NewProjectModule,
+    Ng2SearchPipeModule,
+    FormsModule
   ],
   declarations: [
     ProjectComponent

@@ -6,7 +6,8 @@ import {HttpModule} from '@angular/http';
 import {NewRequestModule} from './new/new-request.module'
 import {Requests} from './requests'
 import {NgxPaginationModule} from 'ngx-pagination';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -14,8 +15,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     HttpModule,
     NgxPaginationModule,
     NewRequestModule,
-    
- 
+    Ng2SearchPipeModule,
+    FormsModule
   ],
   declarations: [ RequestComponent],
   exports : [    RequestComponent  ],

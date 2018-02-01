@@ -7,13 +7,17 @@ import { Meetings} from './meetings';
 import { Meeting} from './meeting';
 import { NgxPaginationModule} from 'ngx-pagination';
 import { NewMeetingModule} from './new/new-meeting.module';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     BrowserModule,
     HttpModule,
     NgxPaginationModule,
-    NewMeetingModule
+    NewMeetingModule,
+    Ng2SearchPipeModule,
+    FormsModule
   ],
   declarations: [
     MeetingComponent

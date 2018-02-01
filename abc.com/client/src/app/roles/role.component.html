@@ -3,7 +3,9 @@
    <div class = "glyphicon glyphicon-cog">MANAGE ROLES AND PERMISSIONS</div>
 	<a href="#/new-role" class="btn btn-primary round pull-right" role="button">+Add Role</a>  
   </div>
-
+  <nav class="navbar">
+    <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search" >
+  </nav>
   <table class="table table-bordered" id="team-list">
     <thead>
     <tr >
@@ -13,7 +15,7 @@
     </tr>
     </thead>
     <tbody>
-     <tr *ngFor="let role of roles.roles">
+     <tr *ngFor="let role of roles.roles| filter:filter">
         <td class = "table-cell">{{ role.name }}</td>
         <td class = "table-cell">{{ role.lastUpdated }}</td>
          <td class = "table-cell">

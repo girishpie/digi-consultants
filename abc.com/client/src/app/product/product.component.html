@@ -1,15 +1,17 @@
 <div class="container-fluid digi-product rounded" >
 <div class="column">
-	<div class = "glyphicon glyphicon-cog">MANAGE PRODUCTS</div>
-	<label for="section-option" class="form-control-label" >Section:</label>
-     <select width = "50%" id="section-option" class="form-control"   [(ngModel)]="sectionId" name="sections">
+	<div class = "glyphicon glyphicon-cog">MANAGE PRODUCTS</div><br>
+  <label for="section-option" class="form-control-label" >Section:</label>
+   <select style="display: initial;width: 50%;" item-width="50%" id="section-option" class="form-control"   [(ngModel)]="sectionId" name="sections">
        <option *ngFor="let section of availableSections" [value]="section.id">
                 {{ section.sectionName }} 
        </option> 
      </select>
 	<a href="#/new-product" class="btn btn-primary round pull-right" role="button">+Add Product</a>
-</div>
-
+</div><br>
+<nav class="navbar">
+  <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search" >
+</nav>
 <table class="table ">
   <thead>
   <tr>
@@ -22,7 +24,7 @@
   </tr>
   </thead>
   <tbody>
-      <tr *ngFor="let product of products.products | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: products.totalItems, id:'server'} ">
+      <tr *ngFor="let product of products.products| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: products.totalItems, id:'server'} ">
         <td class = "table-cell">{{ product.name }}</td>
         <td class = "table-cell">{{ product.unit }}</td>
         <td class = "table-cell">{{ product.quantity }}</td>

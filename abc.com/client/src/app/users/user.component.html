@@ -3,6 +3,9 @@
 	<div class = "glyphicon glyphicon-cog">MANAGE USER</div>
 	<a href="#/new-user" class="btn btn-primary round pull-right" role="button">+Add User</a>
 </div>
+<nav class="navbar">
+  <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search" >
+</nav>
 <table class="table table-bordered">
   <thead>
   <tr>
@@ -15,7 +18,7 @@
   </tr>
   </thead>
   <tbody>
-      <tr *ngFor="let user of users.users | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: users.totalItems, id:'server'} ">
+      <tr *ngFor="let user of users.users| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: users.totalItems, id:'server'} ">
         <td class = "table-cell">{{ user.userId }}</td>
         <td class = "table-cell">{{ user.firstName }}</td>
         <td class = "table-cell">{{ user.lastName }}</td>

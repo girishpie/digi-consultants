@@ -7,6 +7,7 @@ import {NewPhaseModule} from './new/new-phase.module';
 import {Phases} from './phases';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { FormsModule } from '@angular/forms';
     HttpModule,
     FormsModule,
     NgxPaginationModule,
-    NewPhaseModule
+    NewPhaseModule,
+    Ng2SearchPipeModule
   ],
   exports : [PhaseComponent],
   providers: [Phases,

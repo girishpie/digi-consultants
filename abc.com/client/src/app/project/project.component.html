@@ -3,7 +3,9 @@
 	<div class = "glyphicon glyphicon-cog">MANAGE PROJECTS</div>
 	<a href="#/new-project" class="btn btn-primary round pull-right" role="button">+Add Project</a>
 </div>
-
+<nav class="navbar">
+  <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search" >
+</nav>
 <table class="table ">
   <thead>
   <tr>
@@ -16,7 +18,7 @@
   </tr>
   </thead>
   <tbody>
-      <tr *ngFor="let project of projects.projects | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: projects.totalItems, id:'server'} ">
+      <tr *ngFor="let project of projects.projects| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: projects.totalItems, id:'server'} ">
         <td class = "table-cell">{{ project.projectName }}</td>
         <td class = "table-cell">{{ project.jobNumber }}</td>
         <td class = "table-cell">{{ project.siteAddress }}</td>

@@ -6,6 +6,8 @@ import {HttpModule} from '@angular/http';
 import {NewCompanyModule} from './new/new-company.module';
 import {Companies} from './companies';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,10 @@ import {NgxPaginationModule} from 'ngx-pagination';
     BrowserModule,
     HttpModule,
     NgxPaginationModule,
-    NewCompanyModule
+    NewCompanyModule,
+    Ng2SearchPipeModule,
+    FormsModule
+
   ],
   exports : [CompanyComponent],
   providers: [Companies,

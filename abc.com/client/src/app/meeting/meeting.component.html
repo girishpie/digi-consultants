@@ -3,6 +3,9 @@
         <div class = "glyphicon glyphicon-cog">MEETING</div>
             <a href="#/new-meeting" class="btn btn-primary round pull-right" role="button">+Add Meeting</a>
         </div>
+        <nav class="navbar">
+          <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search" >
+        </nav>
         <table class="table">
           <thead>
           <tr>
@@ -14,7 +17,7 @@
           </tr>
           </thead>
           <tbody>
-              <tr *ngFor="let meeting of meetings.meetings | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: meetings.totalItems, id:'server'} ">
+              <tr *ngFor="let meeting of meetings.meetings| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: meetings.totalItems, id:'server'} ">
                   <td class = "table-cell">{{ meeting.meetingNo }}</td>
                   <td class = "table-cell">{{ meeting.type }}</td>
                 <td class = "table-cell">{{ meeting.venue }}</td>

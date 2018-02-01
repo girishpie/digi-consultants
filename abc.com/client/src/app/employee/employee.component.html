@@ -3,7 +3,9 @@
 	<div class = "glyphicon glyphicon-cog">MANAGE EMPLOYEES</div>
 	<a href="#/new-employee" class="btn btn-primary round pull-right" role="button">+Add Employee</a>
 </div>
-
+<nav class="navbar">
+  <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search" >
+</nav>
 <table class="table ">
   <thead>
   <tr>
@@ -15,7 +17,7 @@
   </tr>
   </thead>
   <tbody>
-      <tr *ngFor="let employee of employees.employees | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: employees.totalItems, id:'server'} ">
+      <tr *ngFor="let employee of employees.employees| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: employees.totalItems, id:'server'} ">
         <td class = "table-cell">{{ employee.firstname }}</td>
         <td class = "table-cell">{{ employee.role }}</td>
         <td class = "table-cell">{{ employee.telephone }}</td>

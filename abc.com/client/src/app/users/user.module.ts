@@ -7,6 +7,8 @@ import {NewUserModule} from './new/new-user.module';
 import {RoleService} from '../roles/role.service';
 import {Users} from './users';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
     BrowserModule,
     HttpModule,
     NgxPaginationModule,
-    NewUserModule
+    NewUserModule,
+    Ng2SearchPipeModule,
+    FormsModule
   ],
   exports : [UserComponent],
   providers: [Users,

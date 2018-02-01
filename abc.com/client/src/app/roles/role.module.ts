@@ -1,6 +1,3 @@
-/**
- * Created by gipai on 10/8/2017.
- */
 import {RoleComponent} from './role.component';
 import {RoleService} from "./role.service";
 import {NewRoleModule} from "../roles/new/new-role.module";
@@ -11,6 +8,7 @@ import { NgModule } from '@angular/core';
 import {Roles} from "./roles";
 import {RoleHelper} from "./role-helper";
 import { FormsModule } from '@angular/forms';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -21,7 +19,8 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     HttpModule,
     NgxPaginationModule,
-    NewRoleModule
+    NewRoleModule,
+    Ng2SearchPipeModule
   ],
   exports : [RoleComponent],
   providers: [

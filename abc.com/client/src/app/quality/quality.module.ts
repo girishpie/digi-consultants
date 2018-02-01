@@ -7,7 +7,8 @@ import {NewQualityModule} from './new/new-quality.module';
 import {Qualities} from './qualities';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {ProjectListModule} from '../Projectlist/projectlist.module';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -15,8 +16,8 @@ import {ProjectListModule} from '../Projectlist/projectlist.module';
     HttpModule,
     NgxPaginationModule,
     NewQualityModule,
-    
- 
+    Ng2SearchPipeModule,
+    FormsModule
   ],
   declarations: [
     QualityComponent

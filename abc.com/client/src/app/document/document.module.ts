@@ -6,6 +6,8 @@ import {HttpModule} from '@angular/http';
 import {NewDocumentModule} from './new/new-file.module';
 import {Documents} from './documents';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
     BrowserModule,
     HttpModule,
     NgxPaginationModule,
-    NewDocumentModule
+    NewDocumentModule,
+    Ng2SearchPipeModule,
+    FormsModule
   ],
   exports : [DocumentComponent],
   providers: [Documents,

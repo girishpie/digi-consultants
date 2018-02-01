@@ -7,6 +7,8 @@ import {HttpModule} from '@angular/http';
 import {NewSubcategoryComponent} from './new/new-subcategory.component';
 import {Subcategories} from './subcategories';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
   imports: [
     BrowserModule,
     HttpModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    Ng2SearchPipeModule,
+    FormsModule
   ],
   exports : [SubcategoryComponent],
   providers: [Subcategories,

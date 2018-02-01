@@ -10,7 +10,9 @@
          -->
         <a href="#/new-quality" class="btn btn-primary round pull-right" role="button">+Add Request</a>
     </div>
-    
+    <nav class="navbar">
+      <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search" >
+    </nav>
     <table class="table ">
       <thead>
       <tr>
@@ -24,7 +26,7 @@
       </tr>
       </thead>
        <tbody>
-          <tr *ngFor="let quality of qualities.qualities | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: qualities.totalItems, id:'server'} ">
+          <tr *ngFor="let quality of qualities.qualities| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: qualities.totalItems, id:'server'} ">
             <td class = "table-cell">{{quality.Title}}</td>
             <td class = "table-cell">{{quality.Status}}</td>
             <td class = "table-cell">{{quality.Opened}}</td>

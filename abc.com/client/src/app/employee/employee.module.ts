@@ -7,14 +7,18 @@ import {RouterModule} from '@angular/router';
 import {NewEmployeeModule} from './new/new-employee.module';
 import {Employees} from './employees';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     BrowserModule,
     HttpModule,
     //RouterModule,
-    NgxPaginationModule
+    NgxPaginationModule,
     //NewEmployeeModule
+    Ng2SearchPipeModule,
+    FormsModule
   ],
   declarations: [
     EmployeeComponent

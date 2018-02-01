@@ -3,6 +3,9 @@
     <div class = "glyphicon glyphicon-cog">CHANGE REQUEST</div>
         <a href="#/new-request" class="btn btn-primary round pull-right" role="button">+Create New</a>
     </div>
+    <nav class="navbar">
+      <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search" >
+    </nav>
   <table class="table">
       <thead>
         <tr>
@@ -16,7 +19,7 @@
         </tr>
       </thead>
       <tbody>
-            <tr *ngFor="let request of requests.requests | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: requests.totalItems, id:'server'} ">
+            <tr *ngFor="let request of requests.requests| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: requests.totalItems, id:'server'} ">
                     <td class = "table-cell">{{ request.id }}</td>
                     <td class = "table-cell">{{ request.Description }}</td>
                     <td class = "table-cell">{{ request.Status }}</td>

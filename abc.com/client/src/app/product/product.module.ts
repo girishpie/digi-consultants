@@ -8,6 +8,8 @@ import {HttpModule} from '@angular/http';
 import {NewProductComponent} from './new/new-product.component';
 import {Products} from './products';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     BrowserModule,
     HttpModule,
     NgxPaginationModule,
-    FormsModule
+    FormsModule,
+    Ng2SearchPipeModule
   ],
   exports : [ProductComponent],
   providers: [Products,

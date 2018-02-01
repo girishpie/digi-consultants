@@ -6,6 +6,8 @@ import {HttpModule} from '@angular/http';
 import {NewSectionModule} from './new/new-section.module';
 import {Sections} from './sections';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
     BrowserModule,
     HttpModule,
     NgxPaginationModule,
-    NewSectionModule
+    NewSectionModule,
+    Ng2SearchPipeModule,
+    FormsModule
   ],
   exports : [SectionComponent],
   providers: [Sections,

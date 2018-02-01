@@ -3,7 +3,9 @@
 	<div class = "glyphicon glyphicon-cog">MANAGE SUBCATEGORIES</div>
 	<a href="#/new-subcategory" class="btn btn-primary round pull-right" role="button">+Add Subcategory</a></div>
 <div class="column">
-	
+	<nav class="navbar">
+    <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search" >
+  </nav>
 </div>
 <table class="table ">
   <thead>
@@ -14,7 +16,7 @@
   </tr>
   </thead>
   <tbody>
-      <tr *ngFor="let subcategory of subcategories.subcategories | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: subcategories.totalItems, id:'server'} ">
+      <tr *ngFor="let subcategory of subcategories.subcategories| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: subcategories.totalItems, id:'server'} ">
         <td class = "table-cell">{{ subcategory.name }}</td>
         <td class = "table-cell">{{ subcategory.description }}</td>
          <td class = "table-cell">{{ subcategory.parentName }}</td>

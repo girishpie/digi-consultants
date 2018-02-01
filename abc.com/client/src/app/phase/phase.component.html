@@ -3,6 +3,9 @@
 <div class = "glyphicon glyphicon-cog">MANAGE PHASES</div>
 	<a href="#/new-phase" class="btn btn-primary round pull-right" role="button">+Add Phase</a>
 </div>
+<nav class="navbar">
+  <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search" >
+</nav>
 <table class="table table-bordered">
   <thead>
   <tr>
@@ -10,7 +13,7 @@
   </tr>
   </thead>
   <tbody>
-      <tr *ngFor="let phase of phases.phases | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: phases.totalItems, id:'server'} ">
+      <tr *ngFor="let phase of phases.phases| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: phases.totalItems, id:'server'} ">
         <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="phase.name" (input)="phase.name=$event.target.textContent">{{ phase.name }}</td>
          <td class = "table-cell">
 <!--           <img src="assets/edit.svg" style="width:30px"> -->

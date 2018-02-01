@@ -3,6 +3,9 @@
     <div class = "glyphicon glyphicon-cog">MANAGE SPECIFICATION</div>
         <a href="#/new-specification" class="btn btn-primary round pull-right" role="button">+Add Specifiaction</a>
     </div>
+    <nav class="navbar">
+      <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search" >
+    </nav>
     <table class="table">
       <thead>
       <tr>
@@ -14,7 +17,7 @@
       </tr>
       </thead>
       <tbody>
-          <tr>
+        <tr *ngFor="let specification of specifications.specifications| filter:filter ">
             <td class = "table-cell">{{specification.Id}}</td>
             <td class = "table-cell">{{specification.specificationName}}</td>
             <td class = "table-cell">{{specification.answer}}</td>

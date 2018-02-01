@@ -3,6 +3,9 @@
 <div class = "glyphicon glyphicon-cog">MANAGE SECTIONS</div>
 	<a href="#/new-section" class="btn btn-primary round pull-right" role="button">+Add Section</a>
 </div>
+<nav class="navbar">
+  <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search" >
+</nav>
 <table class="table">
   <thead>
   <tr>
@@ -12,7 +15,7 @@
   </tr>
   </thead>
   <tbody>
-      <tr *ngFor="let section of sections.sections | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: sections.totalItems, id:'server'} ">
+      <tr *ngFor="let section of sections.sections| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: sections.totalItems, id:'server'} ">
         <td class = "table-cell">{{ section.sectionName }}</td>
         <td class = "table-cell">{{ section.specificationName }}</td>
         <td class = "table-cell">{{ section.productNames }}</td>
