@@ -84,4 +84,13 @@ export class CompanyService {
         }
       );
   }
+  public update(company: Company)  {
+    const endPoint = this.companyUrl  + company.getId();
+      // Returns response
+    return this.http.patch(endPoint, company)
+      .map(res => {
+          const res1 = res.json();
+        }
+      );
+  }
 }

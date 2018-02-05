@@ -19,8 +19,8 @@ export class SpecificationComponent implements OnInit {
   private subscription: Subscription;
   private currentSearchString: string;
   private currentPage = 1;
-
-
+  isValid:boolean;
+  loading:boolean = false;
   constructor(private  specificationService: SpecificationService,
               private specifications: Specifications , 
               private queryParamsService: QueryParamsService)  {
@@ -50,7 +50,15 @@ export class SpecificationComponent implements OnInit {
     });
 
   }
-
+  public updateSpecification(specification: Specification) {
+    this.loading = true;
+    this.specificationService.update(specification).subscribe(data => {
+		 this.loading = false;
+    });
+  }
+    onRowClick(event){
+     this.isValid = true;
+    } 
 
 
   public deleteSpecification(specification: Specification) {

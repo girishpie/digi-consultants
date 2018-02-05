@@ -23,7 +23,8 @@ export class QualityComponent implements OnInit {
   private currentPage = 1;
   private projectId: string;
   private availableProjects: Project[];
-
+  isValid:boolean = false;
+  loading:boolean
   constructor(private  qualityService: QualityService,private projectService: ProjectService,
               private qualities: Qualities ,private projects: Projects, 
               private queryParamsService: QueryParamsService)  {
@@ -54,9 +55,7 @@ export class QualityComponent implements OnInit {
     });
 
   }
-
-
-
+ 
   public deleteQuality(quality: Quality) {
     this.qualityService.delete(quality.getId()).subscribe(data => {
 
@@ -79,5 +78,16 @@ export class QualityComponent implements OnInit {
       window.alert(error._body);
     });
   }
+  public updateQuality(quality: Quality) {
+    this.loading = true;
+    this.qualityService.update(quality).subscribe(data => {
+		 this.loading = false;
+    });
+  }
+  
+ onRowClick(event){
+	this.isValid = true;
+   // console.log(event.target.outerText, phase.id);
+  } 
 }
 

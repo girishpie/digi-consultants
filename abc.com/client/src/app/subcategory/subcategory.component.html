@@ -17,12 +17,13 @@
   </thead>
   <tbody>
       <tr *ngFor="let subcategory of subcategories.subcategories| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: subcategories.totalItems, id:'server'} ">
-        <td class = "table-cell">{{ subcategory.name }}</td>
-        <td class = "table-cell">{{ subcategory.description }}</td>
-         <td class = "table-cell">{{ subcategory.parentName }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="subcategory.name" (input)="subcategory.name=$event.target.textContent">{{ subcategory.name }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="subcategory.description" (input)="subcategory.description=$event.target.textContent">{{ subcategory.description }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="subcategory.parentName" (input)="subcategory.parentName=$event.target.textContent">{{ subcategory.parentName }}</td>
          <td class = "table-cell">
-	         <img src="assets/edit.svg" style="width:30px">
-			 <img src="assets/delete.svg" (click) = "deleteSubcategory(subcategory)" style="width:30px">
+            <button [disabled]="!isValid" class="btn-primary" (click) = "updatesubcategory(subcategory)">
+                <img src="assets/edit.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions"></button>
+			      <button style="background-color:red;"><img src="assets/delete.svg" (click) = "deleteSubcategory(subcategory)" style="width:30px"></button>
         </td>
      </tr>
   </tbody>

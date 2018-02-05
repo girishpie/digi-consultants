@@ -20,15 +20,14 @@
       </thead>
       <tbody>
             <tr *ngFor="let request of requests.requests| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: requests.totalItems, id:'server'} ">
-                    <td class = "table-cell">{{ request.id }}</td>
-                    <td class = "table-cell">{{ request.Description }}</td>
-                    <td class = "table-cell">{{ request.Status }}</td>
-                    <td class = "table-cell">{{ request.DOB }}</td>
-                    <td class = "table-cell">{{ request.project }}</td>
-                    <td class = "table-cell">{{ request.Raised }}</td>
-                    <td class="table-cell">{{ request.Action }}</td>
+                    <td class = "table-cell" >{{ request.id }}</td>
+                    <td class = "table-cell" >{{ request.Description }}</td>
+                    <td class = "table-cell" >{{ request.Status }}</td>
+                    <td class = "table-cell" >{{ request.DOB }}</td>
+                    <td class = "table-cell" >{{ request.project }}</td>
+                    <td class = "table-cell" >{{ request.Raised }}</td>
+                    <td class="table-cell" >{{ request.Action }}</td>
                     <td class = "table-cell">
-                     <img src="assets/edit.svg" style="width:30px">
                      <img src="assets/delete.svg" (click) = "deleteRequest(request)" style="width:30px">
                     </td>
             </tr>

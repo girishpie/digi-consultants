@@ -18,6 +18,8 @@ export class EmployeeComponent implements OnInit {
   private subscription: Subscription;
   private currentSearchString: string;
   private currentPage = 1;
+  isValid:boolean;
+  loading:boolean = false;
   constructor(private employeeService: EmployeeService,
               private employees: Employees ,
               private queryParamsService: QueryParamsService)  {
@@ -47,6 +49,15 @@ export class EmployeeComponent implements OnInit {
     });
 
   }
+  public updateEmployee(employee: Employee) {
+    this.loading = true;
+    this.employeeService.update(employee).subscribe(data => {
+		 this.loading = false;
+    });
+  }
+    onRowClick(event){
+     this.isValid = true;
+    } 
 
 
 

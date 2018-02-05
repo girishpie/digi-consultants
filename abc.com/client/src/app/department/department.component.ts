@@ -18,6 +18,8 @@ export class DepartmentComponent implements OnInit {
   private subscription: Subscription;
   private currentSearchString: string;
   private currentPage = 1;
+  loading:boolean = false;
+  isValid:boolean;
   constructor(private departmentService: DepartmentService,
               private departments: Departments ,
               private queryParamsService: QueryParamsService)  {
@@ -48,7 +50,15 @@ export class DepartmentComponent implements OnInit {
 
   }
 
-
+  public updateDepartment(department: Department) {
+    this.loading = true;
+    this.departmentService.update(department).subscribe(data => {
+		 this.loading = false;
+    });
+  }
+  onRowClick(event){
+    this.isValid = true;
+    } 
 
   public deleteDepartment(department: Department) {
     this.departmentService.delete(department.getId()).subscribe(data => {

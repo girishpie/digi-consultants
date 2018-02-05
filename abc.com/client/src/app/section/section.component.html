@@ -16,12 +16,13 @@
   </thead>
   <tbody>
       <tr *ngFor="let section of sections.sections| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: sections.totalItems, id:'server'} ">
-        <td class = "table-cell">{{ section.sectionName }}</td>
-        <td class = "table-cell">{{ section.specificationName }}</td>
-        <td class = "table-cell">{{ section.productNames }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="section.sectionName" (input)="section.sectionName=$event.target.textContent">{{ section.sectionName }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="section.specificationName" (input)="section.specificationName=$event.target.textContent">{{ section.specificationName }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="section.productNames" (input)="section.productNames=$event.target.textContent">{{ section.productNames }}</td>
  		<td class = "table-cell">
-         <img src="assets/edit.svg" style="width:30px">
-		 <img src="assets/delete.svg" (click) = "deleteSection(section)" style="width:30px">
+        <button [disabled]="!isValid" class="btn-primary" (click) = "updateCompany(company)">
+            <img src="assets/edit.svg" style="width:30px"></button> 
+		    <button style="background-color:red;"><img src="assets/delete.svg" (click) = "deleteSection(section)" style="width:30px"></button>
         </td>
      </tr>
   </tbody>

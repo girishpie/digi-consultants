@@ -93,4 +93,13 @@ export class EmployeeService {
         }
       );
   }
+  public update(employee: Employee)  {
+    const endPoint = this.employeeUrl  + employee.getId();
+      // Returns response
+    return this.http.patch(endPoint, document)
+      .map(res => {
+          const res1 = res.json();
+        }
+      );
+  }
 }

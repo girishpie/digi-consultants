@@ -18,6 +18,8 @@ export class DocumentComponent implements OnInit {
   private subscription: Subscription;
   private currentSearchString: string;
   private currentPage = 1;
+  isValid:boolean;
+  loading:boolean= false;
   constructor(private  documentService: DocumentService,
               private documents: Documents ,
               private queryParamsService: QueryParamsService)  {
@@ -47,6 +49,15 @@ export class DocumentComponent implements OnInit {
     });
 
   }
+  public updateDocument(document: Document) {
+    this.loading = true;
+    this.documentService.update(document).subscribe(data => {
+		 this.loading = false;
+    });
+  }
+    onRowClick(event){
+     this.isValid = true;
+    } 
 
   public deleteDocument(document: Document) {
     this.documentService.delete(document.getId()).subscribe(data => {

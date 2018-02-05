@@ -18,19 +18,34 @@
       </thead>
       <tbody>
         <tr *ngFor="let specification of specifications.specifications| filter:filter ">
-            <td class = "table-cell">{{specification.Id}}</td>
-            <td class = "table-cell">{{specification.specificationName}}</td>
-            <td class = "table-cell">{{specification.answer}}</td>
+            <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="specification.Id" (input)="specification.Id=$event.target.textContent">{{specification.Id}}</td>
+            <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="specification.specificationName" (input)="specification.specificationName=$event.target.textContent">{{specification.specificationName}}</td>
+            <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="specification.answer" (input)="specification.answer=$event.target.textContent">{{specification.answer}}</td>
             <td class = "table-cell">{{specification.sectionId}}</td>
             <td class = "table-cell"></td>
              <td class = "table-cell">
-                 <!-- <tooltip-content #screeningOptions class="recommended-programs-tooltip">
+                  <tooltip-content #screeningOptions class="recommended-programs-tooltip">
                     <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
-                      <div class="tooltip-text-regisnation">edit</div>
+                      <div class="tooltip-text-regisnation">Edit</div>
                     </div>
-                  </tooltip-content> -->
-             <img src="assets/edit.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions">
-             <img src="assets/delete.svg" (click) = "deleteSpecification(specification)" style="width:30px">
+                  </tooltip-content> 
+                <button [disabled]="!isValid" class="btn-primary" (click) = "updateSpecification(specification)">
+                    <img src="assets/edit.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions">
+                </button>
+                <tooltip-content #screeningOption2 class="recommended-programs-tooltip">
+                    <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
+                      <div class="tooltip-text-regisnation">View</div>
+                    </div>
+                </tooltip-content> 
+                  <button class="btn-primary"><img src="assets/view.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption2"></button>
+                <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
+                        <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
+                          <div class="tooltip-text-regisnation">Delete</div>
+                        </div>
+                </tooltip-content> 
+                <button style="background-color:red;">
+                  <img src="assets/delete.svg" (click) = "deleteSpecification(specification)" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1">
+                </button>
             </td>
          </tr>
       </tbody>

@@ -19,14 +19,15 @@
   </thead>
   <tbody>
       <tr *ngFor="let project of projects.projects| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: projects.totalItems, id:'server'} ">
-        <td class = "table-cell">{{ project.projectName }}</td>
-        <td class = "table-cell">{{ project.jobNumber }}</td>
-        <td class = "table-cell">{{ project.siteAddress }}</td>
-        <td class = "table-cell">{{ project.description }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="project.projectName" (input)="project.projectName=$event.target.textContent">{{ project.projectName }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="project.jobNumber" (input)="project.jobNumber=$event.target.textContent">{{ project.jobNumber }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="project.siteAddress" (input)="project.siteAddress=$event.target.textContent">{{ project.siteAddress }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="project.description" (input)="project.description=$event.target.textContent">{{ project.description }}</td>
         <td class = "table-cell">{{ project.startDate |  date:'MM/dd/yyyy' }}</td>
         <td class = "table-cell">
-         <img src="assets/edit.svg" style="width:30px">
-		 <img src="assets/delete.svg" (click) = "deleteProject(project)" style="width:30px">
+          <button [disabled]="!isValid" class="btn-primary" (click) = "updateProject(project)">
+            <img src="assets/edit.svg" style="width:30px"></button> 
+		      <button style="background-color:red;"><img src="assets/delete.svg" (click) = "deleteProject(project)" style="width:30px"></button>
         </td>
      </tr>
   </tbody>

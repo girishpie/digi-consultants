@@ -83,4 +83,13 @@ export class ProductService {
         }
       );
   }
+  public update(product: Product)  {
+    const endPoint = this.productUrl  + product.getId();
+      // Returns response
+    return this.http.patch(endPoint, document)
+      .map(res => {
+          const res1 = res.json();
+        }
+      );
+  }
 }

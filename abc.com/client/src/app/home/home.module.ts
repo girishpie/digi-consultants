@@ -81,6 +81,12 @@ import { SpecificationModule} from '../specification/specification.module';
 import { SpecificationComponent} from '../specification/specification.component';
 import { NewSpecificationModule} from '../specification/new/new-specification.module';
 import { NewSpecificationComponent} from '../specification/new/new-specification.component';
+import { CompanyListComponent} from '../companylist/companylist.component';
+import { CompanyListModule } from '../companylist/compnylist.module';
+import { OfficeComponent} from '../office/office.component';
+import { OfficeModule} from '../office/office.module';
+import { NewOfficeModule} from '../office/new-office/new-office.module';
+import { NewOfficeComponent} from '../office/new-office/new-office.component';
 
 const userState = { name: 'user', url: '/user',  component: UserComponent };
 const newUserState = { name: 'new-user', url: '/new-user',  component: NewUserComponent };
@@ -120,6 +126,9 @@ const newRequestState = {name:'new-request', url:'/new-request', component: NewR
 const projectlistState ={ name: 'projectlist', url:'/projectlist', component:ProjectListComponent};
 const specificationState={ name:'specification', url:'/specification', component:SpecificationComponent};
 const NewSpecificationState={ name:'new-specification', url:'/new-specification', component:NewSpecificationComponent};
+const companylistState ={ name:'companylist', url:'/companylist', component:CompanyListComponent};
+const officeState ={ name :'office', url:'/office', component: OfficeComponent};
+const newofficeState ={ name:'new-office', url:'/new-office', component:NewOfficeComponent};
 
 @NgModule({
   declarations: [
@@ -168,13 +177,17 @@ const NewSpecificationState={ name:'new-specification', url:'/new-specification'
     ProjectListModule,
     SpecificationModule,
     NewSpecificationModule,
+    CompanyListModule,
+    OfficeModule,
+    NewOfficeModule,
 
     UIRouterModule.forRoot({ states: [ userState, newUserState, roleState, newRoleState, projectState,
       newProjectState, clientState, newClientState, companyState, newCompanyState, phaseState,
       newPhaseState, documentState, newDocumentState, boqState, newBoQState, departmentState, newDepartmentState,
       sectionState, newSectionState, productState, newProductState, categoryState, newCategoryState,
       subcategoryState, newSubcategoryState, employeeState, newEmployeeState, meetingState, newMeetingState,
-    qualityState,newQualityState,requestState,newRequestState,projectlistState,specificationState,NewSpecificationState], useHash: true })
+    qualityState,newQualityState,requestState,newRequestState,projectlistState,specificationState,NewSpecificationState,companylistState,officeState,
+    newofficeState], useHash: true })
   ],
   exports : [HomeComponent],
   providers: [QueryParamsService],

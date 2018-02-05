@@ -18,14 +18,15 @@
   </thead>
   <tbody>
       <tr *ngFor="let document of documents.documents| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: documents.totalItems, id:'server'} ">
-        <td class = "table-cell">{{ document.displayName }}</td>
-        <td class = "table-cell">{{ document.projectName }}</td>
-        <td class = "table-cell">{{ document.createdBy }}</td>
-         <td class = "table-cell">{{ document.version }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="document.displayName" (input)="document.displayName=$event.target.textContent">{{ document.displayName }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="document.projectName" (input)="document.projectName=$event.target.textContent">{{ document.projectName }}</td>
+        <td class = "table-cell"  contenteditable='true' (input)="onRowClick($event)" [textContent]="document.createdBy" (input)="document.createdBy=$event.target.textContent">{{ document.createdBy }}</td>
+         <td class = "table-cell"  contenteditable='true' (input)="onRowClick($event)" [textContent]="document.version" (input)="document.version=$event.target.textContent">{{ document.version }}</td>
         <td class = "table-cell">{{ document.creationTime |  date:'MM/dd/yyyy'}}</td>
-        
          <td class = "table-cell">
-         	<img src="assets/delete.svg" (click) = "deleteDocument(document)" style="width:30px">
+            <button [disabled]="!isValid" class="btn-primary" (click) = "updateDocument(document)">
+            <img src="assets/edit.svg" style="width:30px"></button> 
+         	  <button style="background-color:red;"><img src="assets/delete.svg" (click) = "deleteDocument(document)" style="width:30px"></button>
          </td>
      </tr>
   </tbody>

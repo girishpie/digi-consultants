@@ -100,4 +100,13 @@ export class ProjectService {
         }
       );
   }
+  public update(project: Project)  {
+    const endPoint = this.projectUrl  + project.getId();
+      // Returns response
+    return this.http.patch(endPoint, document)
+      .map(res => {
+          const res1 = res.json();
+        }
+      );
+  }
 }

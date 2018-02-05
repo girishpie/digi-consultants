@@ -18,6 +18,8 @@ export class SectionComponent implements OnInit {
   private subscription: Subscription;
   private currentSearchString: string;
   private currentPage = 1;
+  isValid:boolean;
+  loading:boolean = false;
   constructor(private  sectionService: SectionService,
               private sections: Sections ,
               private queryParamsService: QueryParamsService)  {
@@ -47,7 +49,15 @@ export class SectionComponent implements OnInit {
     });
 
   }
-
+  public updateSection(section: Section) {
+    this.loading = true;
+    this.sectionService.update(section).subscribe(data => {
+		 this.loading = false;
+    });
+  }
+    onRowClick(event){
+     this.isValid = true;
+    } 
 
 
   public deleteSection(section: Section) {

@@ -18,6 +18,8 @@ export class MeetingComponent implements OnInit {
   private subscription: Subscription;
   private currentSearchString: string;
   private currentPage = 1;
+  isValid:boolean;
+  loading:boolean = false;
   constructor(private  meetingService: MeetingService,
               private meetings: Meetings ,
               private queryParamsService: QueryParamsService)  {

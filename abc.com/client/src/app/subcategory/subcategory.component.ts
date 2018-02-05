@@ -17,7 +17,8 @@ export class SubcategoryComponent implements OnInit {
   private subscription: Subscription;
   private currentSearchString: string;
   private currentPage = 1;
-
+  loading:boolean =false;
+  isValid:boolean;
   constructor(private subcategoryService: SubcategoryService, private categoryService: CategoryService,
               private queryParamsService: QueryParamsService, private subcategories: Subcategories)  {
     this.getSubcategories(null);
@@ -64,6 +65,16 @@ export class SubcategoryComponent implements OnInit {
     // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();
   }
+
+  public updateSubcategory(category: Subcategory) {
+    this.loading = true;
+    this.subcategoryService.update(category).subscribe(data => {
+		 this.loading = false;
+    });
+  }
+    onRowClick(event){
+     this.isValid = true;
+    } 
 
 }
 

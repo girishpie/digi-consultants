@@ -18,6 +18,8 @@ export class ClientComponent implements OnInit {
   private subscription: Subscription;
   private currentSearchString: string;
   private currentPage = 1;
+  isValid:boolean;
+  loading:boolean= false;
   constructor(private  clientService: ClientService,
               private clients: Clients ,
               private queryParamsService: QueryParamsService)  {
@@ -47,7 +49,15 @@ export class ClientComponent implements OnInit {
     });
 
   }
-
+  public updateClient(client: Client) {
+    this.loading = true;
+    this.clientService.update(client).subscribe(data => {
+		 this.loading = false;
+    });
+  }
+  onRowClick(event){
+    this.isValid = true;
+    } 
 
 
   public deleteClient(client: Client) {

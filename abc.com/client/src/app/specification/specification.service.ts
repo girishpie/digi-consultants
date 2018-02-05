@@ -86,4 +86,13 @@ export class SpecificationService {
         }
       );
   }
+  public update(specification: Specification)  {
+    const endPoint = this.specificationUrl  + specification.getId();
+      // Returns response
+    return this.http.patch(endPoint, document)
+      .map(res => {
+          const res1 = res.json();
+        }
+      );
+  }
 }

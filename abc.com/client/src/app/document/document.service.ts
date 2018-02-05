@@ -7,6 +7,7 @@ import {QueryParams} from "../home/query-obeservables/query-params";
 import {Documents} from "./documents";
 import {Globals} from "../globals/globals";
 
+
 @Injectable()
 export class DocumentService {
 
@@ -83,6 +84,15 @@ export class DocumentService {
       .map(res => {
           const res1 = res.json();
           this.documents.deleteDocument(res1.response);
+        }
+      );
+  }
+  public update(document: Document)  {
+    const endPoint = this.documentUrl  + document.getId();
+      // Returns response
+    return this.http.patch(endPoint, document)
+      .map(res => {
+          const res1 = res.json();
         }
       );
   }

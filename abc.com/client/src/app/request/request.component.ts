@@ -19,8 +19,8 @@ export class RequestComponent implements OnInit {
   private subscription: Subscription;
   private currentSearchString: string;
   private currentPage = 1;
-
-
+  loading:boolean=false;
+  isValid:boolean;
   constructor(private  requestService: RequestService,
               private requests: Requests , 
               private queryParamsService: QueryParamsService)  {
@@ -50,9 +50,6 @@ export class RequestComponent implements OnInit {
     });
 
   }
-
-
-
   public deleteRequest(request: Request) {
     this.requestService.delete(request.getId()).subscribe(data => {
 
@@ -68,6 +65,6 @@ export class RequestComponent implements OnInit {
     // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();
   }
- 
+
 }
 

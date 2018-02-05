@@ -25,15 +25,16 @@
   </thead>
   <tbody>
       <tr *ngFor="let product of products.products| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: products.totalItems, id:'server'} ">
-        <td class = "table-cell">{{ product.name }}</td>
-        <td class = "table-cell">{{ product.unit }}</td>
-        <td class = "table-cell">{{ product.quantity }}</td>
-        <td class = "table-cell">{{ product.amount }}</td>
-        <td class = "table-cell">{{ product.descrition }}</td>
-        <td class = "table-cell">{{ product.bimId }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.name" (input)="product.name=$event.target.textContent">{{ product.name }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.unit" (input)="product.unit=$event.target.textContent">{{ product.unit }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.quantity" (input)="product.quantity=$event.target.textContent">{{ product.quantity }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.amount" (input)="product.amount=$event.target.textContent">{{ product.amount }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.descrition" (input)="product.descrition=$event.target.textContent">{{ product.descrition }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.bimId" (input)="product.bimId=$event.target.textContent">{{ product.bimId }}</td>
          <td class = "table-cell">
-         <img src="assets/edit.svg" style="width:30px">
-		 <img src="assets/delete.svg" (click) = "deleteProduct(product)" style="width:30px">
+            <button [disabled]="!isValid" class="btn-primary" (click) = "updateProduct(product)">
+                <img src="assets/edit.svg" style="width:30px"></button> 
+		       <button style="background-color:red;"><img src="assets/delete.svg" (click) = "deleteProduct(product)" style="width:30px"></button>
         </td>
      </tr>
   </tbody>

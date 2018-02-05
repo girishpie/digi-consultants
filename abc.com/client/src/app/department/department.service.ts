@@ -81,4 +81,13 @@ export class DepartmentService {
         }
       );
   }
+  public update(department: Department)  {
+    const endPoint = this.departmentUrl  + department.getId();
+      // Returns response
+    return this.http.patch(endPoint, department)
+      .map(res => {
+          const res1 = res.json();
+        }
+      );
+  }
 }

@@ -18,14 +18,15 @@
   </thead>
   <tbody>
       <tr *ngFor="let employee of employees.employees| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: employees.totalItems, id:'server'} ">
-        <td class = "table-cell">{{ employee.firstname }}</td>
-        <td class = "table-cell">{{ employee.role }}</td>
-        <td class = "table-cell">{{ employee.telephone }}</td>
-        <td class = "table-cell">{{ employee.companyName }}</td>
-        <td class = "table-cell">{{ employee.noOfProjects }}</td>
+        <td class = "table-cell"  contenteditable='true' (input)="onRowClick($event)" [textContent]="employee.firstname" (input)="employee.firstname=$event.target.textContent">{{ employee.firstname }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="employee.role" (input)="employee.role=$event.target.textContent">{{ employee.role }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="employee.telephone" (input)="employee.telephone=$event.target.textContent">{{ employee.telephone }} </td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="employee.companyName" (input)="employee.companyName=$event.target.textContent">{{ employee.companyName }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="employee.noOfProjects" (input)="employee.noOfProjects=$event.target.textContent">{{ employee.noOfProjects }}</td>
         <td class = "table-cell">
-         <img src="assets/edit.svg" style="width:30px">
-		 <img src="assets/delete.svg" (click) = "deleteEmployee(employee)" style="width:30px">
+            <button [disabled]="!isValid" class="btn-primary" (click) = "updateEmployee(employee)">
+                <img src="assets/edit.svg" style="width:30px"></button> 
+		        <button style="background-color:red;"><img src="assets/delete.svg" (click) = "deleteEmployee(employee)" style="width:30px"></button>
         </td>
      </tr>
   </tbody>

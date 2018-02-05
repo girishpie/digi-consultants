@@ -82,4 +82,13 @@ export class SectionService {
         }
       );
   }
+  public update(section: Section)  {
+    const endPoint = this.sectionUrl  + section.getId();
+      // Returns response
+    return this.http.patch(endPoint, document)
+      .map(res => {
+          const res1 = res.json();
+        }
+      );
+  }
 }

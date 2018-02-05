@@ -8,6 +8,10 @@ import {Companies} from './companies';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule } from '@angular/forms';
+import {CompanyListModule} from '../companylist/compnylist.module';
+import {EmployeeModule} from '../employee/employee.module';
+import {OfficeModule} from '../office/office.module';
+import {NewOfficeModule} from '../office/new-office/new-office.module';
 
 @NgModule({
   declarations: [
@@ -19,8 +23,11 @@ import { FormsModule } from '@angular/forms';
     NgxPaginationModule,
     NewCompanyModule,
     Ng2SearchPipeModule,
-    FormsModule
-
+    FormsModule,
+    CompanyListModule,
+    EmployeeModule,
+    OfficeModule,
+    NewOfficeModule
   ],
   exports : [CompanyComponent],
   providers: [Companies,

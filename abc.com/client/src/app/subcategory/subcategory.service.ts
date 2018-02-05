@@ -78,4 +78,13 @@ export class SubcategoryService {
         }
       );
   }
+  public update(subcategory: Subcategory)  {
+    const endPoint = this.categoryUrl  + subcategory.getId();
+      // Returns response
+    return this.http.patch(endPoint, document)
+      .map(res => {
+          const res1 = res.json();
+        }
+      );
+  }
 }

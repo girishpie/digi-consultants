@@ -15,12 +15,29 @@
   </thead>
   <tbody>
       <tr *ngFor="let company of companies.companies| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: companies.totalItems, id:'server'} ">
-        <td class = "table-cell">{{ company.companyName }}</td>
-        <td class = "table-cell">{{ company.address }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="company.companyName" (input)="company.companyName=$event.target.textContent">{{ company.companyName }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="company.address" (input)="company.address=$event.target.textContent">{{ company.address }}</td>
          <td class = "table-cell">
-           <img src="assets/edit.svg" style="width:30px">
-		   <img src="assets/delete.svg" (click) = "deleteCompany(company)" style="width:30px">
-        </td>
+            <tooltip-content #screeningOptions class="recommended-programs-tooltip">
+                <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
+                  <div class="tooltip-text-regisnation">Edit</div>
+                </div>
+              </tooltip-content>
+            <button [disabled]="!isValid" class="btn-primary" (click) = "updateCompany(company)">
+           <img src="assets/edit.svg" style="width:30px"  tooltipPlacement="right" [tooltip]="screeningOptions"></button> 
+           <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
+              <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
+                <div class="tooltip-text-regisnation">View</div>
+              </div>
+            </tooltip-content>
+           <button class="btn-primary"><a href="#/companylist?companyName={{company.companyName}}&address={{company.address}}"><img src="assets/view.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1"></a></button>     
+           <tooltip-content #screeningOption class="recommended-programs-tooltip">
+              <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
+                <div class="tooltip-text-regisnation">Delete</div>
+              </div>
+            </tooltip-content>
+           <button  style="background-color:red;"><img src="assets/delete.svg" (click) = "deleteComapny(company)" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption"></button>
+         </td>
      </tr>
   </tbody>
  </table>

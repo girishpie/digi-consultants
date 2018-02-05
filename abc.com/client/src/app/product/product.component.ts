@@ -22,7 +22,8 @@ export class ProductComponent implements OnInit {
   private currentPage = 1;
   private sectionId: string;
   private availableSections: Section[];
-
+  isValid:boolean;
+  loading: boolean  = false;
   constructor(private productService: ProductService, private sectionService: SectionService,
               private products: Products, private sections: Sections,
               private queryParamsService: QueryParamsService)  {
@@ -53,6 +54,15 @@ export class ProductComponent implements OnInit {
     });
 
   }
+  public updateProduct(product: Product) {
+    this.loading = true;
+    this.productService.update(product).subscribe(data => {
+		 this.loading = false;
+    });
+  }
+    onRowClick(event){
+     this.isValid = true;
+    } 
 
   public deleteProduct(product: Product) {
     this.productService.delete(product.getId()).subscribe(data => {

@@ -18,6 +18,8 @@ export class ProjectComponent implements OnInit {
   private subscription: Subscription;
   private currentSearchString: string;
   private currentPage = 1;
+  isValid:boolean;
+  loading: boolean  = false;
   constructor(private  projectService: ProjectService,
               private projects: Projects ,
               private queryParamsService: QueryParamsService)  {
@@ -47,6 +49,15 @@ export class ProjectComponent implements OnInit {
     });
 
   }
+  public updateProject(project: Project) {
+    this.loading = true;
+    this.projectService.update(project).subscribe(data => {
+		 this.loading = false;
+    });
+  }
+    onRowClick(event){
+     this.isValid = true;
+    } 
 
   public deleteProject(project: Project) {
     this.projectService.delete(project.getId()).subscribe(data => {

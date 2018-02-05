@@ -18,6 +18,8 @@ export class CompanyComponent implements OnInit {
   private subscription: Subscription;
   private currentSearchString: string;
   private currentPage = 1;
+  isValid:boolean;
+  loading:boolean= false;
   constructor(private  companyService: CompanyService,
               private companies: Companies ,
               private queryParamsService: QueryParamsService)  {
@@ -47,7 +49,15 @@ export class CompanyComponent implements OnInit {
     });
 
   }
-
+  public updateCompany(company: Company) {
+    this.loading = true;
+    this.companyService.update(company).subscribe(data => {
+		 this.loading = false;
+    });
+  }
+  onRowClick(event){
+    this.isValid = true;
+    } 
 
 
   public deleteCompany(company: Company) {

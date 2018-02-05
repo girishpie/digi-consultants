@@ -14,16 +14,16 @@
   </thead>
   <tbody>
       <tr *ngFor="let client of clients.clients | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: clients.totalItems, id:'server'} ">
-        <td class = "table-cell">{{ client.name }}</td>
-        <td class = "table-cell">{{ client.address }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="client.name" (input)="client.name=$event.target.textContent">{{ client.name }}</td>
+        <td class = "table-cell"  contenteditable='true' (input)="onRowClick($event)" [textContent]="client.address" (input)="client.address=$event.target.textContent">{{ client.address }}</td>
         <td class = "table-cell">{{ client.companyName }}</td>
-        <td class = "table-cell">{{ client.projectNames }}</td>
-        
+        <td class = "table-cell"  contenteditable='true' (input)="onRowClick($event)" [textContent]="client.projectNames" (input)="client.projectNames=$event.target.textContent">{{ client.projectNames }}</td>
          <td class = "table-cell">
-       
-           <img src="assets/edit.svg" style="width:30px">
-		   <img src="assets/delete.svg" (click) = "deleteClient(client)" style="width:30px">
-         </td>
+          <button [disabled]="!isValid" class="btn-primary" (click) = "updateClient(client)">
+            <img src="assets/edit.svg" style="width:30px"></button> 
+            <button class="btn-primary"><a href="#/"><img src="assets/view.svg" style="width:30px"></a></button>     
+           <button  style="background-color:red;"><img src="assets/delete.svg" (click) = "deleteClient(client)" style="width:30px"></button>
+    </td>
      </tr>
   </tbody>
  </table>

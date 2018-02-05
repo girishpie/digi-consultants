@@ -83,4 +83,13 @@ export class ClientService {
         }
       );
   }
+  public update(client: Client)  {
+    const endPoint = this.clientUrl  + client.getId();
+      // Returns response
+    return this.http.patch(endPoint, client)
+      .map(res => {
+          const res1 = res.json();
+        }
+      );
+  }
 }

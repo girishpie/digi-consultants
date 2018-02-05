@@ -1,0 +1,33 @@
+<div class="container-fluid digi-company rounded" >
+    <div class="column" >
+        <div class = "glyphicon glyphicon-cog">Office</div>
+        <a href="#/new-office" class="btn btn-primary round pull-right" role="button">+Add Office</a>
+    </div><hr >
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Address</th>
+        <th>Telephone</th>
+        <th>Fax</th>
+        <th>Contact Person</th>
+  
+      </tr>
+    </thead>
+    <tbody>
+         <tr *ngFor="let office of offices.offices | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: offices.totalItems, id:'server'} ">
+          <td class =  "table-cell">{{ office.address }}</td>
+          <td class =  "table-cell">{{ office.telephone }}</td>
+           <td class = "table-cell">{{ office.fax }}</td>
+           <td class = "table-cell">{{office.contact}}</td>
+           <td class = "table-cell">{{office.action}}</td> 
+           <td class = "table-cell" > 
+               <img src="assets/edit.svg" style="width:30px">
+               <img src="assets/delete.svg" (click) = "deleteOffice(office)" style="width:30px">
+          </td>
+       </tr>
+    </tbody>
+   </table>
+    <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+  </div>
+  
+    
