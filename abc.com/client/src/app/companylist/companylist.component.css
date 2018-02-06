@@ -4,7 +4,7 @@
 	margin-left:0%;
     margin-right:0%;
     BACKGROUND-COLOR:WHITE; 
-    height:14em;
+	height:14em;
 }
 .section-wrpr{
 	margin-bottom:3%;
@@ -29,7 +29,7 @@
 	background: #f7f7f7;
 }
 .box-wrpr{
-    font-size:6em;
+    font-size:2em;
 	box-shadow: 2px 0px 0px #ccc;
 	width:150px;
 	height:130px;
@@ -38,6 +38,7 @@
 	align-content:center;
 	margin:auto;
 	position: relative;
+	
 }
 
 .box-wrpr:hover{

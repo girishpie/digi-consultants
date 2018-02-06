@@ -19,6 +19,7 @@
         <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="department.companyName" (input)="department.departmentName=$event.target.textContent">{{ department.departmentName}}</td>
         <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="department.projectName" (input)="department.projectName=$event.target.textContent">{{ department.projectName }}</td>
          <td class = "table-cell">
+           
             <button [disabled]="!isValid" class="btn-primary" (click) = "updateDepartment(department)">
             <img src="assets/edit.svg" style="width:30px"></button> 
 		        <button style="background-color:red;"><img src="assets/delete.svg" (click) = "deleteDepartment(department)" style="width:30px"></button>
