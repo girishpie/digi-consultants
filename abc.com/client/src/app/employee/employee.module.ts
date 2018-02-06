@@ -9,6 +9,7 @@ import {Employees} from './employees';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule } from '@angular/forms';
+import { TooltipModule } from "ngx-tooltip";
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { FormsModule } from '@angular/forms';
     NgxPaginationModule,
     //NewEmployeeModule
     Ng2SearchPipeModule,
-    FormsModule
+    FormsModule,
+    TooltipModule
   ],
   declarations: [
     EmployeeComponent

@@ -8,6 +8,8 @@ import {Phases} from './phases';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { TooltipModule } from "ngx-tooltip";
+
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     FormsModule,
     NgxPaginationModule,
     NewPhaseModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    TooltipModule
   ],
   exports : [PhaseComponent],
   providers: [Phases,

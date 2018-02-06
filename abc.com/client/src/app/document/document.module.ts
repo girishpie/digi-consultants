@@ -8,6 +8,7 @@ import {Documents} from './documents';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule } from '@angular/forms';
+import { TooltipModule } from "ngx-tooltip";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { FormsModule } from '@angular/forms';
     NgxPaginationModule,
     NewDocumentModule,
     Ng2SearchPipeModule,
-    FormsModule
+    FormsModule,
+    TooltipModule
   ],
   exports : [DocumentComponent],
   providers: [Documents,

@@ -21,9 +21,19 @@
         <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="subcategory.description" (input)="subcategory.description=$event.target.textContent">{{ subcategory.description }}</td>
         <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="subcategory.parentName" (input)="subcategory.parentName=$event.target.textContent">{{ subcategory.parentName }}</td>
          <td class = "table-cell">
+            <tooltip-content #screeningOptions class="recommended-programs-tooltip">
+                <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
+                  <div class="tooltip-text-regisnation">Edit</div>
+                </div>
+            </tooltip-content>
             <button [disabled]="!isValid" class="btn-primary" (click) = "updatesubcategory(subcategory)">
-                <img src="assets/edit.svg" style="width:30px"></button>
-			      <button style="background-color:red;"><img src="assets/delete.svg" (click) = "deleteSubcategory(subcategory)" style="width:30px"></button>
+                <img src="assets/edit.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions"></button>
+                <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
+                    <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
+                      <div class="tooltip-text-regisnation">Delete</div>
+                    </div>
+                </tooltip-content>
+			      <button style="background-color:red;"><img src="assets/delete.svg" (click) = "deleteSubcategory(subcategory)" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1"></button>
         </td>
      </tr>
   </tbody>

@@ -9,7 +9,7 @@ import {NewProductComponent} from './new/new-product.component';
 import {Products} from './products';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-
+import { TooltipModule } from "ngx-tooltip";
 
 @NgModule({
   declarations: [
@@ -20,7 +20,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     HttpModule,
     NgxPaginationModule,
     FormsModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    TooltipModule
   ],
   exports : [ProductComponent],
   providers: [Products,

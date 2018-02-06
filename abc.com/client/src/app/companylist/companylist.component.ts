@@ -13,7 +13,7 @@ const companyState = { name: 'company', url: '/company',  component: CompanyComp
 @Component({
   selector: 'companylist',
   templateUrl: './companylist.component.html',
-  styleUrls: ['./companylist.component.css']
+  styleUrls: ['./companylist.component.scss']
 })
 export class CompanyListComponent implements OnInit
  {

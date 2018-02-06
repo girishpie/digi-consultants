@@ -8,6 +8,7 @@ import {Sections} from './sections';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule } from '@angular/forms';
+import { TooltipModule } from "ngx-tooltip";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { FormsModule } from '@angular/forms';
     NgxPaginationModule,
     NewSectionModule,
     Ng2SearchPipeModule,
-    FormsModule
+    FormsModule,
+    TooltipModule
   ],
   exports : [SectionComponent],
   providers: [Sections,

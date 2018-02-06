@@ -9,6 +9,7 @@ import {Roles} from "./roles";
 import {RoleHelper} from "./role-helper";
 import { FormsModule } from '@angular/forms';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { TooltipModule } from "ngx-tooltip";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     HttpModule,
     NgxPaginationModule,
     NewRoleModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    TooltipModule
   ],
   exports : [RoleComponent],
   providers: [

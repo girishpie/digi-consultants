@@ -24,9 +24,19 @@
         <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="employee.companyName" (input)="employee.companyName=$event.target.textContent">{{ employee.companyName }}</td>
         <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="employee.noOfProjects" (input)="employee.noOfProjects=$event.target.textContent">{{ employee.noOfProjects }}</td>
         <td class = "table-cell">
+            <tooltip-content #screeningOptions class="recommended-programs-tooltip">
+                <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
+                  <div class="tooltip-text-regisnation">Edit</div>
+                </div>
+              </tooltip-content>
             <button [disabled]="!isValid" class="btn-primary" (click) = "updateEmployee(employee)">
-                <img src="assets/edit.svg" style="width:30px"></button> 
-		        <button style="background-color:red;"><img src="assets/delete.svg" (click) = "deleteEmployee(employee)" style="width:30px"></button>
+                <img src="assets/edit.svg" style="width:30px"  tooltipPlacement="right" [tooltip]="screeningOptions"></button> 
+                <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
+                    <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
+                      <div class="tooltip-text-regisnation">Delete</div>
+                    </div>
+                  </tooltip-content>   
+		        <button style="background-color:red;"><img src="assets/delete.svg" (click) = "deleteEmployee(employee)" style="width:30px"  tooltipPlacement="right" [tooltip]="screeningOption1"></button>
         </td>
      </tr>
   </tbody>

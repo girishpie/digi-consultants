@@ -28,7 +28,12 @@
                     <td class = "table-cell" >{{ request.Raised }}</td>
                     <td class="table-cell" >{{ request.Action }}</td>
                     <td class = "table-cell">
-                     <img src="assets/delete.svg" (click) = "deleteRequest(request)" style="width:30px">
+                        <tooltip-content #screeningOptions class="recommended-programs-tooltip">
+                            <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
+                              <div class="tooltip-text-regisnation">Delete</div>
+                            </div>
+                        </tooltip-content>
+                     <img src="assets/delete.svg" (click) = "deleteRequest(request)" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions">
                     </td>
             </tr>
       </tbody>

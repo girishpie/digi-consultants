@@ -8,6 +8,7 @@ import {Requests} from './requests'
 import {NgxPaginationModule} from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule } from '@angular/forms';
+import { TooltipModule } from "ngx-tooltip";
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { FormsModule } from '@angular/forms';
     NgxPaginationModule,
     NewRequestModule,
     Ng2SearchPipeModule,
-    FormsModule
+    FormsModule,
+    TooltipModule
   ],
   declarations: [ RequestComponent],
   exports : [    RequestComponent  ],

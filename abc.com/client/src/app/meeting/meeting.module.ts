@@ -9,6 +9,7 @@ import { NgxPaginationModule} from 'ngx-pagination';
 import { NewMeetingModule} from './new/new-meeting.module';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule } from '@angular/forms';
+import { TooltipModule } from "ngx-tooltip";
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { FormsModule } from '@angular/forms';
     NgxPaginationModule,
     NewMeetingModule,
     Ng2SearchPipeModule,
-    FormsModule
+    FormsModule,
+    TooltipModule
   ],
   declarations: [
     MeetingComponent

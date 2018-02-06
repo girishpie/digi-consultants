@@ -21,8 +21,18 @@
            <td class = "table-cell">{{office.contact}}</td>
            <td class = "table-cell">{{office.action}}</td> 
            <td class = "table-cell" > 
-               <img src="assets/edit.svg" style="width:30px">
-               <img src="assets/delete.svg" (click) = "deleteOffice(office)" style="width:30px">
+              <tooltip-content #screeningOptions class="recommended-programs-tooltip">
+                  <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
+                    <div class="tooltip-text-regisnation">Edit</div>
+                  </div>
+                </tooltip-content>
+               <img src="assets/edit.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions">
+               <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
+                  <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
+                    <div class="tooltip-text-regisnation">Delete</div>
+                  </div>
+                </tooltip-content>
+               <img src="assets/delete.svg" (click) = "deleteOffice(office)" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1">
           </td>
        </tr>
     </tbody>

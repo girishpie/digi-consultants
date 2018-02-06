@@ -23,10 +23,19 @@
                 <td class = "table-cell" >{{ meeting.venue }}</td>
                 <td class = "table-cell">{{ meeting.ondate |  date:'MM/dd/yyyy'}}</td>
                 <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="meeting.createdBy" (input)="meeting.createdBy=$event.target.textContent">{{ meeting.createdBy }}</td>
-                
-                 <td class = "table-cell">
-                   <img src="assets/edit.svg" style="width:30px">
-                   <img src="assets/delete.svg" (click) = "deleteMeeting(meeting)" style="width:30px">
+                <td class = "table-cell">
+                    <tooltip-content #screeningOptions class="recommended-programs-tooltip">
+                        <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
+                          <div class="tooltip-text-regisnation">Edit</div>
+                        </div>
+                      </tooltip-content>
+                   <img src="assets/edit.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions">
+                   <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
+                      <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
+                        <div class="tooltip-text-regisnation">Edit</div>
+                      </div>
+                    </tooltip-content>
+                   <img src="assets/delete.svg" (click) = "deleteMeeting(meeting)" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1">
                  </td>
              </tr>
           </tbody>

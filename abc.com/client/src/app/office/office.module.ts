@@ -3,6 +3,8 @@ import { OfficeComponent } from './office.component'
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { TooltipModule } from "ngx-tooltip";
+
 @NgModule({
   declarations: [
     OfficeComponent
@@ -11,6 +13,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     FormsModule,
     BrowserModule,
     NgxPaginationModule,
+    TooltipModule
   ],
   exports : [OfficeComponent],
   providers: [],
