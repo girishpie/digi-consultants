@@ -85,6 +85,11 @@ public enum PermissionType {
     READ_MOM,
     UPDATE_MOM,
 	
+	CREATE_OFFICE,
+    DELETE_OFFICE,
+    READ_OFFICE,
+    UPDATE_OFFICE,
+	
     CREATE_CR,
     DELETE_CR,
     READ_CR,

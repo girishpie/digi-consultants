@@ -95,6 +95,12 @@ export class RoleHelper {
     this.permissions.set('READ_MOM', 'Can view the list Meetings');
     this.permissions.set('UPDATE_MOM', 'Can edit a Meeting');
 
+    this.permissions.set('CREATE_OFFICE', 'Can add a new Office');
+    this.permissions.set('DELETE_OFFICE', 'Can delete Office');
+    this.permissions.set('READ_OFFICE', 'Can view the list Officies');
+    this.permissions.set('UPDATE_OFFICE', 'Can edit a Office');
+
+
   }
 
   public getPermissions(): Array<string> {

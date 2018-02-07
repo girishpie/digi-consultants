@@ -1,8 +1,3 @@
-/**
- * Created by gipai on 10/8/2017.
- */
-
-
 import {Component} from "@angular/core";
 import {QueryParamsService} from "../home/query-obeservables/query-params.service";
 import {RoleService} from "./role.service";

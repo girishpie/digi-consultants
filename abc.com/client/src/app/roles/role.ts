@@ -1,6 +1,3 @@
-/**
- * Created by gipai on 10/3/2017.
- */
 import { Class } from '@angular/core';
 
 

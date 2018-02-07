@@ -1,9 +1,5 @@
 import {Role} from "./role";
 import {Injectable} from "@angular/core";
-/**
- * Created by gipai on 10/8/2017.
- */
-
 
 @Injectable()
 export class Roles {
