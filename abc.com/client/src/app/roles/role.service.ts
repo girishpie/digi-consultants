@@ -83,4 +83,13 @@ export class RoleService {
         }
       );
   }
+  public update(role: Role)  {
+    const endPoint = this.userUrl  + role.getId();
+      // Returns response
+    return this.http.patch(endPoint, document)
+      .map(res => {
+          const res1 = res.json();
+        }
+      );
+  }
 }

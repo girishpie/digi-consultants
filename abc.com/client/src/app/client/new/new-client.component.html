@@ -19,6 +19,14 @@
               </option>
             </select>
           </div>
+          <div class="form-group" >
+            <label for="project-option" class="form-control-label">Project:</label>
+            <select id="project-option" class="form-control"   [(ngModel)]="projectId" name="projects">
+              <option *ngFor="let company of availableProjects" [value]="project.id">
+                {{ project.projectName }}
+              </option>
+            </select>
+          </div>
         </form>
       </div>
       <div class="modal-footer">

@@ -17,7 +17,9 @@ export class RoleComponent {
 
   private roleMap : Map<string,Map<string,boolean>>;
   private check:boolean;
-
+  loading:boolean = false;
+  isValid:boolean;
+  
   constructor(private  roleService: RoleService,
               private roles: Roles ,
               private roleHelper:RoleHelper,
@@ -53,6 +55,15 @@ export class RoleComponent {
      }
      return false;
   }
+  public updateRole(role: Role) {
+    this.loading = true;
+    this.roleService.update(role).subscribe(data => {
+		 this.loading = false;
+    });
+  }
+    onRowClick(event){
+     this.isValid = true;
+    } 
 
   public save(role:Role , permission : string){
       let value = this.roleMap.get(role.getId()).get(permission);

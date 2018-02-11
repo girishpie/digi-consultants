@@ -62,6 +62,7 @@ export class CategoryComponent implements OnInit {
     });
 
   }
+  
  public editCategory(category: Category) {
   this.pageMode = "editMode";
  }

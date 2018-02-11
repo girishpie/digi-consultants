@@ -16,15 +16,15 @@
     </thead>
     <tbody>
      <tr *ngFor="let role of roles.roles| filter:filter">
-        <td class = "table-cell">{{ role.name }}</td>
-        <td class = "table-cell">{{ role.lastUpdated }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="role.name" (input)="role.name=$event.target.textContent">{{ role.name }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="role.lastUpdated" (input)="role.lastUpdated=$event.target.textContent">{{ role.lastUpdated }}</td>
          <td class = "table-cell">
             <tooltip-content #screeningOptions class="recommended-programs-tooltip">
                 <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
                   <div class="tooltip-text-regisnation">Edit</div>
                 </div>
             </tooltip-content>
-      <img src="assets/edit.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions">
+      <img src="assets/edit.svg" (click) = "updateRole(role)" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions">
       <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
           <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
             <div class="tooltip-text-regisnation">Delete</div>

@@ -14,7 +14,7 @@
   </thead>
   <tbody>
       <tr *ngFor="let category of categories.categories | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: categories.totalItems, id:'server'} ">
-        <td class = "table-cell">{{ category.name }}</td>
+        <td class = "table-cell" >{{ category.name }}</td>
         <td class = "table-cell">{{ category.description }}</td>
          <td class = "table-cell">
           {{ category.subCategories }} 

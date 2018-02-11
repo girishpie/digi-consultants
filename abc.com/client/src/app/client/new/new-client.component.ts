@@ -4,6 +4,9 @@ import { CompanyService } from '../../company/company.service';
 import { Client } from '../client';
 import { ClientService } from '../client.service';
 import { Clients } from '../clients';
+import { Project} from '../../project/project';
+import { Projects} from '../../project/projects';
+import { ProjectService} from '../../project/project.service';
 import { Component, Input, OnInit } from '@angular/core';
 import {StateService } from '@uirouter/angular';
 import { ClientComponent } from '../client.component';
@@ -17,17 +20,20 @@ const clientState = { name: 'client', url: '/client',  component: ClientComponen
 })
 export class NewClientComponent implements OnInit {
    private availableCompanies: Company[];
+   private availableProjects: Project[];
    private name: string ;
    private address: string ;
    private companyId: string ;
+   private projectId: string;
 
-  constructor(private  clientService: ClientService, private companyService: CompanyService, 
-              private clients: Clients, private companies: Companies,  public stateService: StateService)  {
+  constructor(private  clientService: ClientService, private companyService: CompanyService, private projectService: ProjectService,
+            private projects:Projects,  private clients: Clients, private companies: Companies,  public stateService: StateService)  {
 
   }
 
   ngOnInit() {
     this.getCompanies();
+    this.getProjects();
   }
   
   addNewClient() {
@@ -52,6 +58,14 @@ export class NewClientComponent implements OnInit {
   getCompanies(){
     this.companyService.getCompanies(null).subscribe( data => {
       this.availableCompanies = this.companies.getCompanies();
+    }, error => {
+      window.alert(error._body);
+    });
+  }
+
+  getProjects(){
+    this.projectService.getProjects(null).subscribe( data => {
+      this.availableProjects = this.projects.getProjects();
     }, error => {
       window.alert(error._body);
     });
