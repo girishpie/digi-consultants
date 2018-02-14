@@ -67,11 +67,10 @@ h1 {
 	    </article>
 	</div>
 
-	<div class="right-half" style="background-color: white; position: absolute;right: 0px;width: 50%;height: 100%">
+	<div class="right-half" style="background-color: white; position: absolute; width: 50%;height: 100%: align:center" >
     	<article>
-    	<a style="
-                font-size: xx-large;"></a>
-               
+    	<a style="font-size: xx-large;"></a>
+<!-- <img src="../../static/assets/digiconsult_logo.png" width="150" th:src="@{/assets/digiconsult_logo.png}"/>     -->   
         <div th:if="${param.error}">
             Invalid username and password.
         </div>
@@ -81,13 +80,14 @@ h1 {
         <form th:action="@{/login}" method="post">
             <div><label> User Name : <input style="border-radius: 25px;border-color:#1E90FF;font-size:1em;width:21em;line-height:2em;" 
 	        name="username" placeholder="  Email" /> </label>
-	        <i class="fa fa-key"></i>
+	        <i class="fa fa-key"></i><br />
 	        </div>
-            <div><label> Password: <input name="password" style="border-radius: 25px;border-color:#1E90FF;font-size:1em;width:21em;line-height:2em;"
+            <div><label> Password : <input name="password" style="border-radius: 25px;border-color:#1E90FF;font-size:1em;width:21em;line-height:2em;"
              type="password" placeholder="  Password"/> </label>
-             <i class="fa fa-lock"></i><a style="color:#1E90FF; text-align:left" href="/forgot"> Forgot Your Password? </a>
+             <i class="fa fa-lock"></i><br />
+			 <a style="color:#1E90FF; text-align:center" href="/forgot"> Forgot Your Password? </a><br />
              </div>
-            <div><input type="submit" style="font-size:1em;width:21em;line-height:2em;border-radius: 25px;background-color:blue" value="Sign In"/></div>
+            <div><input type="submit" style="font-size:1em;width:27em;line-height:2em;border-radius: 25px;background-color:blue;color:white;" value="Sign In"/></div>
         </form>
          </article>
 </div>

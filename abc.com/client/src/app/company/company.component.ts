@@ -18,6 +18,8 @@ export class CompanyComponent implements OnInit {
   private subscription: Subscription;
   private currentSearchString: string;
   private currentPage = 1;
+  private currentCompanyAddress:string;
+  private currentCompanyName:string;
   isValid:boolean;
   loading:boolean= false;
   constructor(private  companyService: CompanyService,
@@ -25,6 +27,14 @@ export class CompanyComponent implements OnInit {
               private queryParamsService: QueryParamsService)  {
     this.getCompanies(null);
   }
+
+  public getCompany(company: Company) {
+    console.log(company.getCompanyName());
+    console.log(company.getAddress());
+    this.currentCompanyName = company.getCompanyName();
+    this.currentCompanyAddress = company.getAddress();
+  }
+
 
   ngOnInit() {
     this.subscription = this.queryParamsService.getQueryParams()

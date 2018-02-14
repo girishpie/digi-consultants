@@ -46,7 +46,8 @@ export class RequestComponent implements OnInit {
     this.requestService.getRequests(queryParams).subscribe(data => {
       },
     error => {
-      window.alert(error._body);
+      var errorMessage = JSON.parse(error._body);
+      window.alert(errorMessage.message);
     });
 
   }

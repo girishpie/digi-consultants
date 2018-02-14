@@ -57,7 +57,7 @@ export class NewMeetingComponent implements OnInit {
         //meeting.setId(this.id);
         meeting.setMeetingType(this.type);
         meeting.setVenue(this.venue);
-        meeting.setDate(this.ondate);
+        meeting.setDate(new Date(this.ondate));
         meeting.setProjectId(this.projectId);
         meeting.setPplList(this.employees);
 
@@ -68,7 +68,8 @@ export class NewMeetingComponent implements OnInit {
             this.stateService.go('meeting');
 
         }, error => {
-            window.alert(error._body);
+            var errorMessage = JSON.parse(error._body);
+            window.alert(errorMessage.errorMessage);
         });
 
     }

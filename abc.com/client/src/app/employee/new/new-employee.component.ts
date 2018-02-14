@@ -63,7 +63,7 @@ export class NewEmployeeComponent implements OnInit {
     employee.setTelephone(this.telephone);
     employee.setMobile(this.mobile);
     employee.setEmail(this.email);
-    employee.setDOB(this.DOB);
+    // employee.setDOB(new Date(this.DOB));
     employee.setCompanyId(this.companyId);
     employee.setProjectIds(this.projectIds);
     
@@ -74,7 +74,8 @@ export class NewEmployeeComponent implements OnInit {
          this.stateService.go('employee');
 	    
     }, error => {
-      window.alert(error._body);
+      var errorMessage = JSON.parse(error._body);
+      window.alert(errorMessage.errorMessage);
     });
    
   }
@@ -83,7 +84,8 @@ export class NewEmployeeComponent implements OnInit {
     this.companyService.getCompanies(null).subscribe( data => {
       this.availableCompanies = this.companies.getCompanies();
     }, error => {
-       window.alert(error._body);
+      var errorMessage = JSON.parse(error._body);
+      window.alert(errorMessage.errorMessage);
     });
   }
   
@@ -91,7 +93,8 @@ export class NewEmployeeComponent implements OnInit {
     this.projectService.getProjects(null).subscribe( data => {
       this.availableProjects = this.projects.getProjects();
     }, error => {
-      window.alert(error._body);
+      var errorMessage = JSON.parse(error._body);
+      window.alert(errorMessage.errorMessage);
     });
   }
   

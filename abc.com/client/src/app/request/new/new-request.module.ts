@@ -4,6 +4,8 @@ import {HttpModule} from '@angular/http';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {NewRequestComponent}  from '../new/new-request.component';
 import { FormsModule } from '@angular/forms';
+import {ProjectModule} from '../../project/project.module';
+
 
  @NgModule({
   declarations: [
@@ -14,6 +16,7 @@ import { FormsModule } from '@angular/forms';
     HttpModule,
     NgxPaginationModule,
     FormsModule,
+    ProjectModule
     
   ],
   exports : [NewRequestComponent],

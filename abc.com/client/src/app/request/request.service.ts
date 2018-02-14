@@ -11,7 +11,7 @@ import {Globals} from "../globals/globals";
 export class RequestService {
 
 
-  private requestUrl = this.globals.getBackendUrl() +  'request/';
+  private requestUrl = this.globals.getBackendUrl() +  'qualityControl/';
 
   constructor(private http: Http, private  requests: Requests, private globals: Globals ) {
 
@@ -46,7 +46,7 @@ export class RequestService {
             request.setDescription(response[i].Description);
             request.setStatus(response[i].Status);
             request.setDOB(response[i].DOB);
-            request.setProject(response[i].project);
+            request.setProjectId(response[i].projectId);
             request.setRaised(response[i].Raised);
             request.setAction(response[i].Action);
             requests.push(request)
@@ -63,12 +63,15 @@ export class RequestService {
 
 
   public save(request: Request)  {
-    const endPoint = this.requestUrl + request.getId();
+    const endPoint = this.requestUrl + request.getProjectId();
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     let options = new RequestOptions({ headers: headers });
+    // let formData:FormData = new FormData();
+   
+    // 	formData.append('inputStr', JSON.stringify(request));
     // Returns response
-    return this.http.post(endPoint, request, options)
+    return this.http.post(endPoint, request)
       .map(res => {
           const res1 = res.json();
           request.setId(res1.id);

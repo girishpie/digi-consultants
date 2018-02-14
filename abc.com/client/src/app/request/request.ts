@@ -6,7 +6,7 @@ export class Request
     private  Description: string;
     private  Status: string;
     private  DOB :Date;
-    private Project: string;
+    private ProjectId: string;
     private Raised: string;
     private Action: string;
 
@@ -49,15 +49,12 @@ export class Request
     { 
       return this.DOB ;
     }
-    public setProject ( Project: string ) 
-    {
-      this.Project = Project;
-    }
-
-    public getProject(): string 
-    {
-      return this.Project ;
-    }
+    public setProjectId ( projectId: string ) {
+      this.ProjectId = projectId;
+  }
+  public getProjectId (): string {
+      return this.ProjectId ;
+  }
     public setRaised(Raised: string)
     {
         this.Raised =Raised;

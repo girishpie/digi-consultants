@@ -9,7 +9,7 @@
     <th>Client Name</th>
     <th>Address</th>
     <th>Client's Company</th>
-    <th>Projects</th>
+    <!-- <th>Projects</th> -->
   </tr>
   </thead>
   <tbody>
@@ -17,7 +17,7 @@
         <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="client.name" (input)="client.name=$event.target.textContent">{{ client.name }}</td>
         <td class = "table-cell"  contenteditable='true' (input)="onRowClick($event)" [textContent]="client.address" (input)="client.address=$event.target.textContent">{{ client.address }}</td>
         <td class = "table-cell">{{ client.companyName }}</td>
-        <td class = "table-cell"  contenteditable='true' (input)="onRowClick($event)" [textContent]="client.projectNames" (input)="client.projectNames=$event.target.textContent">{{ client.projectNames }}</td>
+        <!-- <td class = "table-cell"  contenteditable='true' (input)="onRowClick($event)" [textContent]="client.projectNames" (input)="client.projectNames=$event.target.textContent">{{ client.projectNames }}</td> -->
          <td class = "table-cell">
           <button [disabled]="!isValid" class="btn-primary" (click) = "updateClient(client)">
             <img src="assets/edit.svg" style="width:30px"></button> 

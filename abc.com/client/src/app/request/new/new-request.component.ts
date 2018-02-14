@@ -4,6 +4,9 @@ import { RequestService } from '../request.service';
 import { RequestComponent } from '../request.component';
 import { Requests } from '../requests';
 import { StateService } from '@uirouter/angular';
+import {ProjectService} from "../../project/project.service";
+import {Project} from "../../project/project";
+import {Projects} from "../../project/projects";
 
 //declare var jQuery:any;
 const requestState ={name:'request', url:'/request', component:RequestComponent};
@@ -21,7 +24,7 @@ export class NewRequestComponent implements OnInit {
     private DOB: Date;
     private type: string;
     private Raised: string;
-    private project: string;
+    private projectId: string;
     private assignee: string;
     private Status: string ;
     private Action: string ;
@@ -29,10 +32,13 @@ export class NewRequestComponent implements OnInit {
 
     constructor(private  requestService: RequestService, 
         private requests: Requests,
-        public stateService: StateService)  
+        public stateService: StateService, private projectService:ProjectService,
+        private projects: Projects)  
         {}
 
-    ngOnInit()  {}
+    ngOnInit()  {
+      this.getProjects();
+    }
   
     addNewRequest() 
     {
@@ -41,7 +47,7 @@ export class NewRequestComponent implements OnInit {
      request.setDescription(this.Description);
      request.setStatus(this.Status);
      request.setDOB(this.DOB);
-     request.setProject(this.project);
+     request.setProjectId(this.projectId);
      request.setRaised(this.Raised);
      request.setAction(this.Action);
    
@@ -55,7 +61,13 @@ export class NewRequestComponent implements OnInit {
    }
    
   
-  
+   getProjects() {
+    this.projectService.getProjects(null).subscribe( data => {
+
+    }, error => {
+        console.log(error._body.toString() + " No roles found");
+    });
+}
   
   goBack() {
     window.history.back();

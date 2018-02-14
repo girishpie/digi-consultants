@@ -11,7 +11,7 @@ import {Globals} from "../globals/globals";
 export class QualityService {
 
 
-  private qualityUrl = this.globals.getBackendUrl() +  'quality/';
+  private qualityUrl = this.globals.getBackendUrl() +  'qualityControl/';
 
   constructor(private http: Http, private  qualities: Qualities, private globals: Globals ) {
 

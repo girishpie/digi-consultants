@@ -45,7 +45,9 @@ export class MeetingComponent implements OnInit {
     this.meetingService.getMeetings(queryParams).subscribe(data => {
       },
     error => {
-      console.log(error._body.toString() + ' No Meeting are available');
+      // console.log(error._body.toString() + ' No Meeting are available');
+      var errorMessage = JSON.parse(error._body);
+      window.alert(errorMessage.errorMessage);
     });
 
   }

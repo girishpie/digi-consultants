@@ -9,19 +9,17 @@
         <table class="table">
           <thead>
           <tr>
-            <th>Meeting Type</th>
-            <th>Meeting Type</th>
+            <th>Meeting Objective</th>
             <th>Venue</th>
-            <th>Date</th>
             <th>Uploaded by</th>
           </tr>
           </thead>
           <tbody>
               <tr *ngFor="let meeting of meetings.meetings| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: meetings.totalItems, id:'server'} ">
-                  <td class = "table-cell" >{{ meeting.meetingNo }}</td>
-                  <td class = "table-cell" >{{ meeting.type }}</td>
+                  <td class = "table-cell" >{{ meeting.objective }}</td>
+                  <!-- <td class = "table-cell" >{{ meeting.meetingType }}</td> -->
                 <td class = "table-cell" >{{ meeting.venue }}</td>
-                <td class = "table-cell">{{ meeting.ondate |  date:'MM/dd/yyyy'}}</td>
+                <!-- <td class = "table-cell">{{ meeting.ondate |  date:'MM/dd/yyyy'}}</td> -->
                 <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="meeting.createdBy" (input)="meeting.createdBy=$event.target.textContent">{{ meeting.createdBy }}</td>
                 <td class = "table-cell">
                     <tooltip-content #screeningOptions class="recommended-programs-tooltip">
@@ -32,7 +30,7 @@
                    <img src="assets/edit.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions">
                    <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
                       <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
-                        <div class="tooltip-text-regisnation">Edit</div>
+                        <div class="tooltip-text-regisnation">Delete</div>
                       </div>
                     </tooltip-content>
                    <img src="assets/delete.svg" (click) = "deleteMeeting(meeting)" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1">

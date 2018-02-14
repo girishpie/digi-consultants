@@ -43,6 +43,7 @@ export class MeetingService
               for ( i = 0 ; i < response.length ; i++) {
                 const meeting: Meeting = new Meeting();
                 meeting.setId(response[i].id);
+                meeting.setObjective(response[i].objective);
                 meeting.setMeetingType(response[i].type);
                 meeting.setVenue(response[i].venue);
                 meeting.setDate(response[i].date);

@@ -44,23 +44,23 @@ public class QualityControlController {
     
     
     @PreAuthorize("hasAuthority('CREATE_CR')")
-    @RequestMapping(value = "/{projectId}", headers = "content-type=multipart/*", method = RequestMethod.POST)
-    ResponseEntity<IResponse> add(@PathVariable("projectId") String projectId, @RequestParam("file")  MultipartFile file, @RequestBody QualityControl input ) {
+    @RequestMapping(value = "/{projectId}", method = RequestMethod.POST)
+    ResponseEntity<IResponse> add(@PathVariable("projectId") String projectId, @RequestBody QualityControl input ) {
         Project project = projectRepository.findById(projectId);
         if(project == null){
             return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "PROJECT_NOT_FOUND", projectId ));
 
         } 
-        try {
+        /*try {
         	String id = documentRepository.storeDocument(file.getOriginalFilename(),
                 file.getContentType(),
                 file.getInputStream());
         	
-        	input.addDocumentId(id, file.getOriginalFilename());
+        	//input.addDocumentId(id, file.getOriginalFilename());
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseWrapper.getResponse(new RestError(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
-        }
+        }*/
         
         QualityControl qc = qualityControlRepository.save(input);
         project.addCR(qc.getId());
