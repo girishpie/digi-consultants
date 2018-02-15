@@ -31,7 +31,7 @@ export class NewDepartmentComponent implements OnInit {
 
   addNewDepartment() {
     let department: Department = new Department();
-    department.setBoqDepartmentName(this.name);
+    department.setDepartmentName(this.name);
     department.setProjectId(this.projectId);
     this.departmentService.save(department).subscribe(data => {
         console.log(data);

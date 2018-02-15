@@ -33,7 +33,6 @@ export class NewClientComponent implements OnInit {
 
   ngOnInit() {
     this.getCompanies();
-    this.getProjects();
   }
   
   addNewClient() {
@@ -49,7 +48,8 @@ export class NewClientComponent implements OnInit {
       this.stateService.go('client');
 
     }, error => {
-      window.alert(error._body);
+      var errorMessage = JSON.parse(error._body);
+      window.alert(errorMessage.errorMessage);
     });
 
 
@@ -59,15 +59,8 @@ export class NewClientComponent implements OnInit {
     this.companyService.getCompanies(null).subscribe( data => {
       this.availableCompanies = this.companies.getCompanies();
     }, error => {
-      window.alert(error._body);
-    });
-  }
-
-  getProjects(){
-    this.projectService.getProjects(null).subscribe( data => {
-      this.availableProjects = this.projects.getProjects();
-    }, error => {
-      window.alert(error._body);
+      var errorMessage = JSON.parse(error._body);
+      window.alert(errorMessage.errorMessage);
     });
   }
 

@@ -44,6 +44,7 @@ export class SpecificationService {
             const specification: Specification = new Specification();
             specification.setId(response[i].Id);
             specification.setSpecificationName(response[i].specificationName);
+            specification.setSectionName(response[i].sectionName);
             specification.setDOB(response[i].DOB);
             specification.setSectionId(response[i].sectionId);
             specification.setAnswer(response[i].answer);
@@ -60,7 +61,7 @@ export class SpecificationService {
 
 
   public save(specification: Specification)  {
-    const endPoint = this.specificationUrl + specification.getId();
+    const endPoint = this.specificationUrl + specification.getSectionId();
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     let options = new RequestOptions({ headers: headers });

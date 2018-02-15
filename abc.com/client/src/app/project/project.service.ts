@@ -76,6 +76,7 @@ export class ProjectService {
 
   public save(project: Project)  {
     const endPoint = this.projectUrl + project.getClientId();
+    console.log(endPoint);
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     let options = new RequestOptions({ headers: headers });
@@ -100,6 +101,7 @@ export class ProjectService {
         }
       );
   }
+
   public update(project: Project)  {
     const endPoint = this.projectUrl  + project.getId();
       // Returns response

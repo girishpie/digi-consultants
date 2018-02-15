@@ -43,7 +43,7 @@ export class NewProductComponent implements OnInit {
   addNewProduct() {
     let product: Product = new Product();
     product.setSectionId(this.sectionId);
-    product.setCategoryId(this.categoryId);
+    product.setProductCatName(this.categoryId);
     product.setName(this.name);
     product.setAmount(this.amount);
     product.setBimId(this.bimId);

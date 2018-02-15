@@ -60,7 +60,7 @@ export class QualityService {
 
 
   public save(quality: Quality)  {
-    const endPoint = this.qualityUrl + quality.getId();
+    const endPoint = this.qualityUrl + quality.getProjectId();
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     let options = new RequestOptions({ headers: headers });

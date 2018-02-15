@@ -58,7 +58,7 @@ export class DocumentComponent implements OnInit {
     onRowClick(event){
      this.isValid = true;
     } 
-
+         
   public deleteDocument(document: Document) {
     this.documentService.delete(document.getId()).subscribe(data => {
 

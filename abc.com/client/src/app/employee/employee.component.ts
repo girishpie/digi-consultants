@@ -60,7 +60,7 @@ export class EmployeeComponent implements OnInit {
     } 
 
 
-
+       
   public deleteEmployee(employee: Employee) {
     this.employeeService.delete(employee.getId()).subscribe(data => {
 

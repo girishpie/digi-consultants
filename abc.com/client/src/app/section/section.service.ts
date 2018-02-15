@@ -43,7 +43,7 @@ export class SectionService {
           for ( i = 0 ; i < response.length ; i++) {
             const section: Section = new Section();
             section.setSectionName(response[i].sectionName);
-            section.setSpecificationName(response[i].sepecificationName);
+            section.setSpecificationName(response[i].specificationName);
             section.setProductNames(response[i].productNames);
             section.setId(response[i].id);
             sections.push(section);

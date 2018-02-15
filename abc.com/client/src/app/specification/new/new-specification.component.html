@@ -30,6 +30,14 @@
           <input type="text" class="form-control" id="apecification-answer" name="answer" [(ngModel)]="answer">
         </div>
       </div>
+      <div class="form-group" >
+        <label for="section-option" class="form-control-label">Sections:</label>
+        <select id="section-option" class="form-control"   [(ngModel)]="sectionId" name="sections">
+          <option *ngFor="let section of availableSections" [value]="section.id">
+            {{ section.sectionName }}
+          </option>
+        </select>            
+      </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="goBack()">Cancel</button>
         <button type="button" class="btn btn-primary" (click)="addNewSpecification()" >Add</button>

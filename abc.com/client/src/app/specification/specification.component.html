@@ -9,18 +9,13 @@
     <table class="table">
       <thead>
       <tr>
-        <th>Sr.No</th>
         <th>Specification</th>
-        <th>Answer</th>
         <th>Section</th>
-        <th>Action</th>
       </tr>
       </thead>
       <tbody>
         <tr *ngFor="let specification of specifications.specifications| filter:filter ">
-            <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="specification.Id" (input)="specification.Id=$event.target.textContent">{{specification.Id}}</td>
             <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="specification.specificationName" (input)="specification.specificationName=$event.target.textContent">{{specification.specificationName}}</td>
-            <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="specification.answer" (input)="specification.answer=$event.target.textContent">{{specification.answer}}</td>
             <td class = "table-cell">{{specification.sectionId}}</td>
             <td class = "table-cell"></td>
              <td class = "table-cell">

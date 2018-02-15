@@ -69,7 +69,7 @@ export class CompanyComponent implements OnInit {
     this.isValid = true;
     } 
 
-
+         
   public deleteCompany(company: Company) {
     this.companyService.delete(company.getId()).subscribe(data => {
 

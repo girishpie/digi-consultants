@@ -58,7 +58,7 @@ export class ProjectComponent implements OnInit {
     onRowClick(event){
      this.isValid = true;
     } 
-
+         
   public deleteProject(project: Project) {
     this.projectService.delete(project.getId()).subscribe(data => {
 

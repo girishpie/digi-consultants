@@ -4,7 +4,9 @@ import { SpecificationService } from '../specification.service';
 import { SpecificationComponent } from '../specification.component';
 import { Specifications } from '../specifications';
 import { StateService } from '@uirouter/angular';
-
+import { Section } from '../../section/section';
+import { Sections } from '../../section/sections';
+import { SectionService } from '../../section/section.service';
 //declare var jQuery:any;
 const specificationState ={name:'specification', url:'/specification', component:SpecificationComponent};
 
@@ -17,6 +19,7 @@ const specificationState ={name:'specification', url:'/specification', component
 
 export class NewSpecificationComponent implements OnInit {
 
+   private availableSections: Section[];
     private Id: string ;
     private DOB: Date;
     private specificationName: string;
@@ -26,12 +29,14 @@ export class NewSpecificationComponent implements OnInit {
     showDetailsA: boolean = false;
     showDetailsB: boolean = false;
     
-    constructor(private  specificationService: SpecificationService, 
-        private specifications: Specifications,
+    constructor(private sectionService: SectionService, private  specificationService: SpecificationService, 
+        private specifications: Specifications, private sections: Sections,
         public stateService: StateService)  
         {}
 
-    ngOnInit()  {}
+    ngOnInit()  { 
+      this.getSections();
+    }
         
     toggleDetails(): void {
         this.showDetails = !this.showDetails;
@@ -59,6 +64,13 @@ export class NewSpecificationComponent implements OnInit {
       	window.alert(error._body);
      });
    }
+   getSections() {
+    this.sectionService.getSections(null).subscribe( data => {
+      this.availableSections = this.sections.getSections();
+    }, error => {
+      window.alert(error._body);
+    });
+  }
    
   
   

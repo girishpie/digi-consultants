@@ -7,6 +7,7 @@ export class Specification
     private  sectionId: string;
     private  answer : string;
     private  DOB:Date;
+    private  sectionName:string;
      
     constructor() 
     {}
@@ -53,6 +54,15 @@ export class Specification
     public getAnwer(): string 
     { 
       return this.answer ;
+    }
+    public setSectionName ( sectionsId: string ) 
+    {
+      this.sectionId = sectionsId;
+    }
+
+    public getSectionName(): string 
+    {
+      return this.sectionId ;
     }
   
 }

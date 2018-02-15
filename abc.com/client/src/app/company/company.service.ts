@@ -84,6 +84,7 @@ export class CompanyService {
         }
       );
   }
+  
   public update(company: Company)  {
     const endPoint = this.companyUrl  + company.getId();
       // Returns response

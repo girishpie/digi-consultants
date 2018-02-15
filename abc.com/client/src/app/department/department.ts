@@ -16,10 +16,10 @@ export class Department {
   public getId (): string {
     return this.id ;
   }
-   public setBoqDepartmentName( name: string ) {
+   public setDepartmentName( name: string ) {
     this.departmentName = name;
   }
-  public getBoqDepartmentName (): string {
+  public getDepartmentName (): string {
     return this.departmentName ;
   }
   public setProjectName ( projectName: string ) {

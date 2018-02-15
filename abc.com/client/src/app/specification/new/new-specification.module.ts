@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import {NewSpecificationComponent} from './new-specification.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { SectionModule } from '../../section/section.module';
+import { SearchModule } from '../../search/search.module';
 
 @NgModule({
   declarations: [
@@ -9,7 +11,8 @@ import { BrowserModule } from '@angular/platform-browser';
   ],
   imports: [
     FormsModule,
-    BrowserModule
+    BrowserModule,
+    SectionModule
   ],
   exports : [NewSpecificationComponent],
   providers: [],
