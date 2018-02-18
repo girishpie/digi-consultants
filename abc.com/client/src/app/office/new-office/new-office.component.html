@@ -14,6 +14,14 @@
             <label for="office=fax" class="form-control-label">Fax:</label>
             <input type="text" class="form-control" id="fax" [(ngModel)]="fax" name="first">
           </div>
+          <div class="form-group" >
+            <label for="company-option" class="form-control-label">Companies:</label>
+            <select id="company-option" class="form-control"   [(ngModel)]="companyId" name="companies">
+              <option *ngFor="let company of availableCompanies" [value]="company.id">
+                {{ company.companyName }}
+              </option>
+            </select>
+          </div>
        </form>
      </div>
      <div class="modal-footer">

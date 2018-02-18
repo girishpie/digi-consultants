@@ -7,7 +7,8 @@ export class Office {
   private fax: string;
   private  telephone: number;
   private companyId:string;
- 
+  private  companyName: string;
+
   
   constructor() {
   }
@@ -49,6 +50,12 @@ export class Office {
   
   public getCompanyId (): string {
     return this.companyId ;
+  }
+  public setCompanyName( companyName: string ) {
+    this.companyName = companyName;
+  }
+  public getCompanyName (): string {
+    return this.companyName ;
   }
      
 }

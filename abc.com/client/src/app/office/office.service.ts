@@ -46,6 +46,7 @@ export class OfficeService {
             office.setAddress(response[i].address);
             office.setFax(response[i].fax);
             office.setTelephone(response[i].telephone);
+            office.setCompanyName(response[i].companyName);
             office.setId(response[i].id);
             offices.push(office);
           }

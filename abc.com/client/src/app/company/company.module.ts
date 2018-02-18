@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 //import {CompanyListModule} from '../companylist/compnylist.module';
 import {EmployeeModule} from '../employee/employee.module';
 import {OfficeModule} from '../office/office.module';
-import {NewOfficeModule} from '../office/new-office/new-office.module';
+// import {NewOfficeModule} from '../office/new-office/new-office.module';
 import { TooltipModule } from "ngx-tooltip";
 
 @NgModule({
@@ -28,7 +28,7 @@ import { TooltipModule } from "ngx-tooltip";
    // CompanyListModule,
     EmployeeModule,
     OfficeModule,
-    NewOfficeModule,
+    // NewOfficeModule,
     TooltipModule
   ],
   exports : [CompanyComponent],
