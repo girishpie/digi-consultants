@@ -58,27 +58,23 @@ export class OfficeService {
 
 
 
-  // public save(office: Office)  {
-  //   const endPoint = this.officeUrl;// + office.getCompanyId();
-  //   var headers = new Headers();
-  //   headers.append('Content-Type', 'application/json');
-  //   let options = new RequestOptions({ headers: headers });
-   
-  //   // let formData:FormData = new FormData();
-  //   // //if(file !== null){
-  //   // 	formData.append('file', file, file.name);
-  //   // 	formData.append('inputStr', JSON.stringify(office));
-  //   // //}
-  //   // Returns response
-  //   return this.http.post(endPoint, office)
-  //     .map(res => {
-  //         const res1 = res.json();
-  //         office.setId(res1.id);
-  //         this.offices.addOffice(office);
-  //         return res1.id;
-  //       }
-  //     );
-  // }
+ 
+  public save(office: Office)  {
+    const endPoint = this.officeUrl + office.getCompanyId();
+
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    // Returns response
+    return this.http.post(endPoint, office)
+      .map(res => {
+          const res1 = res.json();
+          office.setId(res1.id);
+          this.offices.addOffice(office);
+          return res1.id;
+        }
+      );
+  }
+
 
   public delete(id: string)  {
     const endPoint = this.officeUrl  + id ;

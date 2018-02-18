@@ -5,7 +5,7 @@ export class Office {
   private  id: string;
   private address: string;
   private fax: string;
-  private  telephone: string;
+  private  telephone: number;
   private companyId:string;
  
   
@@ -35,11 +35,11 @@ export class Office {
     return this.fax ;
   }
   
-   public setTelephone ( telephone: string ) {
+   public setTelephone ( telephone: number ) {
     this.telephone = telephone;
   }
   
-  public getTelephone (): string {
+  public getTelephone (): number {
     return this.telephone ;
   }
   
