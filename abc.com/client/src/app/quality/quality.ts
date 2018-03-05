@@ -4,12 +4,11 @@ import { Class } from '@angular/core';
 export class Quality {
   
   private id: string;
-  private Title: string;
+  private assignee: string;
   private status: string;
-  private Opened: Date;
   private shortDescription: string;
   private targetEnddate: Date;
-  private ProjectId: string;
+  private projectId: string;
   private ProjectName : string;
 
   constructor() {
@@ -26,17 +25,17 @@ export class Quality {
   public getStatus (): string {
     return this.status ;
   }
-  public setTitle ( Title: string ) {
-    this.Title = Title;
+  public setTitle ( assignee: string ) {
+    this.assignee = assignee;
   }
   public getTitle (): string {
-    return this.Title ;
+    return this.assignee ;
   }
-  public setOpened ( Opened: Date ) {
-    this.Opened = Opened;
+  public setOpened ( targetEnddate: Date ) {
+    this.targetEnddate = targetEnddate;
   }
   public getOpened (): Date {
-    return this.Opened ;
+    return this.targetEnddate ;
   }
   public setDescription ( shortDescription: string ) {
     this.shortDescription = shortDescription;
@@ -50,11 +49,11 @@ export class Quality {
   public getRectified (): Date {
     return this.targetEnddate ;
   }
-  public setProjectId ( ProjectId: string ) {
-    this.ProjectId = ProjectId;
+  public setProjectId ( projectId: string ) {
+    this.projectId = projectId;
   }
   public getProjectId (): string {
-    return this.ProjectId ;
+    return this.projectId ;
   }
   public setProjectName ( ProjectName: string ) {
     this.ProjectName = ProjectName;

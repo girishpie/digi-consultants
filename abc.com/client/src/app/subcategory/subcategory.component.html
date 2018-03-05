@@ -16,7 +16,7 @@
   </tr>
   </thead>
   <tbody>
-      <tr *ngFor="let subcategory of subcategories.subcategories| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: subcategories.totalItems, id:'server'} ">
+      <tr *ngFor="let subcategory of subcategories.subcategories| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: subcategories.totalItems, id:'server'} ">
         <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="subcategory.name" (input)="subcategory.name=$event.target.textContent">{{ subcategory.name }}</td>
         <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="subcategory.description" (input)="subcategory.description=$event.target.textContent">{{ subcategory.description }}</td>
         <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="subcategory.parentName" (input)="subcategory.parentName=$event.target.textContent">{{ subcategory.parentName }}</td>

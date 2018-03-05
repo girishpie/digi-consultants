@@ -15,7 +15,7 @@
           </tr>
           </thead>
           <tbody>
-              <tr *ngFor="let meeting of meetings.meetings| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: meetings.totalItems, id:'server'} ">
+              <tr *ngFor="let meeting of meetings.meetings| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: meetings.totalItems, id:'server'} ">
                   <td class = "table-cell" >{{ meeting.objective }}</td>
                   <!-- <td class = "table-cell" >{{ meeting.meetingType }}</td> -->
                 <td class = "table-cell" >{{ meeting.venue }}</td>

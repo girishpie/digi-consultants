@@ -22,7 +22,7 @@ export class EmployeeService {
   public getEmployees(queryParams: QueryParams)  {
 
     let pageNumber = 0;
-    const pageSize = 3;
+    const pageSize = 10;
     let searchString = null;
 
     if (queryParams !== null) {

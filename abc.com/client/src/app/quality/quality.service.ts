@@ -20,7 +20,7 @@ export class QualityService {
   public getQualities(queryParams: QueryParams)  {
 
     let pageNumber = 0;
-    const pageSize = 3;
+    const pageSize = 10;
     let searchString = null;
 
     if (queryParams !== null) {
@@ -43,10 +43,10 @@ export class QualityService {
           for ( i = 0 ; i < response.length ; i++) {
             const quality: Quality = new Quality();
             quality.setTitle(response[i].Title);
-            quality.setStatus(response[i].Status);
-            quality.setOpened(response[i].Opened);
-            quality.setDescription(response[i].Description);
-            quality.setRectified(response[i].Rectified);
+            quality.setStatus(response[i].status);
+            quality.setOpened(response[i].targetEnddate);
+            quality.setDescription(response[i].description);
+            // quality.setRectified(response[i].Rectified);
             qualities.push(quality);
         
           }

@@ -3,12 +3,12 @@ import { Class } from '@angular/core';
 export class Request 
 {
     private  id: string;
-    private  Description: string;
-    private  Status: string;
-    private  DOB :Date;
-    private ProjectId: string;
-    private Raised: string;
-    private Action: string;
+    private  shortDescription: string;
+    private  status: string;
+    private  targetEnddate :Date;
+    private projectId: string;
+    private assignee: string;
+    private remarks: string;
 
 
     constructor() 
@@ -22,54 +22,54 @@ export class Request
       return this.id ;
       }
     
-    public setDescription ( Description: string ) 
+    public setDescription ( shortDescription: string ) 
     {
-      this.Description = Description;
+      this.shortDescription = shortDescription;
     }
     
     public getDescription (): string 
     {
-      return this.Description ;
+      return this.shortDescription ;
     }
 
-    public setStatus ( Status: string ) 
+    public setStatus ( status: string ) 
     {
-      this.Status = Status;
+      this.status = status;
     }
 
     public getStatus(): string 
     {
-      return this.Status ;
+      return this.status ;
     }
-    public setDOB (DOB: Date) 
+    public setTargetEnddate (targetEnddate: Date) 
     {
-      return DOB = DOB ;
+      return targetEnddate = targetEnddate ;
     }
-    public getDOB():Date 
+    public getTargetEnddate():Date 
     { 
-      return this.DOB ;
+      return this.targetEnddate ;
     }
     public setProjectId ( projectId: string ) {
-      this.ProjectId = projectId;
+      this.projectId = projectId;
   }
   public getProjectId (): string {
-      return this.ProjectId ;
+      return this.projectId ;
   }
-    public setRaised(Raised: string)
+    public setAssignee(assignee: string)
     {
-        this.Raised =Raised;
+        this.assignee =assignee;
     }
-    public getRaised():string
+    public getAssignee():string
     {
-    return this.Raised;
+    return this.assignee;
     }  
-    public setAction(Action: string)
+    public setRemarks(remarks: string)
     {
-        this.Action =Action;
+        this.remarks =remarks;
     }
-    public getAction():string
+    public getRemarks():string
     {
-    return this.Action;
+    return this.remarks;
     }  
 
 

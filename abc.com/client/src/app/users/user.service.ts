@@ -1,6 +1,3 @@
-/**
- * Created by gipai on 10/2/2017.
- */
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -23,7 +20,7 @@ export class UserService {
   public getUsers(queryParams: QueryParams)  {
 
     let pageNumber = 0;
-    const pageSize = 3;
+    const pageSize = 10;
     let searchString = null;
 
     if (queryParams !== null) {
@@ -48,7 +45,7 @@ export class UserService {
             user.setUserId(response[i].userId);
             user.setFirstName(response[i].firstName);
             user.setLastName(response[i].lastName);
-            user.setEmail(response[i].firstEmail);
+            user.setEmail(response[i].email);
             user.setPhoneNumber(response[i].phoneNumber);
             user.setPassword(response[i].password);
             user.setId(response[i].id);

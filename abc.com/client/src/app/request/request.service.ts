@@ -20,7 +20,7 @@ export class RequestService {
   public getRequests(queryParams: QueryParams)  {
 
     let pageNumber = 0;
-    const pageSize = 3;
+    const pageSize = 10;
     let searchString = null;
 
     if (queryParams !== null) {
@@ -43,13 +43,12 @@ export class RequestService {
           for ( i = 0 ; i < response.length ; i++) {
             const request: Request = new Request();
             request.setId(response[i].id);
-            request.setDescription(response[i].Description);
-            request.setStatus(response[i].Status);
-            request.setDOB(response[i].DOB);
+            request.setDescription(response[i].shortDescription);
+            request.setStatus(response[i].status);
+            request.setTargetEnddate(response[i].targetEnddate);
             request.setProjectId(response[i].projectId);
-            request.setRaised(response[i].Raised);
-            request.setAction(response[i].Action);
-            requests.push(request)
+            request.setAssignee(response[i].assignee);
+            request.setRemarks(response[i].remarks);
             requests.push(request);
         
           }
@@ -64,6 +63,7 @@ export class RequestService {
 
   public save(request: Request)  {
     const endPoint = this.requestUrl + request.getProjectId();
+    console.log(request);
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     let options = new RequestOptions({ headers: headers });

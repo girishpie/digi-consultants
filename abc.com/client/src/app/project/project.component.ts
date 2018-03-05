@@ -74,5 +74,10 @@ export class ProjectComponent implements OnInit {
     // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();
   }
+  editRowId: any;
+
+toggle(id){
+  this.editRowId = id;
+}
 }
 

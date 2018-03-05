@@ -21,7 +21,7 @@ export class ProjectService {
   public getProjects(queryParams: QueryParams)  {
 
     let pageNumber = 0;
-    const pageSize = 3;
+    const pageSize = 10;
     let searchString = null;
 
     if (queryParams !== null) {
@@ -105,7 +105,7 @@ export class ProjectService {
   public update(project: Project)  {
     const endPoint = this.projectUrl  + project.getId();
       // Returns response
-    return this.http.patch(endPoint, document)
+    return this.http.patch(endPoint, project)
       .map(res => {
           const res1 = res.json();
         }

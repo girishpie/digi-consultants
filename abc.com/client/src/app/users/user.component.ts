@@ -50,7 +50,7 @@ export class UserComponent implements OnInit {
 
   public deleteUser(user: User) {
     this.userService.delete(user.getId()).subscribe(data => {
-
+    //console.log("User Id" + user.getId() );
     });
   }
 

@@ -17,7 +17,7 @@
   </tr>
   </thead>
   <tbody>
-      <tr *ngFor="let document of documents.documents| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: documents.totalItems, id:'server'} ">
+      <tr *ngFor="let document of documents.documents| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: documents.totalItems, id:'server'} ">
         <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="document.displayName" (input)="document.displayName=$event.target.textContent">{{ document.displayName }}</td>
         <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="document.projectName" (input)="document.projectName=$event.target.textContent">{{ document.projectName }}</td>
         <td class = "table-cell"  contenteditable='true' (input)="onRowClick($event)" [textContent]="document.createdBy" (input)="document.createdBy=$event.target.textContent">{{ document.createdBy }}</td>

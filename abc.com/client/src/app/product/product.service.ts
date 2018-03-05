@@ -19,7 +19,7 @@ export class ProductService {
   public getProducts(queryParams: QueryParams, sectionId: string)  {
 
     let pageNumber = 0;
-    const pageSize = 3;
+    const pageSize = 10;
     let searchString = null;
 
     if (queryParams !== null) {

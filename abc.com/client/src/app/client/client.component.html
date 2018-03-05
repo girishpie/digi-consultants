@@ -13,7 +13,7 @@
   </tr>
   </thead>
   <tbody>
-      <tr *ngFor="let client of clients.clients | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: clients.totalItems, id:'server'} ">
+      <tr *ngFor="let client of clients.clients | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: clients.totalItems, id:'server'} ">
         <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="client.name" (input)="client.name=$event.target.textContent">{{ client.name }}</td>
         <td class = "table-cell"  contenteditable='true' (input)="onRowClick($event)" [textContent]="client.address" (input)="client.address=$event.target.textContent">{{ client.address }}</td>
         <td class = "table-cell">{{ client.companyName }}</td>

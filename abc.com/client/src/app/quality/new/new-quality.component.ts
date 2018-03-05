@@ -21,12 +21,11 @@ const qualityState ={name:'quality', url:'/quality', component:QualityComponent}
 export class NewQualityComponent implements OnInit {
 
   private id: string;
-  private Title: string;
-  private Status: string;
-  private Opened: Date;
-  private Description: string;
+  private assignee: string;
+  private status: string;
+  private targetEnddate: Date;
+  private description: string;
   private Rectified: Date;
-  private ProjectId: string;
   private availableProjects: Project[];
    private projectId: string;
   
@@ -42,11 +41,11 @@ export class NewQualityComponent implements OnInit {
   addNewQuality() {
     let quality: Quality = new Quality();
     quality.setId(this.id);
-    quality.setTitle(this.Title);
-    quality.setStatus(this.Status);
-    quality.setOpened(this.Opened);
-    quality.setDescription(this.Description);
-    quality.setRectified(this.Rectified);
+    quality.setTitle(this.assignee);
+    quality.setStatus(this.status);
+    quality.setOpened(this.targetEnddate);
+    // quality.setDescription(this.Description);
+    // quality.setRectified(this.Rectified);
     quality.setProjectId(this.projectId);
     this.qualityservice.save(quality).subscribe(data => {
         console.log(data);

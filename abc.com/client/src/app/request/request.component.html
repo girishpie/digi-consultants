@@ -9,24 +9,24 @@
   <table class="table">
       <thead>
         <tr>
-          <th>Changed ID</th>
+          <!-- <th>Changed ID</th> -->
           <th>Short Description</th>
           <th>Status</th>
-          <th>Open date</th>
-          <th>Project</th>
+          <!-- <th>Target Enddate</th> -->
+          <!-- <th>Project</th> -->
           <th>Raised by</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-            <tr *ngFor="let request of requests.requests| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: requests.totalItems, id:'server'} ">
-                    <td class = "table-cell" >{{ request.id }}</td>
-                    <td class = "table-cell" >{{ request.Description }}</td>
-                    <td class = "table-cell" >{{ request.Status }}</td>
-                    <td class = "table-cell" >{{ request.DOB }}</td>
-                    <td class = "table-cell" >{{ request.projectId }}</td>
-                    <td class = "table-cell" >{{ request.Raised }}</td>
-                    <td class="table-cell" >{{ request.Action }}</td>
+            <tr *ngFor="let request of requests.requests| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: requests.totalItems, id:'server'} ">
+                    <!-- <td class = "table-cell" >{{ request.id }}</td> -->
+                    <td class = "table-cell" >{{ request.shortDescription }}</td>
+                    <td class = "table-cell" >{{ request.status }}</td>
+                    <!-- <td class = "table-cell" >{{ request.targetEnddate }}</td> -->
+                    <!-- <td class = "table-cell" >{{ request.projectId }}</td> -->
+                    <td class = "table-cell" >{{ request.assignee }}</td>
+                    <td class="table-cell" >{{ request.remarks }}</td>
                     <td class = "table-cell">
                         <tooltip-content #screeningOptions class="recommended-programs-tooltip">
                             <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>

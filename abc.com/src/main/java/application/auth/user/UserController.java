@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,10 +26,13 @@ import java.util.List;
 public class UserController {
 
 	@Autowired
-    private final UserRepository userRepository;
+        private final UserRepository userRepository;
 	
 	@Autowired
-    private final RoleRepository roleRepository;
+        private final RoleRepository roleRepository;
+
+      @Autowired
+      private EmailService emailService;
 
     
     public UserController(UserRepository userRepository, RoleRepository roleRepository) {
@@ -47,6 +51,14 @@ public class UserController {
 
         }
         User user = userRepository.save(input);
+        SimpleMailMessage userCreationEmail = new SimpleMailMessage();
+       // userCreationEmail.setFrom("shilp299@gmail.com");
+        userCreationEmail.setTo(user.getEmail());
+        userCreationEmail.setSubject("New User Created");
+        userCreationEmail.setText("New User is created \n  User ID: " + input.getUserId());
+        
+        emailService.sendEmail(userCreationEmail);
+        
         return ResponseWrapper.getResponse( new RestResponse( user.getUserId()));
 
     }

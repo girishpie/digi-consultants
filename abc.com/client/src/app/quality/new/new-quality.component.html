@@ -3,16 +3,16 @@
            <form>
           
              <div class="form-group">
-               <label for="quality-Title" class="form-control-label">Title:</label>
-               <input type="text" class="form-control" id="quality-Title" [(ngModel)]="Title" name="Title">
+               <label for="quality-assignee" class="form-control-assignee">Assignee:</label>
+               <input type="text" class="form-control" id="quality-assignee" [(ngModel)]="assignee" name="assignee">
              </div>
              <div class="form-group">
-               <label for="quality-Status" class="form-control-label">Status:</label>
-               <input type="text" class="form-control" id="quality-Status" [(ngModel)]="Status" name="Status">
+               <label for="quality-status" class="form-control-label">Status:</label>
+               <input type="text" class="form-control" id="quality-status" [(ngModel)]="status" name="status">
              </div>
              <div class="form-group">
-               <label for="quality-Opened" class="form-control-label">Opened Date:</label>
-               <input type="date" class="form-control" id="quality-opened" [(ngModel)]="opened" name="opened">
+               <label for="quality-targetEnddate" class="form-control-label">Target Enddate:</label>
+               <input type="date" class="form-control" id="quality-targetEnddate" [(ngModel)]="targetEnddate" name="targetEnddate">
              </div>
              <div class="form-group">
                 <label for="projects" class="form-control-label">Projects:</label>
@@ -23,11 +23,11 @@
                 </select>          
               </div>
              <div>
-               <label for="quality-Description" class="form-control-label">Short Description:</label>
-               <input type="text" class="form-control" id="Description" [(ngModel)]="Description" name="Description" style= "height: 100px;">
+               <label for="quality-description" class="form-control-label">Short Description:</label>
+               <input type="text" class="form-control" id="description" [(ngModel)]="description" name="description" style= "height: 100px;">
              
             </div> 
-             <div class="form-group">
+             <!-- <div class="form-group">
                 <label for="quality-Rectified" class="form-control-label"> Date Rectified:</label>
                 <input type="date" class="form-control" id="quality-Rectified" [(ngModel)]="Rectified" name="Rectified">
               </div> 
@@ -38,7 +38,7 @@
               <div>
                   <label for="quality-Remark" class="form-control-label">Notes/Remarks:</label>
                   <input type="text" class="form-control" id="Remark" [(ngModel)]="Remark" name="Remark" style="height:100px">
-              </div>
+              </div> -->
               <label>Attachment:</label>
               <div class="form-group">
                   <input type="file" (change)="addNewQuality($event)" required class="form-control " name="attach_file" id="attach_file">

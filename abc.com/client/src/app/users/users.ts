@@ -1,6 +1,4 @@
-/**
- * Created by gipai on 10/4/2017.
- */
+
 import {Injectable} from "@angular/core";
 import {User} from "./user";
 

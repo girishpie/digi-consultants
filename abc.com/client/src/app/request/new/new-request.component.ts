@@ -21,14 +21,14 @@ const requestState ={name:'request', url:'/request', component:RequestComponent}
 export class NewRequestComponent implements OnInit {
 
     private id: string ;
-    private DOB: Date;
+    private targetEnddate: Date;
     private type: string;
-    private Raised: string;
+    private raised: string;
     private projectId: string;
     private assignee: string;
-    private Status: string ;
-    private Action: string ;
-    private Description: string ;
+    private status: string ;
+    private remarks: string ;
+    private shortDescription: string ;
 
     constructor(private  requestService: RequestService, 
         private requests: Requests,
@@ -44,12 +44,12 @@ export class NewRequestComponent implements OnInit {
     {
      let request: Request = new Request();
       request.setId(this.id);
-     request.setDescription(this.Description);
-     request.setStatus(this.Status);
-     request.setDOB(this.DOB);
+     request.setDescription(this.shortDescription);
+     request.setStatus(this.status);
+     request.setTargetEnddate(this.targetEnddate);
      request.setProjectId(this.projectId);
-     request.setRaised(this.Raised);
-     request.setAction(this.Action);
+     request.setAssignee(this.assignee);
+     request.setRemarks(this.remarks);
    
    this.requestService.save(request).subscribe(data => {
         console.log(data);
@@ -68,7 +68,6 @@ export class NewRequestComponent implements OnInit {
         console.log(error._body.toString() + " No roles found");
     });
 }
-  
   goBack() {
     window.history.back();
   }

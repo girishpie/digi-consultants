@@ -17,7 +17,7 @@
   </tr>
   </thead>
   <tbody>
-      <tr *ngFor="let employee of employees.employees| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: employees.totalItems, id:'server'} ">
+      <tr *ngFor="let employee of employees.employees| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: employees.totalItems, id:'server'} ">
         <td class = "table-cell"  contenteditable='true' (input)="onRowClick($event)" [textContent]="employee.firstname" (input)="employee.firstname=$event.target.textContent">{{ employee.firstname }}</td>
         <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="employee.role" (input)="employee.role=$event.target.textContent">{{ employee.role }}</td>
         <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="employee.telephone" (input)="employee.telephone=$event.target.textContent">{{ employee.telephone }} </td>

@@ -14,7 +14,7 @@
   </tr>
   </thead>
   <tbody>
-      <tr *ngFor="let phase of phases.phases| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: phases.totalItems, id:'server'} ">
+      <tr *ngFor="let phase of phases.phases| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: phases.totalItems, id:'server'} ">
         <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="phase.name" (input)="phase.name=$event.target.textContent">{{ phase.name }}</td>
          <td class = "table-cell">
 <!--           <img src="assets/edit.svg" style="width:30px"> -->
@@ -24,7 +24,7 @@
           </button>
           <img src="assets/35.gif" *ngIf="loading" />
           <button [disabled]="!isValid" class="btn btn-primary" (click) = "updatePhase(phase)">
-            <span class="glyphicon glyphicon-save"></span></button>
+            <span class="glyphicon glyphicon-edit"></span></button>
             <img src="assets/edit.svg" *ngIf="loading" />
  
         </td>

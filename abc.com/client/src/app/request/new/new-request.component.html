@@ -4,41 +4,38 @@
            <label>Generate New Request </label>
            
            <div class="form-group">
-             <label for="request-Description" class="form-control-label">Short Description:</label>
-             <input type="text" class="form-control" id="request-Description" [(ngModel)]="Description" name="Description">
+             <label for="request-shortDescription" class="form-control-label">Short Description:</label>
+             <input type="text" class="form-control" id="request-shortDescription" [(ngModel)]="shortDescription" name="shortDescription">
            </div>
-           <!-- <div class="form-group">
-            <label for="request-Status" class="form-control-label"> Status:</label>
-            <input type="text" class="form-control" id="request-Status" [(ngModel)]="Status" name="Status">
-          </div> -->
           <div class="form-group">
             <label for="request-status" class="form-control-label">Status:</label>
             <select id="request-option" class="form-control"   [(ngModel)]="status" name="status">
             	<option selected></option>
-			  	<option value="inprogress">work in progress</option>
-			  	<option value="completed">work completed</option>
+			  	<option value="open">OPEN</option>
+          <option value="inprogress">IN PROGRESS</option>
+          <option value="completed">CLOSED</option>
             </select>
           </div>
 
           <div class="form-group">
-             <label for="request-dob" class="form-control-label">DOB:</label>
-             <input type="date" class="form-control" id="request-dob" [(ngModel)]="DOB" name="DOB">
+             <label for="request-targetEnddate" class="form-control-label">Target Enddate:</label>
+             <input type="date" class="form-control" id="request-targetEnddate" [(ngModel)]="targetEnddate" name="targetEnddate">
           </div>
           <div class="form-group">
             <label for="meeting-tittle" class="form-control-label">Project</label>
-            <select    [(ngModel)]="projectId" name="projects" (change)="onProjectChange()">
+            <select    [(ngModel)]="projectId" name="projects">
                 <option *ngFor="let project of projects.projects" [value]="project.id">
                     {{ project.projectName }}
                 </option>
             </select>
           </div>
           <div class="form-group">
-            <label for="request-Raised" class="form-control-label"> Raised By:</label>
-            <input type="text" class="form-control" id="request-Raised" [(ngModel)]="Raised" name="Raised">
+            <label for="request-assignee" class="form-control-label"> Raised By:</label>
+            <input type="text" class="form-control" id="request-assignee" [(ngModel)]="assignee" name="assignee">
           </div>
           <div class="form-group">
-            <label for="request-Action" class="form-control-label"> Action:</label>
-            <input type="text" class="form-control" id="request-Action" [(ngModel)]="Action" name="Action">
+            <label for="request-remarks" class="form-control-label"> Action:</label>
+            <input type="text" class="form-control" id="request-remarks" [(ngModel)]="remarks" name="remarks">
           </div>
       </form>
           <div class="modal-footer">

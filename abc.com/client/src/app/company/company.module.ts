@@ -33,8 +33,7 @@ import { TooltipModule } from "ngx-tooltip";
   ],
   exports : [CompanyComponent],
   providers: [Companies,
-              CompanyService
-              ],
+              CompanyService],
   bootstrap: []
 })
 export class  CompanyModule { }

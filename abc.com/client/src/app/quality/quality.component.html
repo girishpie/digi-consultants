@@ -16,24 +16,24 @@
     <table class="table ">
       <thead>
       <tr>
-        <th>Title</th>
+        <th>Assignee</th>
         <th>Status</th>
-        <th>Date Opened</th>
+        <th>Target Enddate</th>
         <th>Short Description</th> 
         <th>Project Name</th>   
-        <th>Date Rectified</th>
-        <th>Raised By</th>
+        <!-- <th>Date Rectified</th> -->
+        <!-- <th>Raised By</th> -->
       </tr>
       </thead>
        <tbody>
-          <tr *ngFor="let quality of qualities.qualities| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: qualities.totalItems, id:'server'} ">
-            <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="quality.Title" (input)="quality.Title=$event.target.textContent">{{quality.Title}}</td>
-            <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="quality.Status" (input)="quality.Status=$event.target.textContent">{{quality.Status}}</td>
-            <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="quality.Opened" (input)="quality.Opened=$event.target.textContent">{{quality.Opened}}</td>
-            <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="quality.Description" (input)="quality.Description=$event.target.textContent">{{quality.Description}}</td>
-            <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="quality.projectName" (input)="quality.projectName=$event.target.textContent">{{project.projectName}} </td>
-            <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="quality.Rectified" (input)="quality.Rectified=$event.target.textContent">{{quality.Rectified}}</td>
-            <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="quality.Action" (input)="quality.Action=$event.target.textContent">{{quality.Action}}</td>
+          <tr *ngFor="let quality of qualities.qualities| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: qualities.totalItems, id:'server'} ">
+            <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="quality.assignee" (input)="quality.assignee=$event.target.textContent">{{quality.assignee}}</td>
+            <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="quality.Status" (input)="quality.status=$event.target.textContent">{{quality.Status}}</td>
+            <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="quality.targetEnddate" (input)="quality.targetEnddate=$event.target.textContent">{{quality.targetEnddate}}</td>
+            <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="quality.description" (input)="quality.description=$event.target.textContent">{{quality.Description}}</td>
+            <td class = "table-cell" >{{project.projectName}} </td>
+            <!-- <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="quality.Rectified" (input)="quality.Rectified=$event.target.textContent">{{quality.Rectified}}</td>
+            <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="quality.Action" (input)="quality.Action=$event.target.textContent">{{quality.Action}}</td> -->
              <td class = "table-cell">
                 <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
                     <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>

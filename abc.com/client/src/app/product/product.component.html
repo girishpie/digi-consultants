@@ -25,7 +25,7 @@
   </tr>
   </thead>
   <tbody>
-      <tr *ngFor="let product of products.products| filter:filter | paginate: { itemsPerPage: 3, currentPage: currentPage, totalItems: products.totalItems, id:'server'} ">
+      <tr *ngFor="let product of products.products| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: products.totalItems, id:'server'} ">
         <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.name" (input)="product.name=$event.target.textContent">{{ product.name }}</td>
         <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.unit" (input)="product.unit=$event.target.textContent">{{ product.unit }}</td>
         <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.quantity" (input)="product.quantity=$event.target.textContent">{{ product.quantity }}</td>
