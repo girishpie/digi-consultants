@@ -20,6 +20,8 @@ export class ProjectComponent implements OnInit {
   private currentPage = 1;
   isValid:boolean;
   loading: boolean  = false;
+  currentProjectName:string;
+  currentProjectId:string;
   constructor(private  projectService: ProjectService,
               private projects: Projects ,
               private queryParamsService: QueryParamsService)  {
@@ -59,12 +61,23 @@ export class ProjectComponent implements OnInit {
      this.isValid = true;
     } 
          
-  public deleteProject(project: Project) {
-    this.projectService.delete(project.getId()).subscribe(data => {
+  // public deleteProject(project: Project) {
+  //   this.projectService.delete(project.getId()).subscribe(data => {
 
-    });
+  //   });
+  // }
+  public deleteProject(id: string) {
+    //.alert("Are You Sure You want to delete?");
+    console.log("Id "+ id);
+     this.projectService.delete(id).subscribe(data => {
+     });
+     console.log("delete");
+   }
+
+  public getProject(project: Project) {
+    this.currentProjectName = project.getProjectName();
+    this.currentProjectId = project.getId();
   }
-
   getPage(page: number ){
     this.currentPage= page;
     this.queryParamsService.setPageNumber( page-1);
@@ -79,5 +92,6 @@ export class ProjectComponent implements OnInit {
 toggle(id){
   this.editRowId = id;
 }
+
 }
 

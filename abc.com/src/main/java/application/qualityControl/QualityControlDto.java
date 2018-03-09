@@ -152,6 +152,7 @@ public class QualityControlDto {
 
 	public QualityControlDto(QualityControl qualityControl, String projectName) {
 
+                this.id= qualityControl.getId();
 		this.changeId = qualityControl.getChangeId();
 		this.type = qualityControl.getType();
 		this.projectId = qualityControl.getProjectId();

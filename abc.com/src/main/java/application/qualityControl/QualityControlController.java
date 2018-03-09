@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.Authentication ;
 import org.springframework.web.multipart.MultipartFile;
 
 import application.dms.DocumentRepository;
@@ -50,7 +52,7 @@ public class QualityControlController {
         if(project == null){
             return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "PROJECT_NOT_FOUND", projectId ));
 
-        } 
+        }
         /*try {
         	String id = documentRepository.storeDocument(file.getOriginalFilename(),
                 file.getContentType(),
@@ -61,7 +63,10 @@ public class QualityControlController {
             e.printStackTrace();
             return ResponseWrapper.getResponse(new RestError(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
         }*/
-        
+         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth !=null) {
+         input.setAssignee(auth.getName());
+        }
         QualityControl qc = qualityControlRepository.save(input);
         project.addCR(qc.getId());
         projectRepository.save(project);

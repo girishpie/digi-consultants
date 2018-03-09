@@ -20,6 +20,7 @@ export class OfficeComponent implements OnInit {
   private currentPage = 1;
   isValid:boolean;
   loading:boolean = false;
+  currentOfficeId: string;
   constructor(private officeService: OfficeService,
               private offices: Offices ,
               private queryParamsService: QueryParamsService)  {
@@ -63,11 +64,11 @@ export class OfficeComponent implements OnInit {
 
 
 
-  public deleteOffice(office: Office) {
-    this.officeService.delete(office.getId()).subscribe(data => {
+  // public deleteOffice(office: Office) {
+  //   this.officeService.delete(office.getId()).subscribe(data => {
 
-    });
-  }
+  //   });
+  // }
 
   getPage(page: number ){
     this.currentPage= page;
@@ -77,6 +78,18 @@ export class OfficeComponent implements OnInit {
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();
+  }
+
+  public deleteOffice(id: string) {
+    //.alert("Are You Sure You want to delete?");
+    console.log("Id "+ id);
+     this.officeService.delete(id).subscribe(data => {
+     });
+     console.log("delete");
+   }
+   
+   public getOffice(office: Office) {
+    this.currentOfficeId = office.getId();
   }
 }
 

@@ -20,6 +20,7 @@ export class DepartmentComponent implements OnInit {
   private currentPage = 1;
   loading:boolean = false;
   isValid:boolean;
+  currentDepartmentId: string;
   constructor(private departmentService: DepartmentService,
               private departments: Departments ,
               private queryParamsService: QueryParamsService)  {
@@ -60,11 +61,11 @@ export class DepartmentComponent implements OnInit {
     this.isValid = true;
     } 
 
-  public deleteDepartment(department: Department) {
-    this.departmentService.delete(department.getId()).subscribe(data => {
+  // public deleteDepartment(department: Department) {
+  //   this.departmentService.delete(department.getId()).subscribe(data => {
 
-    });
-  }
+  //   });
+  // }
 
   getPage(page: number ){
     this.currentPage= page;
@@ -74,6 +75,17 @@ export class DepartmentComponent implements OnInit {
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();
+  }
+  public deleteDepartment(id: string) {
+    //.alert("Are You Sure You want to delete?");
+    console.log("Id "+ id);
+     this.departmentService.delete(id).subscribe(data => {
+     });
+     console.log("delete");
+   }
+   public getDepartment(department: Department) {
+    // this.currentSpecificationName = specification.getSpecificationName();
+    this.currentDepartmentId = department.getId();
   }
 }
 

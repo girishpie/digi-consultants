@@ -28,7 +28,10 @@
            </td>
            <td>
            <img src="assets/edit.svg" class="viewButton" [ngClass]="pageMode" style="width:30px" (click) = "editCategory(category)">
-		   <img src="assets/delete.svg" (click) = "deleteCategory(category)" style="width:30px">
+       <!-- <img src="assets/delete.svg" (click) = "deleteCategory(category)" style="width:30px"> -->
+       <button style="background-color:red;" class="btn-primary"  (click) = "getCategory(category)" data-toggle="modal" data-target=".bd-example-modal-sm">
+        <img src="assets/delete.svg" style="width:30px">
+      </button>
 		 <button type="submit" class="editButton" [ngClass]="pageMode" (click) = "saveCategory(category)">Save</button>
         <button class="editButton" [ngClass]="pageMode" (click)="cancelEdit()">Cancel</button>
      
@@ -37,4 +40,33 @@
   </tbody>
  </table>
   <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+</div>
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #428bca;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="container-fluid rounded" style="background-color:white;">
+            <div class="section-wrpr">
+              <div class="small-wrpr" style="margin-top: 10px; margin-left:20px;">
+                  <div class="content-wrpr">
+                      Are you sure?
+                  </div>
+                <button class="close" data-dismiss="modal" style="background-color:red;">
+                  <img  src="assets/delete.svg" (click) = "deleteCategory(currentCategoryId)" style="width:30px">
+                </button>
+              </div>
+              <div class="clearfix"></div>
+              <hr>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

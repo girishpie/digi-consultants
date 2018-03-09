@@ -55,6 +55,12 @@ export class SubcategoryComponent implements OnInit {
 
     });
   }
+  // public deleteSubcategory(id: string) {
+  //   //.alert("Are You Sure You want to delete?");
+  //   console.log("Id "+ id);
+  //    this.SubcategoryService.delete(id).subscribe(data => {
+  //    });
+  //  }
 
   getPage(page: number ) {
     this.currentPage = page;
@@ -72,9 +78,15 @@ export class SubcategoryComponent implements OnInit {
 		 this.loading = false;
     });
   }
+ 
     onRowClick(event){
      this.isValid = true;
     } 
+    
+  // public getSubcategory(subcategory: Subcategory) {
+  //     this.currentSubcategoryName = subcategory.getName();
+  //     this.currentSubcategoryId = subcategory.getId();
+  //  }
 
 }
 

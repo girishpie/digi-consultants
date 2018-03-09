@@ -21,6 +21,7 @@ export class RequestComponent implements OnInit {
   private currentPage = 1;
   loading:boolean=false;
   isValid:boolean;
+  currentRequestId:string;
   constructor(private  requestService: RequestService,
               private requests: Requests , 
               private queryParamsService: QueryParamsService)  {
@@ -51,10 +52,22 @@ export class RequestComponent implements OnInit {
     });
 
   }
-  public deleteRequest(request: Request) {
-    this.requestService.delete(request.getId()).subscribe(data => {
+  // public deleteRequest(request: Request) {
+  //   this.requestService.delete(request.getId()).subscribe(data => {
 
-    });
+  //   });
+  // }
+  public deleteRequest(id: string) {
+    //.alert("Are You Sure You want to delete?");
+    console.log("Id "+ id);
+     this.requestService.delete(id).subscribe(data => {
+     });
+     console.log("delete");
+   }
+
+  public getRequest(request: Request) {
+    // this.currentRequestName = request.getName();
+    this.currentRequestId = request.getId();
   }
 
   getPage(page: number ){

@@ -20,6 +20,7 @@ export class EmployeeComponent implements OnInit {
   private currentPage = 1;
   isValid:boolean;
   loading:boolean = false;
+  currentEmployeeId: string;
   constructor(private employeeService: EmployeeService,
               private employees: Employees ,
               private queryParamsService: QueryParamsService)  {
@@ -61,10 +62,20 @@ export class EmployeeComponent implements OnInit {
 
 
        
-  public deleteEmployee(employee: Employee) {
-    this.employeeService.delete(employee.getId()).subscribe(data => {
+  // public deleteEmployee(employee: Employee) {
+  //   this.employeeService.delete(employee.getId()).subscribe(data => {
 
-    });
+  //   });
+  // }
+  public deleteEmployee(id: string) {
+    //.alert("Are You Sure You want to delete?");
+    console.log("Id "+ id);
+     this.employeeService.delete(id).subscribe(data => {
+     });
+     console.log("delete");
+   }
+   public getEmployee(employee: Employee) {
+    this.currentEmployeeId = employee.getId();
   }
 
   getPage(page: number ){

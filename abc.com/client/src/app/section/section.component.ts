@@ -20,6 +20,8 @@ export class SectionComponent implements OnInit {
   private currentPage = 1;
   isValid:boolean;
   loading:boolean = false;
+  currentSectionName:string;
+  currentSectionId: string;
   constructor(private  sectionService: SectionService,
               private sections: Sections ,
               private queryParamsService: QueryParamsService)  {
@@ -60,11 +62,19 @@ export class SectionComponent implements OnInit {
     } 
 
 
-  public deleteSection(section: Section) {
-    this.sectionService.delete(section.getId()).subscribe(data => {
+  // public deleteSection(section: Section) {
+  //   this.sectionService.delete(section.getId()).subscribe(data => {
 
-    });
-  }
+  //   });
+  // }
+  
+  public deleteSection(id: string) {
+    //.alert("Are You Sure You want to delete?");
+    console.log("Id "+ id);
+     this.sectionService.delete(id).subscribe(data => {
+     });
+     console.log("delete");
+   }
 
   getPage(page: number ){
     this.currentPage= page;
@@ -74,6 +84,11 @@ export class SectionComponent implements OnInit {
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();
+  }
+
+  public getSection(section: Section) {
+    this.currentSectionName = section.getSectionName();
+    this.currentSectionId = section.getId();
   }
 }
 

@@ -24,7 +24,8 @@ export class QualityComponent implements OnInit {
   private projectId: string;
   private availableProjects: Project[];
   isValid:boolean = false;
-  loading:boolean
+  loading:boolean;
+  currentQualityId:string;
   constructor(private  qualityService: QualityService,private projectService: ProjectService,
               private qualities: Qualities ,private projects: Projects, 
               private queryParamsService: QueryParamsService)  {
@@ -56,10 +57,21 @@ export class QualityComponent implements OnInit {
 
   }
  
-  public deleteQuality(quality: Quality) {
-    this.qualityService.delete(quality.getId()).subscribe(data => {
+  // public deleteQuality(quality: Quality) {
+  //   this.qualityService.delete(quality.getId()).subscribe(data => {
 
-    });
+  //   });
+  // }
+  
+  public deleteQuality(id: string) {
+    //.alert("Are You Sure You want to delete?");
+    console.log("Id "+ id);
+     this.qualityService.delete(id).subscribe(data => {
+     });
+     console.log("delete");
+   }
+   public getQuality(quality: Quality) {
+    this.currentQualityId = quality.getId();
   }
 
   getPage(page: number ){

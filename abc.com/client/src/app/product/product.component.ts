@@ -24,6 +24,7 @@ export class ProductComponent implements OnInit {
   private availableSections: Section[];
   isValid:boolean;
   loading: boolean  = false;
+  currentProductId: string;
   constructor(private productService: ProductService, private sectionService: SectionService,
               private products: Products, private sections: Sections,
               private queryParamsService: QueryParamsService)  {
@@ -64,10 +65,21 @@ export class ProductComponent implements OnInit {
      this.isValid = true;
     } 
 
-  public deleteProduct(product: Product) {
-    this.productService.delete(product.getId()).subscribe(data => {
+  // public deleteProduct(product: Product) {
+  //   this.productService.delete(product.getId()).subscribe(data => {
 
-    });
+  //   });
+  // }
+  public deleteProduct(id: string) {
+    //.alert("Are You Sure You want to delete?");
+    console.log("Id "+ id);
+     this.productService.delete(id).subscribe(data => {
+     });
+     console.log("delete");
+   }
+
+  public getProduct(product: Product) {
+    this.currentProductId = product.getId();
   }
 
   getPage(page: number ) {

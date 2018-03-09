@@ -22,7 +22,7 @@ export class CategoryComponent implements OnInit {
   private currentPage = 1;
   private subcats: string[];
   private availableSubcat: Subcategory[];
-  
+  currentCategoryId: string;
   pageMode : string;
   constructor(private categoryService: CategoryService,
               private queryParamsService: QueryParamsService, private categories: Categories, 
@@ -75,10 +75,21 @@ export class CategoryComponent implements OnInit {
     this.pageMode = "viewMode";
     
   }
-  public deleteCategory(category: Category) {
-    this.categoryService.delete(category.getId()).subscribe(data => {
+  // public deleteCategory(category: Category) {
+  //   this.categoryService.delete(category.getId()).subscribe(data => {
 
-    });
+  //   });
+  // }
+  public deleteCategory(id: string) {
+    //.alert("Are You Sure You want to delete?");
+    console.log("Id "+ id);
+     this.categoryService.delete(id).subscribe(data => {
+     });
+     console.log("delete");
+   }
+   public getCategory(category: Category) {
+    // this.currentSpecificationName = specification.getSpecificationName();
+    this.currentCategoryId = category.getId();
   }
   
   getPage(page: number ) {

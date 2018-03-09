@@ -19,6 +19,8 @@ export class SpecificationComponent implements OnInit {
   private subscription: Subscription;
   private currentSearchString: string;
   private currentPage = 1;
+  currentSpecificationName: string;
+  currentSpecificationId: string;
   isValid:boolean;
   loading:boolean = false;
   constructor(private  specificationService: SpecificationService,
@@ -61,12 +63,18 @@ export class SpecificationComponent implements OnInit {
     } 
 
 
-  public deleteSpecification(specification: Specification) {
-    this.specificationService.delete(specification.getId()).subscribe(data => {
-
-    });
-  }
-
+    public deleteSpecification(id: string) {
+      //.alert("Are You Sure You want to delete?");
+      console.log("Id "+ id);
+       this.specificationService.delete(id).subscribe(data => {
+       });
+       console.log("delete");
+     }
+     public getSpecification(specification: Specification) {
+      this.currentSpecificationName = specification.getSpecificationName();
+      this.currentSpecificationId = specification.getId();
+    }
+    
   getPage(page: number ){
     this.currentPage= page;
     this.queryParamsService.setPageNumber( page-1);
@@ -76,6 +84,6 @@ export class SpecificationComponent implements OnInit {
     // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();
   }
- 
+  
 }
 

@@ -33,18 +33,47 @@
                     </div>
                 </tooltip-content> 
                   <button class="btn-primary"><img src="assets/view.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption2"></button>
-                <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
-                        <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
-                          <div class="tooltip-text-regisnation">Delete</div>
-                        </div>
-                </tooltip-content> 
-                <button style="background-color:red;">
-                  <img src="assets/delete.svg" (click) = "deleteSpecification(specification)" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1">
-                </button>
+                 
+                  <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
+                    <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
+                      <div class="tooltip-text-regisnation">Delete</div>
+                    </div>
+                  </tooltip-content>
+                 <button style="background-color:red;" class="btn-primary"  (click) = "getSpecification(specification)" data-toggle="modal" data-target=".bd-example-modal-sm">
+                   <img src="assets/delete.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1">
+                 </button>
             </td>
          </tr>
       </tbody>
      </table>
      <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
 </div>
-    
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #428bca;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="container-fluid rounded" style="background-color:white;">
+            <div class="section-wrpr">
+              <div class="small-wrpr" style="margin-top: 10px; margin-left:20px;">
+                  <div class="content-wrpr">
+                      Are you sure?
+                  </div>
+                <button class="close" data-dismiss="modal" style="background-color:red;">
+                  <img  src="assets/delete.svg" (click) = "deleteSpecification(currentSpecificationId)" style="width:30px">
+                </button>
+              </div>
+              <div class="clearfix"></div>
+              <hr>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

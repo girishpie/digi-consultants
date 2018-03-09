@@ -20,6 +20,7 @@ export class MeetingComponent implements OnInit {
   private currentPage = 1;
   isValid:boolean;
   loading:boolean = false;
+  currentMeetingId: string;
   constructor(private  meetingService: MeetingService,
               private meetings: Meetings ,
               private queryParamsService: QueryParamsService)  {
@@ -52,11 +53,11 @@ export class MeetingComponent implements OnInit {
 
   }
 
-  public deleteMeeting(meeting: Meeting) {
-    this.meetingService.delete(meeting.getId()).subscribe(data => {
+  // public deleteMeeting(meeting: Meeting) {
+  //   this.meetingService.delete(meeting.getId()).subscribe(data => {
 
-    });
-  }
+  //   });
+  // }
 
   getPage(page: number ) {
     this.currentPage = page;
@@ -66,6 +67,17 @@ export class MeetingComponent implements OnInit {
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();
+  }
+  public deleteMeeting(id: string) {
+    //.alert("Are You Sure You want to delete?");
+    console.log("Id "+ id);
+     this.meetingService.delete(id).subscribe(data => {
+     });
+     console.log("delete");
+   }
+   public getMeeting(meeting: Meeting) {
+    // this.currentSpecificationName = specification.getSpecificationName();
+    this.currentMeetingId = meeting.getId();
   }
 }
 

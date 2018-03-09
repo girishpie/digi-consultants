@@ -19,6 +19,7 @@ export class PhaseComponent implements OnInit {
   private currentPage = 1;
   isValid: boolean;
   loading: boolean = false;
+  currentPhaseId: string;
   constructor(private  phaseService: PhaseService,
               private phases: Phases ,
               private queryParamsService: QueryParamsService)  {
@@ -50,13 +51,23 @@ export class PhaseComponent implements OnInit {
 
   }
 
-  public deletePhase(phase: Phase) {
-    this.loading = true;
-    this.phaseService.delete(phase.getId()).subscribe(data => {
-		 this.loading = false;
-    });
-  }
+  // public deletePhase(phase: Phase) {
+  //   this.loading = true;
+  //   this.phaseService.delete(phase.getId()).subscribe(data => {
+	// 	 this.loading = false;
+  //   });
+  // }
+  public deletePhase(id: string) {
+    //.alert("Are You Sure You want to delete?");
+    console.log("Id "+ id);
+     this.phaseService.delete(id).subscribe(data => {
+     });
+     console.log("delete");
+   }
 
+  public getPhase(phase: Phase) {
+    this.currentPhaseId = phase.getId();
+  }
  public updatePhase(phase: Phase) {
     this.loading = true;
     this.phaseService.update(phase).subscribe(data => {

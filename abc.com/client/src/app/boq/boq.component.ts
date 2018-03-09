@@ -17,6 +17,7 @@ export class BoQComponent implements OnInit {
   private subscription: Subscription;
   private currentSearchString: string;
   private currentPage = 1;
+  currentBoQId: string;
     @ViewChild('table') el: ElementRef;
   constructor(private boqService: BoQService,
               private boqs: BoQs, public element: ElementRef,
@@ -48,10 +49,22 @@ export class BoQComponent implements OnInit {
 
   }
 
-  public deleteBoQ(boq: BoQ) {
-    this.boqService.delete(boq.getId()).subscribe(data => {
+  // public deleteBoQ(boq: BoQ) {
+  //   this.boqService.delete(boq.getId()).subscribe(data => {
 
-    });
+  //   });
+  // }
+  public deleteBoQ(id: string) {
+    //.alert("Are You Sure You want to delete?");
+    console.log("Id "+ id);
+     this.boqService.delete(id).subscribe(data => {
+     });
+     console.log("delete");
+   }
+
+   public getBoQ(boq:BoQ) {
+    // this.currentSpecificationName = specification.getSpecificationName();
+    this.currentBoQId = boq.getId();
   }
   
   public exportAsPdf(){

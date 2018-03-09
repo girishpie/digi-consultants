@@ -20,6 +20,7 @@ export class ClientComponent implements OnInit {
   private currentPage = 1;
   isValid:boolean;
   loading:boolean= false;
+  currentClientId:string;
   constructor(private  clientService: ClientService,
               private clients: Clients ,
               private queryParamsService: QueryParamsService)  {
@@ -60,11 +61,24 @@ export class ClientComponent implements OnInit {
     } 
 
 
-  public deleteClient(client: Client) {
-    this.clientService.delete(client.getId()).subscribe(data => {
+  // public deleteClient(client: Client) {
+  //   this.clientService.delete(client.getId()).subscribe(data => {
 
-    });
+  //   });
+  // }
+  
+  public deleteClient(id: string) {
+    //.alert("Are You Sure You want to delete?");
+    console.log("Id "+ id);
+     this.clientService.delete(id).subscribe(data => {
+     });
+     console.log("delete");
+   }
+   public getClient(client: Client) {
+    // this.currentSpecificationName = specification.getSpecificationName();
+    this.currentClientId = client.getId();
   }
+  
 
   getPage(page: number ){
     this.currentPage= page;

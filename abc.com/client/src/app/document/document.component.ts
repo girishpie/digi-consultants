@@ -20,6 +20,7 @@ export class DocumentComponent implements OnInit {
   private currentPage = 1;
   isValid:boolean;
   loading:boolean= false;
+  currentDocumentId: string;
   constructor(private  documentService: DocumentService,
               private documents: Documents ,
               private queryParamsService: QueryParamsService)  {
@@ -59,10 +60,20 @@ export class DocumentComponent implements OnInit {
      this.isValid = true;
     } 
          
-  public deleteDocument(document: Document) {
-    this.documentService.delete(document.getId()).subscribe(data => {
+  // public deleteDocument(document: Document) {
+  //   this.documentService.delete(document.getId()).subscribe(data => {
 
-    });
+  //   });
+  // }
+  public deleteDocument(id: string) {
+    //.alert("Are You Sure You want to delete?");
+    console.log("Id "+ id);
+     this.documentService.delete(id).subscribe(data => {
+     });
+     console.log("delete");
+   }
+   public getDocument(document: Document) {
+    this.currentDocumentId = document.getId();
   }
 
   getPage(page: number ) {
