@@ -1,6 +1,7 @@
 package application.product;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,8 +48,20 @@ public class ProductController {
 	            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "SECTION_NOT_FOUND", sectionId));
 	        }
 	        if(input.getName() != null && !input.getName().isEmpty()) {
+	        	int size = productRepository.findAll().size();
+				String numberAsString = String.valueOf(size);
+				StringBuilder sb = new StringBuilder();
+				while (sb.length() + numberAsString.length() < 3) {
+					sb.append('0');
+				}
+				sb.append(size);
+				String paddedNumberAsString = sb.toString();
+				// String value = String.format("%011d", size+1);
+				String year = Integer.toString(Calendar.getInstance().get(Calendar.YEAR)).substring(2);
+	            String productNumber = year + paddedNumberAsString;
 		    	Product prod = new Product(input.getName(), input.getQuantity(), input.getBimId(), input.getAmount(), input.getUnit(), 
 		    			 sectionId, input.getDescription(), input.getProductCatId());
+		    	prod.setProductNumber(productNumber);
 		    	Product product = productRepository.save(prod);
 		    	section.addProduct(product.getId());
 		    	sectionRepository.save(section);

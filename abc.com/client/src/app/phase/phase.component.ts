@@ -5,7 +5,11 @@ import {Phases} from "./phases";
 import {QueryParamsService} from '../home/query-obeservables/query-params.service';
 import {Subscription} from "rxjs/Subscription";
 import {QueryParams} from "../home/query-obeservables/query-params";
-
+import { Project } from '../project/project';
+import { Projects } from '../project/projects';
+import { ProjectService } from '../project/project.service';
+import { StateService } from '@uirouter/angular';
+import { ProjectComponent } from '../project/project.component';
 
 @Component({
   selector: 'phase',

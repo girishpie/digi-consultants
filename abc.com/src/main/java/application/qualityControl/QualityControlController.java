@@ -60,7 +60,7 @@ public class QualityControlController {
    
    QualityControl input = new QualityControl(Qc.getChangeId(),Qc.getType(),Qc.getProjectId(),Qc.getDistributionlist(),
      Qc.getAssignee(),Qc.getStatus(),Qc.getTargetEnddate(),Qc.getShortDescription(),Qc.getDetailedDescription(),
-     Qc.getRemarks(), null);
+     Qc.getRemarks(), null, null);
    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
          if(auth !=null) {
           input.setAssignee(auth.getName());

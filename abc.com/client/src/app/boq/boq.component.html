@@ -11,6 +11,7 @@
         <tr>
           <th>BoQ Id</th>
           <th>Project Name</th>
+          <th>Department Name</th>
           <th>Current Version</th>
           <th>Total Versions</th>
           <th>Actions</th>
@@ -18,8 +19,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let boq of boqs.boqs | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: boqs.totalItems, id:'server'} ">
-          <td class="table-cell"></td>
+          <td class="table-cell">{{ boq.boQNumber }}</td>
           <td class="table-cell">{{ boq.projectName }}</td>
+          <td class="table-cell">{{ boq.boQDepartmentName }}</td>
           <td class="table-cell">{{ boq.version }}</td>
           <td class="table-cell">{{ boq.totalVersions }}</td>
           <td class="table-cell">

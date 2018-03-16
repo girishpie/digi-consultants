@@ -12,8 +12,9 @@ public class BoQDto {
 	private int totalVersions;
 	private String projectId;
 	private String projectName;
+	private String boqNumber;
 	
-	public BoQDto(BoQ boQ, String departmentName, String projectId, String projectName) {
+	public BoQDto(BoQ boQ, String departmentName, String projectId, String projectName, String BoqNumber) {
 		this.id = boQ.getId();
 		this.departmentName = departmentName;
 		this.sectionIds = boQ.getSectionIds();
@@ -22,8 +23,17 @@ public class BoQDto {
 		this.totalVersions = boQ.getVersions().size();
 		this.projectId = projectId;
 		this.projectName = projectName;
+		this.boqNumber = boqNumber;
 	}
 	
+	public String getBoqNumber() {
+		return boqNumber;
+	}
+
+	public void setBoqNumber(String boqNumber) {
+		this.boqNumber = boqNumber;
+	}
+
 	public String getId() {
 		return id;
 	}

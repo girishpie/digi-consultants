@@ -1,6 +1,7 @@
 package application.BoQ;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,18 +50,20 @@ public class BoQController {
             return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "BOQDEPARTMENT_NOT_EXSITS", bodDepartId));
 
         }
-        BoQ boq = new BoQ(bodDepartId);  
+        
+        int size = boQRepository.findAll().size();
+		String numberAsString = String.valueOf(size);
+		StringBuilder sb = new StringBuilder();
+		while (sb.length() + numberAsString.length() < 3) {
+			sb.append('0');
+		}
+		sb.append(size);
+		String paddedNumberAsString = sb.toString();
+		String year = Integer.toString(Calendar.getInstance().get(Calendar.YEAR)).substring(2);
+		String boqNumber = year + paddedNumberAsString;
+        
+        BoQ boq = new BoQ(bodDepartId,boqNumber);  
         int majorVersion = 1;
-//        if(input.getId() != null) {
-//        	 boq = boQRepository.findById(input.getId());     	
-//        	 if(boq != null) {
-//        		 List<BoQVersion> versions = boq.getVersions();
-//                 majorVersion = versions.get(versions.size()-1).getVersionNumber() + 1;
-//        	 }
-//        }
-//        else {
-//        	boq = 
-//        }
         BoQVersion version = new BoQVersion();
         version.setVersionNumber(majorVersion);
         boq.addVersion(version);
@@ -103,7 +106,7 @@ public class BoQController {
         version.setVersionNumber(majorVersion);
         
               
-        BoQ  boqNew = new BoQ(input.getBoqDepartmentId()); 
+        BoQ  boqNew = new BoQ(input.getBoqDepartmentId(), boq.getBoqNumber()); 
         BoQVersion version1= new BoQVersion();
         version1.setVersionNumber(majorVersion);
         boqNew.addVersion(version);
@@ -127,7 +130,7 @@ public class BoQController {
         for(int i = 0; i < boqs.size(); i++ ) {
         	BoQDepartment boQDepartment = boqDepartmentRepository.findById(boqs.get(i).getBoqDepartmentId());
         	Project project = projectRepository.findById(boQDepartment.getProjectId());
-        	BoQDto boQDto = new BoQDto(boqs.get(i), boQDepartment.getDepartmentName(), boQDepartment.getProjectId(),project.getProjectName());
+        	BoQDto boQDto = new BoQDto(boqs.get(i), boQDepartment.getDepartmentName(), boQDepartment.getProjectId(),project.getProjectName(),boqs.get(i).getBoqNumber());
         	boQDtos.add(boQDto);
         }
         return ResponseWrapper.getResponse(new RestResponse(boQDtos));
@@ -143,7 +146,7 @@ public class BoQController {
         }
         BoQDepartment boQDepartment = boqDepartmentRepository.findById(boq.getBoqDepartmentId());
         Project project = projectRepository.findById(boQDepartment.getProjectId());
-    	BoQDto boQDto = new BoQDto(boq, boQDepartment.getDepartmentName(), boQDepartment.getProjectId(),project.getProjectName());
+    	BoQDto boQDto = new BoQDto(boq, boQDepartment.getDepartmentName(), boQDepartment.getProjectId(),project.getProjectName(),boq.getBoqNumber());
         return ResponseWrapper.getResponse( new RestResponse(boQDto));
     }
 }

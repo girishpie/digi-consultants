@@ -8,6 +8,7 @@ export class BoQ {
   private  boQDepartmentId: string;
   private  version: number;
   private  totalVersions: number;
+  private  boQNumber:string;
   constructor() {
   }
   public setId ( id: string ) {
@@ -45,5 +46,11 @@ export class BoQ {
   }
   public getTotalVersions (): number {
     return this.totalVersions ;
+  }
+  public setBoQNumber ( boQNumber: string ) {
+    this.boQNumber = boQNumber;
+  }
+  public getBoQNumber (): string {
+    return this.boQNumber ;
   }
 }

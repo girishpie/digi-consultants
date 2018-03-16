@@ -1,5 +1,7 @@
 package application.product;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -18,6 +20,8 @@ public class Product extends BasicInfo {
 	private String productCatId;
 	private String productSubCatId;
 	private String sectionId;
+	@NotNull
+	private String productNumber;
 	
 	public Product() {
 		// TODO Auto-generated constructor stub
@@ -98,6 +102,14 @@ public class Product extends BasicInfo {
 	}
 	public void setProductSubCatId(String productSubCatId) {
 		this.productSubCatId = productSubCatId;
+	}
+
+	public String getProductNumber() {
+		return productNumber;
+	}
+
+	public void setProductNumber(String productNumber) {
+		this.productNumber = productNumber;
 	}
 	
 }

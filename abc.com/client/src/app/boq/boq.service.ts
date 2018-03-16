@@ -45,6 +45,7 @@ export class BoQService {
             boq.setBoQDepartmentName(response[i].departmentName);
             boq.setVersion(response[i].version);
             boq.setTotalVersions(response[i].totalVersions);
+            boq.setBoQNumber(response[i].boqNumber);
             boq.setId(response[i].id);
             boqs.push(boq);
           }

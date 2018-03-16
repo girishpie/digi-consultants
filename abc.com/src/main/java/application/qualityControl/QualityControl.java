@@ -23,15 +23,18 @@ public class QualityControl extends BasicInfo  {
     private String changeId;
     @NotNull
     private String type;
-    private String projectId;
-    private String distributionlist;// = new ArrayList<String>();
+    @NotNull
+    private String CRNumber;
+    
+	private String projectId;
+    private String distributionlist;
     private String assignee;
     private String status;
     private Date targetEnddate;
     private String shortDescription;
     private String detailedDescription;
     private String remarks;
-    private String documentIds; //= new HashMap<String,String>();
+    private String documentIds; 
     public String getDocumentIds() {
 		return documentIds;
 	}
@@ -47,7 +50,7 @@ public class QualityControl extends BasicInfo  {
     
 	public QualityControl(String changeId, String type, String projectId, String distributionlist,
 			String assignee, String status, Date targetEnddate, String shortDescription, String detailedDescription,
-			String remarks, String documentIds) {
+			String remarks, String documentIds, String CRNumber) {
 		this.changeId = changeId;
 		this.type = type;
 		this.projectId = projectId;
@@ -59,6 +62,7 @@ public class QualityControl extends BasicInfo  {
 		this.detailedDescription = detailedDescription;
 		this.remarks = remarks;
 		this.documentIds = documentIds;
+		this.CRNumber = CRNumber;
 	}
 
 	public String getId() {
@@ -160,6 +164,14 @@ public class QualityControl extends BasicInfo  {
 	public void addActivityLog(String comments, String type) {
 		this.activilyLogs.add(new ActivityLog(comments, type));
 	}
+	public String getCRNumber() {
+		return CRNumber;
+	}
+
+	public void setCRNumber(String cRNumber) {
+		CRNumber = cRNumber;
+	}
+
 //	public void addDocumentId(String id, String name) {
 //		this.documentIds.put(id, name);
 //	}

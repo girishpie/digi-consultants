@@ -14,21 +14,30 @@ import application.common.BasicInfo;
 public class BoQ extends BasicInfo{
 	@Id
     private String id;
-	
+	@NotNull
+	private String boqNumber;
 	@NotNull
 	private String boqDepartmentId;
 	private List<String> sectionIds = new ArrayList<String>();
 	private List<BoQVersion> versions = new ArrayList<BoQVersion>();
 	private String parentBoQId;
 	
-	public BoQ(String boqDepartmentId) {
+	public BoQ(String boqDepartmentId, String boqNumber) {
 		this.boqDepartmentId = boqDepartmentId;
+		this.boqNumber = boqNumber;
 	}
 
 	public BoQ() {
 		// TODO Auto-generated constructor stub
 	}
 
+	public String getBoqNumber() {
+		return boqNumber;
+	}
+
+	public void setBoqNumber(String boqNumber) {
+		this.boqNumber = boqNumber;
+	}
 	public String getParentBoQId() {
 		return parentBoQId;
 	}

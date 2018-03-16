@@ -1,49 +1,56 @@
-<div class="container-fluid digi-project rounded" >
-<div class="column">
-	<div class = "glyphicon glyphicon-cog">MANAGE PROJECTS</div>
-	<a href="#/new-project" class="btn btn-primary round pull-right" role="button">+Add Project</a>
-</div>
-<nav class="navbar">
-  <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search" >
-</nav>
-<table class="table ">
-  <thead>
-  <tr>
-    <th>Project Name</th>
-    <th>Job Number</th>
-    <th>Site Address</th>
-    <th>Description</th>
-    <th>Start Date</th>
-    <th>Actions</th>
-  </tr>
-  </thead>
-  <tbody>
+<div class="container-fluid digi-project rounded">
+  <div class="column">
+    <div class="glyphicon glyphicon-cog">MANAGE PROJECTS</div>
+    <a href="#/new-project" class="btn btn-primary round pull-right" role="button">+Add Project</a>
+  </div>
+  <nav class="navbar">
+    <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search">
+  </nav>
+  <table class="table ">
+    <thead>
+      <tr>
+        <th>Project Name</th>
+        <th>Job Number</th>
+        <th>Site Address</th>
+        <th>Description</th>
+        <th>Start Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
       <tr *ngFor="let project of projects.projects| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: projects.totalItems, id:'server'} ">
-        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="project.projectName" (input)="project.projectName=$event.target.textContent">{{ project.projectName }}</td>
-        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="project.jobNumber" (input)="project.jobNumber=$event.target.textContent">{{ project.jobNumber }}</td>
-        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="project.siteAddress" (input)="project.siteAddress=$event.target.textContent">{{ project.siteAddress }}</td>
-        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="project.description" (input)="project.description=$event.target.textContent">{{ project.description }}</td>
-        <td class = "table-cell">{{ project.startDate |  date:'MM/dd/yyyy' }}</td>
-        <td class = "table-cell">
-            <tooltip-content #screeningOptions class="recommended-programs-tooltip">
-                <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
-                  <div class="tooltip-text-regisnation">Edit</div>
-                </div>
-              </tooltip-content>
-          <button [disabled]="!isValid" class="btn-primary" (click) = "updateProject(project)">
-            <img src="assets/edit.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions"></button> 
-            <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
-                <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
-                  <div class="tooltip-text-regisnation">Delete</div>
-                </div>
-              </tooltip-content>
-          <button style="background-color:red;" class="btn-primary"  (click) = "getProject(project)" data-toggle="modal" data-target=".bd-example-modal-sm">
+        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="project.projectName" (input)="project.projectName=$event.target.textContent">{{ project.projectName }}</td>
+        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="project.jobNumber" (input)="project.jobNumber=$event.target.textContent">{{ project.jobNumber }}</td>
+        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="project.siteAddress" (input)="project.siteAddress=$event.target.textContent">{{ project.siteAddress }}</td>
+        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="project.description" (input)="project.description=$event.target.textContent">{{ project.description }}</td>
+        <td class="table-cell">{{ project.startDate | date:'MM/dd/yyyy' }}</td>
+        <td class="table-cell">
+          <tooltip-content #screeningOptions class="recommended-programs-tooltip">
+            <div>
+              <span>
+                <p class="fa fa-info-circle fa-tooltip"></p>
+              </span>
+              <div class="tooltip-text-regisnation">Edit</div>
+            </div>
+          </tooltip-content>
+          <button [disabled]="!isValid" class="btn-primary" (click)="updateProject(project)">
+            <img src="assets/edit.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions">
+          </button>
+          <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
+            <div>
+              <span>
+                <p class="fa fa-info-circle fa-tooltip"></p>
+              </span>
+              <div class="tooltip-text-regisnation">Delete</div>
+            </div>
+          </tooltip-content>
+          <button style="background-color:red;" class="btn-primary" (click)="getProject(project)" data-toggle="modal" data-target=".bd-example-modal-sm">
             <img src="assets/delete.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1">
           </button>
         </td>
-     </tr>
-  </tbody>
- </table>
+      </tr>
+    </tbody>
+  </table>
   <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
 </div>
 <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -59,11 +66,11 @@
           <div class="container-fluid rounded" style="background-color:white;">
             <div class="section-wrpr">
               <div class="small-wrpr" style="margin-top: 10px; margin-left:20px;">
-                  <div class="content-wrpr">
-                      Are you sure?
-                  </div>
+                <div class="content-wrpr">
+                  Are you sure?
+                </div>
                 <button class="close" data-dismiss="modal" style="background-color:red;">
-                  <img  src="assets/delete.svg" (click) = "deleteProject(currentProjectId)" style="width:30px">
+                  <img src="assets/delete.svg" (click)="deleteProject(currentProjectId)" style="width:30px">
                 </button>
               </div>
               <div class="clearfix"></div>
@@ -71,6 +78,24 @@
             </div>
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br><br>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h6 class="panel-title">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+        + Phase
+      </a>
+    </h6>
+  </div>
+  <div id="collapseOne" class="panel-collapse collapse">
+    <div class="panel-body">
+      <div class="panel-body">
+        <phase></phase>
       </div>
     </div>
   </div>

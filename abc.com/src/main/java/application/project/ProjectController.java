@@ -68,9 +68,9 @@ public class ProjectController {
 			String paddedNumberAsString = sb.toString();
 			// String value = String.format("%011d", size+1);
 			String year = Integer.toString(Calendar.getInstance().get(Calendar.YEAR)).substring(2);
-			String loggedinUser = year + paddedNumberAsString;
-            String projectNumber = "";
-			Project project = new Project(input.getProjectName(), loggedinUser, input.getSiteAddress(),
+			String jobnumber = year + paddedNumberAsString;
+            String projectNumber = year + paddedNumberAsString;
+			Project project = new Project(input.getProjectName(), jobnumber, input.getSiteAddress(),
 					input.getDescription(), input.getStartDate(), input.getClientId(), input.getPhase(), projectNumber);
 			Project proj = projectRepository.save(project);
 			client.addProject(proj.getId());

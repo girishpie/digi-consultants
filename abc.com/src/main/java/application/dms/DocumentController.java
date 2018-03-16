@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -74,6 +75,18 @@ public class DocumentController {
             version.setVersionNumber(majorVersion);
             catalog.addVersion(version);
             catalog.setType("Document");
+            int size = documentCatalogRepository.findAll().size();
+			String numberAsString = String.valueOf(size);
+			StringBuilder sb = new StringBuilder();
+			while (sb.length() + numberAsString.length() < 3) {
+				sb.append('0');
+			}
+			sb.append(size);
+			String paddedNumberAsString = sb.toString();
+			// String value = String.format("%011d", size+1);
+			String year = Integer.toString(Calendar.getInstance().get(Calendar.YEAR)).substring(2);
+			String documentNumber = year + paddedNumberAsString;
+			catalog.setDocumentNumber(documentNumber);
             catalog = documentCatalogRepository.save(catalog);
             return ResponseWrapper.getResponse(new RestResponse(catalog));
 
@@ -116,6 +129,18 @@ public class DocumentController {
             version.setVersionNumber(majorVersion);
             catalog.addVersion(version);
             catalog.setType("Drawing");
+            int size = documentCatalogRepository.findAll().size();
+			String numberAsString = String.valueOf(size);
+			StringBuilder sb = new StringBuilder();
+			while (sb.length() + numberAsString.length() < 3) {
+				sb.append('0');
+			}
+			sb.append(size);
+			String paddedNumberAsString = sb.toString();
+			// String value = String.format("%011d", size+1);
+			String year = Integer.toString(Calendar.getInstance().get(Calendar.YEAR)).substring(2);
+			String documentNumber = year + paddedNumberAsString;
+			catalog.setDocumentNumber(documentNumber);
             catalog = documentCatalogRepository.save(catalog);
             return ResponseWrapper.getResponse(new RestResponse(catalog));
 
@@ -124,7 +149,7 @@ public class DocumentController {
             return ResponseWrapper.getResponse(new RestError(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
         }
     }
-    
+
     @PreAuthorize("hasAuthority('READ_DOCUMENT')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public @ResponseBody HttpEntity<byte[]> get(@PathVariable("id") String id) {

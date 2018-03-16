@@ -11,16 +11,18 @@ import javax.validation.constraints.NotNull;
 /**
  * Created by gipai on 9/30/2017.
  */
-public class DocumentCatalog extends BasicInfo  {
-    @Id
-    private String id;
-    private String displayName;
-    private List<Version> versions = new ArrayList<Version>();
-    private String projectId;
-    @NotNull
-    private String type;
+public class DocumentCatalog extends BasicInfo {
+	@Id
+	private String id;
+	private String displayName;
+	private List<Version> versions = new ArrayList<Version>();
+	private String projectId;
+	@NotNull
+	private String type;
+	@NotNull
+	private String documentNumber;
 
-    public String getType() {
+	public String getType() {
 		return type;
 	}
 
@@ -28,57 +30,64 @@ public class DocumentCatalog extends BasicInfo  {
 		this.type = type;
 	}
 
+	public String getDocumentNumber() {
+		return documentNumber;
+	}
+
+	public void setDocumentNumber(String documentNumber) {
+		this.documentNumber = documentNumber;
+	}
+
 	public String getId() {
-        return id;
-    }
+		return id;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public String getDisplayName() {
-        return displayName;
-    }
+	public String getDisplayName() {
+		return displayName;
+	}
 
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
 
-    public List<Version> getVersions() {
-        return versions;
-    }
+	public List<Version> getVersions() {
+		return versions;
+	}
 
-    public void setVersions(List<Version> versions) {
-        this.versions = versions;
-    }
+	public void setVersions(List<Version> versions) {
+		this.versions = versions;
+	}
 
-    public void addVersion(Version version){
-        versions.add(version);
-    }
+	public void addVersion(Version version) {
+		versions.add(version);
+	}
 
-    public boolean deleteVersion(int versionId){
-        for(int i= 0 ; i< versions.size(); i++ ){
-            if(versions.get(i).getVersionNumber() == versionId){
-                versions.remove(i);
-                return true;
-            }
-        }
-        return false;
-    }
+	public boolean deleteVersion(int versionId) {
+		for (int i = 0; i < versions.size(); i++) {
+			if (versions.get(i).getVersionNumber() == versionId) {
+				versions.remove(i);
+				return true;
+			}
+		}
+		return false;
+	}
 
-    public Version getLatestVersion() {
-        return versions.get(versions.size()-1);
-    }
+	public Version getLatestVersion() {
+		return versions.get(versions.size() - 1);
+	}
 
-
-    public Version getVersion(int versionId){
-        for(int i= 0 ; i< versions.size(); i++ ){
-            if(versions.get(i).getVersionNumber() == versionId){
-                return versions.get(i);
-            }
-        }
-        return null;
-    }
+	public Version getVersion(int versionId) {
+		for (int i = 0; i < versions.size(); i++) {
+			if (versions.get(i).getVersionNumber() == versionId) {
+				return versions.get(i);
+			}
+		}
+		return null;
+	}
 
 	public String getProjectId() {
 		return projectId;
@@ -87,5 +96,5 @@ public class DocumentCatalog extends BasicInfo  {
 	public void setProjectId(String projectId) {
 		this.projectId = projectId;
 	}
-    
+
 }
