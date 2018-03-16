@@ -45,7 +45,7 @@ export class NewMeetingComponent implements OnInit {
 
     ngOnInit() {
         let discussion = new Discussion();
-        discussion.setItem((this.discussions.length)+'.0');
+        discussion.setItem(((this.discussions.length)+1)+'.0');
         this.discussions.push(discussion);
         this.getProjects();
     }

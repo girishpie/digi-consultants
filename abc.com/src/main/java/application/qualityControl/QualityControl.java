@@ -24,22 +24,30 @@ public class QualityControl extends BasicInfo  {
     @NotNull
     private String type;
     private String projectId;
-    private List<String> distributionlist = new ArrayList<String>();
+    private String distributionlist;// = new ArrayList<String>();
     private String assignee;
     private String status;
     private Date targetEnddate;
     private String shortDescription;
     private String detailedDescription;
     private String remarks;
-    private Map<String,String> documentIds = new HashMap<String,String>();
-    private List<ActivityLog> activilyLogs = new ArrayList<ActivityLog>();
+    private String documentIds; //= new HashMap<String,String>();
+    public String getDocumentIds() {
+		return documentIds;
+	}
+
+	public void setDocumentIds(String documentIds) {
+		this.documentIds = documentIds;
+	}
+
+	private List<ActivityLog> activilyLogs = new ArrayList<ActivityLog>();
     
     public QualityControl() {    	
     }
     
-	public QualityControl(String changeId, String type, String projectId, List<String> distributionlist,
+	public QualityControl(String changeId, String type, String projectId, String distributionlist,
 			String assignee, String status, Date targetEnddate, String shortDescription, String detailedDescription,
-			String remarks, List<String> documentIds) {
+			String remarks, String documentIds) {
 		this.changeId = changeId;
 		this.type = type;
 		this.projectId = projectId;
@@ -50,7 +58,7 @@ public class QualityControl extends BasicInfo  {
 		this.shortDescription = shortDescription;
 		this.detailedDescription = detailedDescription;
 		this.remarks = remarks;
-		((List<String>) this.documentIds).addAll(documentIds);
+		this.documentIds = documentIds;
 	}
 
 	public String getId() {
@@ -85,11 +93,11 @@ public class QualityControl extends BasicInfo  {
 		this.projectId = projectId;
 	}
 
-	public List<String> getDistributionlist() {
+	public String getDistributionlist() {
 		return distributionlist;
 	}
 
-	public void setDistributionlist(List<String> distributionlist) {
+	public void setDistributionlist(String distributionlist) {
 		this.distributionlist = distributionlist;
 	}
 
@@ -152,7 +160,7 @@ public class QualityControl extends BasicInfo  {
 	public void addActivityLog(String comments, String type) {
 		this.activilyLogs.add(new ActivityLog(comments, type));
 	}
-	public void addDocumentId(String id, String name) {
-		this.documentIds.put(id, name);
-	}
+//	public void addDocumentId(String id, String name) {
+//		this.documentIds.put(id, name);
+//	}
 }

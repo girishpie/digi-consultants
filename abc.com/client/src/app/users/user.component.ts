@@ -18,6 +18,7 @@ export class UserComponent implements OnInit {
   private subscription: Subscription;
   private currentSearchString: string;
   private currentPage = 1;
+  currentUserId:string;
   constructor(private  userService: UserService,
               private users: Users ,
               private queryParamsService: QueryParamsService)  {
@@ -47,11 +48,14 @@ export class UserComponent implements OnInit {
     });
 
   }
-
-  public deleteUser(user: User) {
-    this.userService.delete(user.getId()).subscribe(data => {
-    //console.log("User Id" + user.getId() );
-    });
+  public deleteUser(id: string) {
+    console.log("Id "+ id);
+     this.userService.delete(id).subscribe(data => {
+     });
+     console.log("delete");
+   }
+   public getUser(user: User) {
+    this.currentUserId = user.getId();
   }
 
   getPage(page: number ){

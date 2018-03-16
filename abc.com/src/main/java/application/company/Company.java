@@ -86,7 +86,7 @@ public class Company extends BasicInfo{
 
 	public void deleteClient(String id2) {
 		for (int i = 0; i < this.clientIds.size(); i++) {
-            if (this.clientIds.get(i) == id2) {
+            if (this.clientIds.get(i).equals(id2)) {
                 this.clientIds.remove(i);
             }
         }		
@@ -94,7 +94,7 @@ public class Company extends BasicInfo{
 
 	public void deleteOffice(String id2) {
 		for (int i = 0; i < this.officeIds.size(); i++) {
-            if (this.officeIds.get(i) == id2) {
+            if (this.officeIds.get(i).equals(id2)) {
                 this.officeIds.remove(i);
             }
         }		

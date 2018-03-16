@@ -99,7 +99,7 @@ public class BoQ extends BasicInfo{
 
 	public void deleteSection(String id2) {
 		for (int i = 0; i < this.sectionIds.size(); i++) {
-            if (this.sectionIds.get(i) == id2) {
+            if (this.sectionIds.get(i).equals(id2)) {
                 this.sectionIds.remove(i);
             }
         }	

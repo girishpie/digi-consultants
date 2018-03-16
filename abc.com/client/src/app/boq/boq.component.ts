@@ -14,6 +14,8 @@ import * as jsPDF from 'jspdf';
 
 export class BoQComponent implements OnInit {
 
+  isValid:boolean;
+  loading: boolean  = false;
   private subscription: Subscription;
   private currentSearchString: string;
   private currentPage = 1;
@@ -63,7 +65,6 @@ export class BoQComponent implements OnInit {
    }
 
    public getBoQ(boq:BoQ) {
-    // this.currentSpecificationName = specification.getSpecificationName();
     this.currentBoQId = boq.getId();
   }
   
@@ -94,5 +95,14 @@ export class BoQComponent implements OnInit {
     // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();
   }
+  // public updateBoQ(boq: BoQ) {
+  //   this.loading = true;
+  //   this.boqService.update(boq).subscribe(data => {
+	// 	 this.loading = false;
+  //   });
+  // }
+  //   onRowClick(event){
+  //    this.isValid = true;
+  //   } 
 }
 

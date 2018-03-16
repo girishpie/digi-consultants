@@ -7,6 +7,7 @@ import {HttpModule} from '@angular/http';
 //import {NewCategoryComponent} from './new/new-category.component';
 import {Categories} from './categories';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { TooltipModule } from "ngx-tooltip";
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
   imports: [
     BrowserModule,
     HttpModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    TooltipModule
   ],
   exports : [CategoryComponent],
   providers: [Categories,

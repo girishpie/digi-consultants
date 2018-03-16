@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.Authentication ;
@@ -46,31 +48,38 @@ public class QualityControlController {
     
     
     @PreAuthorize("hasAuthority('CREATE_CR')")
-    @RequestMapping(value = "/{projectId}", method = RequestMethod.POST)
-    ResponseEntity<IResponse> add(@PathVariable("projectId") String projectId, @RequestBody QualityControl input ) {
-        Project project = projectRepository.findById(projectId);
+    @RequestMapping(value = "/{projectId}", headers = "content-type=multipart/*", method = RequestMethod.POST)
+    ResponseEntity<IResponse> add(@PathVariable("projectId") String projectId, @RequestPart("inputStr") String inputStr, @RequestPart("file")  MultipartFile file  ) {
+    	Project project = projectRepository.findById(projectId);
         if(project == null){
             return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "PROJECT_NOT_FOUND", projectId ));
 
         }
-        /*try {
-        	String id = documentRepository.storeDocument(file.getOriginalFilename(),
-                file.getContentType(),
-                file.getInputStream());
-        	
-        	//input.addDocumentId(id, file.getOriginalFilename());
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseWrapper.getResponse(new RestError(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
-        }*/
-         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if(auth !=null) {
-         input.setAssignee(auth.getName());
-        }
-        QualityControl qc = qualityControlRepository.save(input);
-        project.addCR(qc.getId());
-        projectRepository.save(project);
-        return ResponseWrapper.getResponse(new RestResponse(qc.getId()));
+  try {
+   QualityControl Qc = new ObjectMapper().readValue(inputStr, QualityControl.class);
+   
+   QualityControl input = new QualityControl(Qc.getChangeId(),Qc.getType(),Qc.getProjectId(),Qc.getDistributionlist(),
+     Qc.getAssignee(),Qc.getStatus(),Qc.getTargetEnddate(),Qc.getShortDescription(),Qc.getDetailedDescription(),
+     Qc.getRemarks(), null);
+   Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+         if(auth !=null) {
+          input.setAssignee(auth.getName());
+         }
+         
+//         String id = documentRepository.storeDocument(file.getOriginalFilename(),
+//                 file.getContentType(),
+//                 file.getInputStream());
+          
+         //input.addDocumentId(file.getOriginalFilename(), file.getOriginalFilename());
+         input.setDocumentIds(file.getOriginalFilename());
+         QualityControl qc = qualityControlRepository.save(input);
+         project.addCR(qc.getId());
+         projectRepository.save(project);
+         return ResponseWrapper.getResponse(new RestResponse(qc.getId()));
+  }catch (Exception e) {
+   e.printStackTrace();
+   return ResponseWrapper.getResponse(new RestError(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
+  }
     }
 
     //Delete Specific cr

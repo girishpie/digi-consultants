@@ -15,6 +15,7 @@ import {QueryParams} from "../home/query-obeservables/query-params";
 
 export class CompanyComponent implements OnInit {
 
+  currentCompanyId:String;
   private subscription: Subscription;
   private currentSearchString: string;
   private currentPage = 1;
@@ -29,11 +30,13 @@ export class CompanyComponent implements OnInit {
   }
 
   public getCompany(company: Company) {
+    this.currentCompanyId = company.getId();
     console.log(company.getCompanyName());
     console.log(company.getAddress());
     this.currentCompanyName = company.getCompanyName();
     this.currentCompanyAddress = company.getAddress();
   }
+ 
 
 
   ngOnInit() {
@@ -69,12 +72,13 @@ export class CompanyComponent implements OnInit {
     this.isValid = true;
     } 
 
-         
-  public deleteCompany(company: Company) {
-    this.companyService.delete(company.getId()).subscribe(data => {
-
-    });
-  }
+  public deleteCompany(id: string) {
+    //.alert("Are You Sure You want to delete?");
+    console.log("Id "+ id);
+     this.companyService.delete(id).subscribe(data => {
+     });
+     console.log("delete");
+   }
 
   getPage(page: number ){
     this.currentPage= page;

@@ -1,35 +1,61 @@
-<div class="container-fluid digi-client rounded" >
-<div class="column">
-<div class = "glyphicon glyphicon-cog">MANAGE CLIENTS</div>
-	<a href="#/new-client" class="btn btn-primary round pull-right" role="button">+Add Client</a>
-</div>
-<table class="table">
-  <thead>
-  <tr>
-    <th>Client Name</th>
-    <th>Address</th>
-    <th>Client's Company</th>
-    <!-- <th>Projects</th> -->
-  </tr>
-  </thead>
-  <tbody>
+<div class="container-fluid digi-client rounded">
+  <div class="column">
+    <div class="glyphicon glyphicon-cog">MANAGE CLIENTS</div>
+    <a href="#/new-client" class="btn btn-primary round pull-right" role="button">+Add Client</a>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Client Name</th>
+        <th>Address</th>
+        <th>Client's Company</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
       <tr *ngFor="let client of clients.clients | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: clients.totalItems, id:'server'} ">
-        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="client.name" (input)="client.name=$event.target.textContent">{{ client.name }}</td>
-        <td class = "table-cell"  contenteditable='true' (input)="onRowClick($event)" [textContent]="client.address" (input)="client.address=$event.target.textContent">{{ client.address }}</td>
-        <td class = "table-cell">{{ client.companyName }}</td>
+        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="client.name" (input)="client.name=$event.target.textContent">{{ client.name }}</td>
+        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="client.address" (input)="client.address=$event.target.textContent">{{ client.address }}</td>
+        <td class="table-cell">{{ client.companyName }}</td>
         <!-- <td class = "table-cell"  contenteditable='true' (input)="onRowClick($event)" [textContent]="client.projectNames" (input)="client.projectNames=$event.target.textContent">{{ client.projectNames }}</td> -->
-         <td class = "table-cell">
-          <button [disabled]="!isValid" class="btn-primary" (click) = "updateClient(client)">
-            <img src="assets/edit.svg" style="width:30px"></button> 
-            <button class="btn-primary"><a href="#/"><img src="assets/view.svg" style="width:30px"></a></button>     
-           <!-- <button  style="background-color:red;"><img src="assets/delete.svg" (click) = "deleteClient(client)" style="width:30px"></button> -->
-           <button style="background-color:red;" class="btn-primary"  (click) = "getClient(client)" data-toggle="modal" data-target=".bd-example-modal-sm">
-            <img src="assets/delete.svg" style="width:30px" >
-          </button>     
+        <td class="table-cell">
+          <tooltip-content #screeningOptions class="recommended-programs-tooltip">
+            <div>
+              <span>
+                <p class="fa fa-info-circle fa-tooltip"></p>
+              </span>
+              <div class="tooltip-text-regisnation">Edit</div>
+            </div>
+          </tooltip-content>
+          <button [disabled]="!isValid" class="btn-primary" (click)="updateClient(client)">
+            <img src="assets/edit.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions">
+          </button>
+          <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
+            <div>
+              <span>
+                <p class="fa fa-info-circle fa-tooltip"></p>
+              </span>
+              <div class="tooltip-text-regisnation">Edit</div>
+            </div>
+          </tooltip-content>
+          <button class="btn-primary">
+            <img src="assets/view.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1">
+          </button>
+          <tooltip-content #screeningOption2 class="recommended-programs-tooltip">
+            <div>
+              <span>
+                <p class="fa fa-info-circle fa-tooltip"></p>
+              </span>
+              <div class="tooltip-text-regisnation">Edit</div>
+            </div>
+          </tooltip-content>
+          <button style="background-color:red;" class="btn-primary" (click)="getClient(client)" data-toggle="modal" data-target=".bd-example-modal-sm">
+            <img src="assets/delete.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption2">
+          </button>
         </td>
-     </tr>
-  </tbody>
- </table>
+      </tr>
+    </tbody>
+  </table>
   <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
 </div>
 <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -45,11 +71,11 @@
           <div class="container-fluid rounded" style="background-color:white;">
             <div class="section-wrpr">
               <div class="small-wrpr" style="margin-top: 10px; margin-left:20px;">
-                  <div class="content-wrpr">
-                      Are you sure?
-                  </div>
+                <div class="content-wrpr">
+                  Are you sure?
+                </div>
                 <button class="close" data-dismiss="modal" style="background-color:red;">
-                  <img  src="assets/delete.svg" (click) = "deleteClient(currentClientId)" style="width:30px">
+                  <img src="assets/delete.svg" (click)="deleteClient(currentClientId)" style="width:30px">
                 </button>
               </div>
               <div class="clearfix"></div>

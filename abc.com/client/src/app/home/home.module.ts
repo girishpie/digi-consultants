@@ -87,7 +87,15 @@ import { OfficeComponent} from '../office/office.component';
 import { OfficeModule} from '../office/office.module';
 import { NewOfficeModule} from '../office/new-office/new-office.module';
 import { NewOfficeComponent} from '../office/new-office/new-office.component';
+import {OverviewModule} from '../overview/overview.module';
+import {OverviewComponent} from '../overview/overview.component';
+import { DrawingComponent } from '../drawing/drawing.component';
+import { DrawingModule } from '../drawing/drawing.module';
+import { NewDrawingComponent } from '../drawing/new/new-drawing.component';
+import { NewDrawingModule } from '../drawing/new/new-drawing.module';
 
+
+const overviewState = { name:'overview', url: '/overview', component:OverviewComponent};
 const userState = { name: 'user', url: '/user',  component: UserComponent };
 const newUserState = { name: 'new-user', url: '/new-user',  component: NewUserComponent };
 const roleState = { name: 'role', url: '/role',  component: RoleComponent };
@@ -129,6 +137,9 @@ const NewSpecificationState={ name:'new-specification', url:'/new-specification'
 const companylistState ={ name:'companylist', url:'/companylist', component:CompanyListComponent};
 const officeState ={ name :'office', url:'/office', component: OfficeComponent};
 const newofficeState ={ name:'new-office', url:'/new-office', component:NewOfficeComponent};
+const drawingState = { name: 'drawing', url: '/drawing',  component: DrawingComponent };
+const newDrawingState = { name: 'new-drawing', url: '/new-drawing',  component: NewDrawingComponent };
+
 
 @NgModule({
   declarations: [
@@ -152,6 +163,8 @@ const newofficeState ={ name:'new-office', url:'/new-office', component:NewOffic
     NewPhaseModule,
     DocumentModule,
     NewDocumentModule,
+    DrawingModule,
+    NewDrawingModule,
     DepartmentModule,
     NewDepartmentModule,
     SearchModule,
@@ -180,14 +193,15 @@ const newofficeState ={ name:'new-office', url:'/new-office', component:NewOffic
     CompanyListModule,
     OfficeModule,
     NewOfficeModule,
+    OverviewModule,
 
     UIRouterModule.forRoot({ states: [ userState, newUserState, roleState, newRoleState, projectState,
       newProjectState, clientState, newClientState, companyState, newCompanyState, phaseState,
-      newPhaseState, documentState, newDocumentState, boqState, newBoQState, departmentState, newDepartmentState,
+      newPhaseState, documentState, newDocumentState,drawingState,newDrawingState, boqState, newBoQState, departmentState, newDepartmentState,
       sectionState, newSectionState, productState, newProductState, categoryState, newCategoryState,
       subcategoryState, newSubcategoryState, employeeState, newEmployeeState, meetingState, newMeetingState,
     qualityState,newQualityState,requestState,newRequestState,projectlistState,specificationState,NewSpecificationState,companylistState,officeState,
-    newofficeState], useHash: true })
+    newofficeState,overviewState], useHash: true })
   ],
   exports : [HomeComponent],
   providers: [QueryParamsService],

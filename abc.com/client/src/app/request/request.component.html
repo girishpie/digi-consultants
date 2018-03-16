@@ -9,22 +9,17 @@
   <table class="table">
       <thead>
         <tr>
-          <!-- <th>Changed ID</th> -->
           <th>Short Description</th>
           <th>Status</th>
-          <!-- <th>Target Enddate</th> -->
-          <!-- <th>Project</th> -->
           <th>Raised by</th>
-          <th>Action</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
             <tr *ngFor="let request of requests.requests| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: requests.totalItems, id:'server'} ">
-                    <!-- <td class = "table-cell" >{{ request.id }}</td> -->
+                 
                     <td class = "table-cell" >{{ request.shortDescription }}</td>
                     <td class = "table-cell" >{{ request.status }}</td>
-                    <!-- <td class = "table-cell" >{{ request.targetEnddate }}</td> -->
-                    <!-- <td class = "table-cell" >{{ request.projectId }}</td> -->
                     <td class = "table-cell" >{{ request.assignee }}</td>
                     <td class="table-cell" >{{ request.remarks }}</td>
                     <td class = "table-cell">

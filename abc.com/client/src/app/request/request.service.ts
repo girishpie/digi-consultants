@@ -60,18 +60,19 @@ export class RequestService {
   }
 
 
-
-  public save(request: Request)  {
+  public save(request: Request, file:File)  {
     const endPoint = this.requestUrl + request.getProjectId();
-    console.log(request);
     var headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    headers.append('Content-Type', undefined);
     let options = new RequestOptions({ headers: headers });
-    // let formData:FormData = new FormData();
    
-    // 	formData.append('inputStr', JSON.stringify(request));
+    let formData:FormData = new FormData();
+    //if(file !== null){
+    	formData.append('file', file, file.name);
+    	formData.append('inputStr', JSON.stringify(request));
+    //}
     // Returns response
-    return this.http.post(endPoint, request)
+    return this.http.post(endPoint, formData)
       .map(res => {
           const res1 = res.json();
           request.setId(res1.id);
@@ -80,6 +81,7 @@ export class RequestService {
         }
       );
   }
+
 
   public delete(id: string)  {
     const endPoint = this.requestUrl  + id ;

@@ -218,13 +218,13 @@ public class CategoryController {
 
 
     @RequestMapping(value = "/{categoryId}", method = RequestMethod.DELETE)
-    ResponseEntity<IResponse> delete(@PathVariable String categoryId,@RequestBody Category input){
+    ResponseEntity<IResponse> delete(@PathVariable String categoryId){
         Category category = categoryRepository.findById(categoryId);
         if(category == null){
             return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "CATEGORY_NOT_EXSITS" , categoryId));
         }
         categoryRepository.delete(category);
-        return ResponseWrapper.getResponse(new RestResponse(category));
+        return ResponseWrapper.getResponse(new RestResponse(categoryId));
     }
 
     @RequestMapping(value = "/{categoryId}/{path}", method = RequestMethod.DELETE)

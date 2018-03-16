@@ -87,7 +87,7 @@ export class SectionComponent implements OnInit {
   }
 
   public getSection(section: Section) {
-    this.currentSectionName = section.getSectionName();
+    // this.currentSectionName = section.getSectionName();
     this.currentSectionId = section.getId();
   }
 }

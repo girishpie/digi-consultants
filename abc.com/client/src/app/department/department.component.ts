@@ -60,13 +60,7 @@ export class DepartmentComponent implements OnInit {
   onRowClick(event){
     this.isValid = true;
     } 
-
-  // public deleteDepartment(department: Department) {
-  //   this.departmentService.delete(department.getId()).subscribe(data => {
-
-  //   });
-  // }
-
+    
   getPage(page: number ){
     this.currentPage= page;
     this.queryParamsService.setPageNumber( page-1);

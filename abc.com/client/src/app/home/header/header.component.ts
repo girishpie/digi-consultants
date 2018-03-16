@@ -8,6 +8,12 @@ import { Component, Input } from '@angular/core';
 })
 
 export class HeaderComponent {
+  username: string;
+
+  ngOnInit()
+  {
+    this.username = localStorage.getItem('UserName');
+  }
 
 
 }

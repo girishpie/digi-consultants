@@ -64,7 +64,7 @@ public class Client extends BasicInfo  {
 
 	public void deleteProject(String id2) {
 		for (int i = 0; i < this.projectIds.size(); i++) {
-            if (this.projectIds.get(i) == id2) {
+            if (this.projectIds.get(i).equals(id2)) {
                 this.projectIds.remove(i);
             }
         }

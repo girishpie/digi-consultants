@@ -66,6 +66,7 @@ import application.response.RestResponse;
 	        Project project = projectRepository.findById(boqDepartment.getProjectId());
 	        if(project != null){
 	        	project.deleteBoQDepartment(id);
+	        	System.out.println("IN delete Controller " + id);
 		        projectRepository.save(project);
 	        }
 	        long res = boqDepartmentRepository.deleteById(id);

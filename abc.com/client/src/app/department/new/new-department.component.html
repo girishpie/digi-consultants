@@ -1,5 +1,5 @@
 <div class="container-fluid rounded" >
- 	<div class = "glyphicon glyphicon-cog">ADD CATEGORY</div>
+ 	<div class = "glyphicon glyphicon-cog">ADD DEPARTMENT</div>
       <div>
         <form>
           <div class="form-group">
@@ -8,8 +8,10 @@
           </div>
           <div class="form-group" >
             <label for="project-option" class="form-control-label">Projects:</label>
+            
             <select id="project-option" class="form-control"   [(ngModel)]="projectId" name="projects">
-              <option *ngFor="let project of availableProjects" [value]="project.id">
+              <!-- <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search"  > -->
+               <option *ngFor="let project of availableProjects" [value]="project.id">
                 {{ project.projectName }}
               </option>
             </select>

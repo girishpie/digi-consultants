@@ -81,7 +81,7 @@ export class QualityService {
     return this.http.delete(endPoint)
       .map(res => {
           const res1 = res.json();
-          this.qualities.deleteQuality(res1.id);
+          this.qualities.deleteQuality(res1.response);
         }
       );
   }

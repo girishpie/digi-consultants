@@ -1,57 +1,68 @@
-<div class="container-fluid digi-product rounded" >
-<div class="column">
-	<div class = "glyphicon glyphicon-cog">MANAGE PRODUCTS</div><br>
-  <label for="section-option" class="form-control-label" >Section:</label>
-   <select style="display: initial;width: 50%;" item-width="50%" id="section-option" class="form-control"   [(ngModel)]="sectionId" name="sections">
-       <option *ngFor="let section of availableSections" [value]="section.id">
-                {{ section.sectionName }} 
-       </option> 
-     </select>
-	<a href="#/new-product" class="btn btn-primary round pull-right" role="button">+Add Product</a>
-</div><br>
-<nav class="navbar">
-  <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search" >
-</nav>
-<table class="table ">
-  <thead>
-  <tr>
-  	<th>Product Name</th>
-    <th>Unit</th>
-    <th>Quantity</th>
-    <th>Amount</th>    
-    <th>Description</th>
-    <th>Bim Id</th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
+<div class="container-fluid digi-product rounded">
+  <div class="column">
+    <div class="glyphicon glyphicon-cog">MANAGE PRODUCTS</div>
+    <br>
+    <label for="section-option" class="form-control-label">Section:</label>
+    <select style="display: initial;width: 50%;" item-width="50%" id="section-option" class="form-control" [(ngModel)]="sectionId"
+      name="sections">
+      <option *ngFor="let section of availableSections" [value]="section.id">
+        {{ section.sectionName }}
+      </option>
+    </select>
+    <a href="#/new-product" class="btn btn-primary round pull-right" role="button">+Add Product</a>
+  </div>
+  <br>
+  <nav class="navbar">
+    <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search">
+  </nav>
+  <table class="table ">
+    <thead>
+      <tr>
+        <th>Product Name</th>
+        <th>Unit</th>
+        <th>Quantity</th>
+        <th>Amount</th>
+        <th>Description</th>
+        <th>Bim Id</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
       <tr *ngFor="let product of products.products| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: products.totalItems, id:'server'} ">
-        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.name" (input)="product.name=$event.target.textContent">{{ product.name }}</td>
-        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.unit" (input)="product.unit=$event.target.textContent">{{ product.unit }}</td>
-        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.quantity" (input)="product.quantity=$event.target.textContent">{{ product.quantity }}</td>
-        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.amount" (input)="product.amount=$event.target.textContent">{{ product.amount }}</td>
-        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.descrition" (input)="product.descrition=$event.target.textContent">{{ product.descrition }}</td>
-        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.bimId" (input)="product.bimId=$event.target.textContent">{{ product.bimId }}</td>
-         <td class = "table-cell">
-            <tooltip-content #screeningOptions class="recommended-programs-tooltip">
-                <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
-                  <div class="tooltip-text-regisnation">Edit</div>
-                </div>
-              </tooltip-content>
-            <button [disabled]="!isValid" class="btn-primary" (click) = "updateProduct(product)" tooltipPlacement="right" [tooltip]="screeningOptions">
-                <img src="assets/edit.svg" style="width:30px"></button> 
-            <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
-                    <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
-                      <div class="tooltip-text-regisnation">Delete</div>
-                    </div>
-              </tooltip-content>   
-          <button style="background-color:red;" class="btn-primary"  (click) = "getProduct(product)" data-toggle="modal" data-target=".bd-example-modal-sm">
+        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.name" (input)="product.name=$event.target.textContent">{{ product.name }}</td>
+        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.unit" (input)="product.unit=$event.target.textContent">{{ product.unit }}</td>
+        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.quantity" (input)="product.quantity=$event.target.textContent">{{ product.quantity }}</td>
+        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.amount" (input)="product.amount=$event.target.textContent">{{ product.amount }}</td>
+        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.descrition" (input)="product.descrition=$event.target.textContent">{{ product.descrition }}</td>
+        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.bimId" (input)="product.bimId=$event.target.textContent">{{ product.bimId }}</td>
+        <td class="table-cell">
+          <tooltip-content #screeningOptions class="recommended-programs-tooltip">
+            <div>
+              <span>
+                <p class="fa fa-info-circle fa-tooltip"></p>
+              </span>
+              <div class="tooltip-text-regisnation">Edit</div>
+            </div>
+          </tooltip-content>
+          <button [disabled]="!isValid" class="btn-primary" (click)="updateProduct(product)" tooltipPlacement="right" [tooltip]="screeningOptions">
+            <img src="assets/edit.svg" style="width:30px">
+          </button>
+
+          <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
+            <div>
+              <span>
+                <p class="fa fa-info-circle fa-tooltip"></p>
+              </span>
+              <div class="tooltip-text-regisnation">Delete</div>
+            </div>
+          </tooltip-content>
+          <button style="background-color:red;" class="btn-primary" (click)="getProduct(product)" data-toggle="modal" data-target=".bd-example-modal-sm">
             <img src="assets/delete.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1">
           </button>
-          </td>
-     </tr>
-  </tbody>
- </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
   <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
 </div>
 <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -67,11 +78,11 @@
           <div class="container-fluid rounded" style="background-color:white;">
             <div class="section-wrpr">
               <div class="small-wrpr" style="margin-top: 10px; margin-left:20px;">
-                  <div class="content-wrpr">
-                      Are you sure?
-                  </div>
+                <div class="content-wrpr">
+                  Are you sure?
+                </div>
                 <button class="close" data-dismiss="modal" style="background-color:red;">
-                  <img  src="assets/delete.svg" (click) = "deleteProduct(currentProductId)" style="width:30px">
+                  <img src="assets/delete.svg" (click)="deleteProduct(currentProductId)" style="width:30px">
                 </button>
               </div>
               <div class="clearfix"></div>

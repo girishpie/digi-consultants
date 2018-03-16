@@ -11,8 +11,9 @@ public class BoQDto {
 	private int version;
 	private int totalVersions;
 	private String projectId;
-
-	public BoQDto(BoQ boQ, String departmentName, String projectId) {
+	private String projectName;
+	
+	public BoQDto(BoQ boQ, String departmentName, String projectId, String projectName) {
 		this.id = boQ.getId();
 		this.departmentName = departmentName;
 		this.sectionIds = boQ.getSectionIds();
@@ -20,6 +21,7 @@ public class BoQDto {
 		this.version = boQVersion.getVersionNumber();
 		this.totalVersions = boQ.getVersions().size();
 		this.projectId = projectId;
+		this.projectName = projectName;
 	}
 	
 	public String getId() {
@@ -36,6 +38,14 @@ public class BoQDto {
 
 	public void setProjectId(String projectId) {
 		this.projectId = projectId;
+	}
+        
+        public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
 	}
 
 	public String getDepartmentName() {
@@ -61,6 +71,7 @@ public class BoQDto {
 	public void setVersion(int version) {
 		this.version = version;
 	}
+        
 
 	public int getTotalVersions() {
 		return totalVersions;

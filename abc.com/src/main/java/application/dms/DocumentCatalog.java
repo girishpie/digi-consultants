@@ -6,6 +6,8 @@ import org.springframework.data.annotation.Id;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * Created by gipai on 9/30/2017.
  */
@@ -15,8 +17,18 @@ public class DocumentCatalog extends BasicInfo  {
     private String displayName;
     private List<Version> versions = new ArrayList<Version>();
     private String projectId;
+    @NotNull
+    private String type;
 
-    public String getId() {
+    public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getId() {
         return id;
     }
 

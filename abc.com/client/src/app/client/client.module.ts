@@ -6,6 +6,7 @@ import {HttpModule} from '@angular/http';
 import {NewClientModule} from './new/new-client.module';
 import {Clients} from './clients';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { TooltipModule } from "ngx-tooltip";
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     BrowserModule,
     HttpModule,
     NgxPaginationModule,
-    NewClientModule
+    NewClientModule,
+    TooltipModule
   ],
   exports : [ClientComponent],
   providers: [Clients,

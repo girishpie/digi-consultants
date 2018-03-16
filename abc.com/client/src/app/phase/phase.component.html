@@ -10,18 +10,35 @@
   <thead>
   <tr>
     <th>Phase Name</th>
-     <th></th>
+     <th>Actions</th>
   </tr>
   </thead>
   <tbody>
       <tr *ngFor="let phase of phases.phases| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: phases.totalItems, id:'server'} ">
         <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="phase.name" (input)="phase.name=$event.target.textContent">{{ phase.name }}</td>
          <td class = "table-cell">
-          <button type="button" class="btn btn-primary"  (click) = "getPhase(phase)" data-toggle="modal" data-target=".bd-example-modal-sm">
+          <tooltip-content #screeningOptions class="recommended-programs-tooltip">
+            <div>
+              <span>
+                <p class="fa fa-info-circle fa-tooltip"></p>
+              </span>
+              <div class="tooltip-text-regisnation">Delete</div>
+            </div>
+          </tooltip-content>
+          <button type="button" tooltipPlacement="right" [tooltip]="screeningOptions" class="btn btn-primary"  (click) = "getPhase(phase)" data-toggle="modal" data-target=".bd-example-modal-sm">
             <span class="glyphicon glyphicon-remove" ></span>
           </button>
           <img src="assets/35.gif" *ngIf="loading" />
-          <button [disabled]="!isValid" class="btn btn-primary" (click) = "updatePhase(phase)">
+          
+          <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
+            <div>
+              <span>
+                <p class="fa fa-info-circle fa-tooltip"></p>
+              </span>
+              <div class="tooltip-text-regisnation">Edit</div>
+            </div>
+          </tooltip-content>
+          <button [disabled]="!isValid" class="btn btn-primary" (click) = "updatePhase(phase)" tooltipPlacement="right" [tooltip]="screeningOption1">
             <span class="glyphicon glyphicon-edit"></span></button>
             <img src="assets/edit.svg" *ngIf="loading" />
  

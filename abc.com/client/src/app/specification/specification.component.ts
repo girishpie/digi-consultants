@@ -71,7 +71,7 @@ export class SpecificationComponent implements OnInit {
        console.log("delete");
      }
      public getSpecification(specification: Specification) {
-      this.currentSpecificationName = specification.getSpecificationName();
+      // this.currentSpecificationName = specification.getSpecificationName();
       this.currentSpecificationId = specification.getId();
     }
     

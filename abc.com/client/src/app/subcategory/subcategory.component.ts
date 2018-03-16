@@ -16,6 +16,7 @@ import {QueryParams} from '../home/query-obeservables/query-params';
 export class SubcategoryComponent implements OnInit {
   private subscription: Subscription;
   private currentSearchString: string;
+  currentSubcategoryId:string;
   private currentPage = 1;
   loading:boolean =false;
   isValid:boolean;
@@ -58,7 +59,7 @@ export class SubcategoryComponent implements OnInit {
   // public deleteSubcategory(id: string) {
   //   //.alert("Are You Sure You want to delete?");
   //   console.log("Id "+ id);
-  //    this.SubcategoryService.delete(id).subscribe(data => {
+  //    this.subcategoryService.delete(category.getId(), parentCatId).subscribe(data => {
   //    });
   //  }
 
@@ -84,7 +85,6 @@ export class SubcategoryComponent implements OnInit {
     } 
     
   // public getSubcategory(subcategory: Subcategory) {
-  //     this.currentSubcategoryName = subcategory.getName();
   //     this.currentSubcategoryId = subcategory.getId();
   //  }
 

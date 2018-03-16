@@ -41,7 +41,7 @@ export class BoQService {
           const boqs: Array<BoQ> =  new Array<BoQ>();
           for ( i = 0 ; i < response.length ; i++) {
             const boq: BoQ = new BoQ();
-            boq.setProjectId(response[i].projectId);
+            boq.setProjectName(response[i].projectName);
             boq.setBoQDepartmentName(response[i].departmentName);
             boq.setVersion(response[i].version);
             boq.setTotalVersions(response[i].totalVersions);
@@ -77,6 +77,16 @@ export class BoQService {
       .map(res => {
           const res1 = res.json();
           this.boqs.deleteBoQ(res1.response);
+        }
+      );
+  }
+
+  public update(boq: BoQ)  {
+    const endPoint = this.boqUrl  + boq.getId();
+      // Returns response
+    return this.http.patch(endPoint, document)
+      .map(res => {
+          const res1 = res.json();
         }
       );
   }

@@ -8,12 +8,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import {StateService } from '@uirouter/angular';
 import { DepartmentComponent } from '../department.component';
 
+
 //declare var jQuery:any;
 const departmentState = { name: 'department', url: '/department',  component: DepartmentComponent };
 @Component({
   selector: 'new-department',
   templateUrl: './new-department.component.html',
-  styleUrls: []
+  styleUrls: ['./new-department.component.scss']
 })
 export class NewDepartmentComponent implements OnInit {
    private availableProjects: Project[];
@@ -56,3 +57,4 @@ getProjects(){
     window.history.back();
   }
 }
+

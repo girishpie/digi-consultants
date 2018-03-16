@@ -63,9 +63,9 @@ export class CategoryComponent implements OnInit {
 
   }
   
- public editCategory(category: Category) {
-  this.pageMode = "editMode";
- }
+//  public editCategory(category: Category) {
+//   this.pageMode = "editMode";
+//  }
  
   public saveCategory(category: Category) {
   this.pageMode = "viewMode";
@@ -75,11 +75,6 @@ export class CategoryComponent implements OnInit {
     this.pageMode = "viewMode";
     
   }
-  // public deleteCategory(category: Category) {
-  //   this.categoryService.delete(category.getId()).subscribe(data => {
-
-  //   });
-  // }
   public deleteCategory(id: string) {
     //.alert("Are You Sure You want to delete?");
     console.log("Id "+ id);
@@ -88,7 +83,6 @@ export class CategoryComponent implements OnInit {
      console.log("delete");
    }
    public getCategory(category: Category) {
-    // this.currentSpecificationName = specification.getSpecificationName();
     this.currentCategoryId = category.getId();
   }
   
@@ -98,9 +92,7 @@ export class CategoryComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();
   }
-
 }
 

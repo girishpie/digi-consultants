@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import application.BoQDepartment.BoQDepartment;
 import application.BoQDepartment.BoQDepartmentRepository;
 import application.dms.Version;
+import application.project.Project;
+import application.project.ProjectRepository;
 import application.response.IResponse;
 import application.response.ResponseWrapper;
 import application.response.RestError;
@@ -29,11 +31,14 @@ public class BoQController {
 	private final BoQRepository boQRepository;
 	@Autowired
 	private final BoQDepartmentRepository boqDepartmentRepository;
+	@Autowired
+	private final ProjectRepository projectRepository;
 	
 	
-	BoQController(BoQRepository boQRepository, BoQDepartmentRepository boqDepartmentRepository) {
+	BoQController(BoQRepository boQRepository, BoQDepartmentRepository boqDepartmentRepository, ProjectRepository projectRepository) {
         this.boQRepository = boQRepository;
         this.boqDepartmentRepository = boqDepartmentRepository;
+        this.projectRepository = projectRepository;
     }
 	
 	@PreAuthorize("hasAuthority('CREATE_BOQ')")
@@ -83,7 +88,6 @@ public class BoQController {
         }
         long res = boQRepository.deleteById(id);      
         return ResponseWrapper.getResponse( new RestResponse(id));
-
     }
     
     @PreAuthorize("hasAuthority('UPDATE_BOQ')")
@@ -122,7 +126,8 @@ public class BoQController {
         List<BoQDto> boQDtos = new ArrayList<BoQDto>();
         for(int i = 0; i < boqs.size(); i++ ) {
         	BoQDepartment boQDepartment = boqDepartmentRepository.findById(boqs.get(i).getBoqDepartmentId());
-        	BoQDto boQDto = new BoQDto(boqs.get(i), boQDepartment.getDepartmentName(), boQDepartment.getProjectId());
+        	Project project = projectRepository.findById(boQDepartment.getProjectId());
+        	BoQDto boQDto = new BoQDto(boqs.get(i), boQDepartment.getDepartmentName(), boQDepartment.getProjectId(),project.getProjectName());
         	boQDtos.add(boQDto);
         }
         return ResponseWrapper.getResponse(new RestResponse(boQDtos));
@@ -137,7 +142,8 @@ public class BoQController {
             return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "BOQ_NOT_FOUND", id));
         }
         BoQDepartment boQDepartment = boqDepartmentRepository.findById(boq.getBoqDepartmentId());
-        BoQDto boqDto = new BoQDto(boq, boQDepartment.getDepartmentName(), boQDepartment.getProjectId());
-        return ResponseWrapper.getResponse( new RestResponse(boqDto));
+        Project project = projectRepository.findById(boQDepartment.getProjectId());
+    	BoQDto boQDto = new BoQDto(boq, boQDepartment.getDepartmentName(), boQDepartment.getProjectId(),project.getProjectName());
+        return ResponseWrapper.getResponse( new RestResponse(boQDto));
     }
 }

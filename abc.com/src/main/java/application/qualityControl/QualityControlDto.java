@@ -19,7 +19,7 @@ public class QualityControlDto {
     @NotNull
     private String type;
     private String projectId;
-    private List<String> distributionlist = new ArrayList<String>();
+    private String distributionlist; //= new ArrayList<String>();
     private String assignee;
     private String status;
     private Date targetEnddate;
@@ -79,11 +79,11 @@ public class QualityControlDto {
 		this.projectId = projectId;
 	}
 
-	public List<String> getDistributionlist() {
+	public String getDistributionlist() {
 		return distributionlist;
 	}
 
-	public void setDistributionlist(List<String> distributionlist) {
+	public void setDistributionlist(String distributionlist) {
 		this.distributionlist = distributionlist;
 	}
 
@@ -152,7 +152,7 @@ public class QualityControlDto {
 
 	public QualityControlDto(QualityControl qualityControl, String projectName) {
 
-                this.id= qualityControl.getId();
+        this.id= qualityControl.getId();
 		this.changeId = qualityControl.getChangeId();
 		this.type = qualityControl.getType();
 		this.projectId = qualityControl.getProjectId();
@@ -163,7 +163,7 @@ public class QualityControlDto {
 		this.shortDescription = qualityControl.getShortDescription();
 		this.detailedDescription = qualityControl.getDetailedDescription();
 		this.remarks = qualityControl.getRemarks();
-		List<String> documentIds = new ArrayList<String>();
+		//String documentIds = new ArrayList<String>();
 		//((List<String>) this.documentIds).addAll(documentIds);
 		//this.documentIds = documentIds;
 	

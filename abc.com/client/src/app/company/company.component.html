@@ -1,111 +1,155 @@
-<div class="container-fluid digi-company rounded" >
-<div class="column">
-	<div class = "glyphicon glyphicon-cog">MANAGE COMPANY</div>
-	<a href="#/new-company" class="btn btn-primary round pull-right" role="button">+Add Company</a>
-</div>
-<nav class="navbar">
-  <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search" >
-</nav>
-<table class="table">
-  <thead>
-  <tr>
-    <th>Company Name</th>
-    <th>Address</th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
+<div class="container-fluid digi-company rounded">
+  <div class="column">
+    <div class="glyphicon glyphicon-cog">MANAGE COMPANY</div>
+    <a href="#/new-company" class="btn btn-primary round pull-right" role="button">+Add Company</a>
+  </div>
+  <nav class="navbar">
+    <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search">
+  </nav>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Company Name</th>
+        <th>Location</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
       <tr *ngFor="let company of companies.companies| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: companies.totalItems, id:'server'} ">
-        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="company.companyName" (input)="company.companyName=$event.target.textContent">{{ company.companyName }}</td>
-        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="company.address" (input)="company.address=$event.target.textContent">{{ company.address }}</td>
-         <td class = "table-cell">
-            <tooltip-content #screeningOptions class="recommended-programs-tooltip">
-                <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
-                  <div class="tooltip-text-regisnation">Edit</div>
-                </div>
-              </tooltip-content>
-            <button [disabled]="!isValid" class="btn-primary" (click) = "updateCompany(company)">
-           <img src="assets/edit.svg" style="width:30px"  tooltipPlacement="right" [tooltip]="screeningOptions"></button> 
-           <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
-              <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
-                <div class="tooltip-text-regisnation">View</div>
-              </div>
-            </tooltip-content>
-           <!-- <button class="btn-primary"><a href="/companylist?companyName={{company.companyName}}&address={{company.address}}"><img src="assets/view.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1"></a></button>      -->
-           <button class="btn-primary"  (click) = "getCompany(company)" data-toggle="modal" data-target=".bd-example-modal-lg"><img src="assets/view.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1"></button>
-           <tooltip-content #screeningOption class="recommended-programs-tooltip">
-              <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
-                <div class="tooltip-text-regisnation">Delete</div>
-              </div>
-            </tooltip-content>
-           <button  style="background-color:red;"><img src="assets/delete.svg" (click) = "deleteCompany(company)" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption"></button>
-         </td>
-     </tr>
-  </tbody>
- </table>
+        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="company.companyName" (input)="company.companyName=$event.target.textContent">{{ company.companyName }}</td>
+        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="company.address" (input)="company.address=$event.target.textContent">{{ company.address }}</td>
+        <td class="table-cell">
+          <tooltip-content #screeningOptions class="recommended-programs-tooltip">
+            <div>
+              <span>
+                <p class="fa fa-info-circle fa-tooltip"></p>
+              </span>
+              <div class="tooltip-text-regisnation">Edit</div>
+            </div>
+          </tooltip-content>
+          <button [disabled]="!isValid" class="btn-primary" (click)="updateCompany(company)">
+            <img src="assets/edit.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions">
+          </button>
+          <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
+            <div>
+              <span>
+                <p class="fa fa-info-circle fa-tooltip"></p>
+              </span>
+              <div class="tooltip-text-regisnation">View</div>
+            </div>
+          </tooltip-content>
+          <button class="btn-primary" (click)="getCompany(company)" data-toggle="modal" data-target=".bd-example-modal-lg">
+            <img src="assets/view.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1">
+          </button>
+        
+          <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
+            <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
+              <div class="tooltip-text-regisnation">Delete</div>
+            </div>
+          </tooltip-content>
+          <button style="background-color:red;" class="btn-primary"  (click) = "getCompany(company)" data-toggle="modal" data-target=".bd1-example-modal-sm">
+            <img src="assets/delete.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1">
+          </button>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
   <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
 </div>
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        <div class="modal-body">
-            <form>
-              <div class="container-fluid rounded" style="background-color:white;">
-                <div class="section-wrpr" >
-                    <div class="big-wrpr" style="margin-top: 10px; margin-left:20px;">
-                      
-                      <div class="content-wrpr">
-                          <label class="box-label" style="font-size:20px" for="">Name      :</label>
-                          <label class="box-label" >{{currentCompanyName }}</label>
-                      </div>
-                      <div class="content-wrpr">
-                         <label class="box-label" style="font-size:20px" for="">Main Address:</label>
-                         <label class=" box-label">{{currentCompanyAddress }}</label>
-                      </div>
-                
-                  </div>
-                    <div class="clearfix"></div>
-                <hr>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="container-fluid rounded" style="background-color:white;">
+            <div class="section-wrpr">
+              <div class="big-wrpr" style="margin-top: 10px; margin-left:20px;">
+
+                <div class="content-wrpr">
+                  <label class="box-label" style="font-size:20px" for="">Name :</label>
+                  <label class="box-label">{{currentCompanyName }}</label>
                 </div>
-                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                      <h6 class="panel-title">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                        + Office
-                        </a>
-                      </h6>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse">
-                      <div class="panel-body">
-                        <div class="panel-body"><office></office></div>       
-                      </div>
-                    </div>
+                <div class="content-wrpr">
+                  <label class="box-label" style="font-size:20px" for="">Main Address:</label>
+                  <label class=" box-label">{{currentCompanyAddress }}</label>
+                </div>
+
+              </div>
+              <div class="clearfix"></div>
+              <hr>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h6 class="panel-title">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                    + Office
+                  </a>
+                </h6>
+              </div>
+              <div id="collapseOne" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <div class="panel-body">
+                    <office></office>
                   </div>
-                
-                  <div class="panel panel-default">
-                    <div class="panel-heading">
-                      <h6 class="panel-title">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo0">
-                        + Employee
-                        </a>
-                      </h6>
-                    </div>
-                    <div id="collapseTwo0" class="panel-collapse collapse">
-                      <div class="panel-body">
-                        <div class="panel-body"><employee></employee></div>       
-                      </div>
-                    </div>
-                  </div> 
-                </div>                  
-            </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h6 class="panel-title">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo0">
+                    + Employee
+                  </a>
+                </h6>
+              </div>
+              <div id="collapseTwo0" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <div class="panel-body">
+                    <employee></employee>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>
-</div>  
 
-  
+<div class="modal fade bd1-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #428bca;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="container-fluid rounded" style="background-color:white;">
+            <div class="section-wrpr">
+              <div class="small-wrpr" style="margin-top: 10px; margin-left:20px;">
+                  <div class="content-wrpr">
+                      Are you sure?
+                  </div>
+                <button class="close" data-dismiss="modal" style="background-color:red;">
+                  <img  src="assets/delete.svg" (click) = "deleteCompany(currentCompanyId)" style="width:30px">
+                </button>
+              </div>
+              <div class="clearfix"></div>
+              <hr>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

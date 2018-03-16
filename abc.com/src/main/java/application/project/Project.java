@@ -15,11 +15,11 @@ import application.common.BasicInfo;
 public class Project extends BasicInfo {
 
 	@Id
-    private String id;
-	
-	
+    private String id;	
 	@NotNull
 	private String projectName;
+	@NotNull
+	private String projectNumber;
 	@NotNull
 	private String jobNumber;
 	private String phase;
@@ -38,7 +38,7 @@ public class Project extends BasicInfo {
 	}
 	
 	public Project(String projectName, String jobNumber, String siteAddress, String description,
-			Date startDate, String clientId, String phase) {
+			Date startDate, String clientId, String phase, String projectNumber) {
 		
 		this.projectName = projectName;
 		this.jobNumber = jobNumber;
@@ -47,9 +47,16 @@ public class Project extends BasicInfo {
 		this.startDate = startDate;
 		this.clientId = clientId;
 		this.phase = phase;
-		
+		this.projectNumber = projectNumber;
 	}
 	
+	public String getProjectNumber() {
+		return projectNumber;
+	}
+
+	public void setProjectNumber(String projectNumber) {
+		this.projectNumber = projectNumber;
+	}
 	public List<String> getBoqDepartmentIds() {
 		return boqDepartmentIds;
 	}
@@ -131,7 +138,7 @@ public class Project extends BasicInfo {
 
 	public void deleteBoQDepartment(String id2) {
 		for (int i = 0; i < this.boqDepartmentIds.size(); i++) {
-            if (this.boqDepartmentIds.get(i) == id2) {
+            if (this.boqDepartmentIds.get(i).equals(id2)) {
                 this.boqDepartmentIds.remove(i);
             }
         }
@@ -151,7 +158,7 @@ public class Project extends BasicInfo {
 	
 	public void deleteCR(String id2) {
 		for (int i = 0; i < this.crIds.size(); i++) {
-            if (this.crIds.get(i) == id2) {
+            if (this.crIds.get(i).equals(id2)) {
                 this.crIds.remove(i);
             }
         }
@@ -164,7 +171,7 @@ public class Project extends BasicInfo {
 	
 	public void deleteMeeting(String id2) {
 		for (int i = 0; i < this.meetingIds.size(); i++) {
-            if (this.meetingIds.get(i) == id2) {
+            if (this.meetingIds.get(i).equals(id2)) {
                 this.meetingIds.remove(i);
             }
         }

@@ -1,43 +1,64 @@
-<div class="container-fluid digi-boq rounded" >
-<div class="column">
-	<div class = "glyphicon glyphicon-cog">MANAGE BOQS</div>
-	<a class="btn btn-primary round pull-right" role="button" (click)="exportAsPdf()">Export BoQ</a>
-	<a href="#/new-boq" class="btn btn-primary round pull-right" role="button">+Add BoQ</a>
-</div>
-<div id="boqs">
+<div class="container-fluid digi-boq rounded">
+  <div class="column">
+    <div class="glyphicon glyphicon-cog">MANAGE BOQS</div>
+    <a class="btn btn-primary round pull-right" role="button" (click)="exportAsPdf()">Export BoQ</a>
+    <a href="#/new-boq" class="btn btn-primary round pull-right" role="button">+Add BoQ</a>
+  </div>
+  <div id="boqs">
 
-<table class="table" id="tableboq">
-  <thead>
-  <tr>
-  	<th>Project Id</th>
-    <th>Department Name</th>
-    <th>Current Version</th>
-    <th>Total BoQ Versions</th>
-  </tr>
-  </thead>
-  <tbody>
-      <tr *ngFor="let boq of boqs.boqs | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: boqs.totalItems, id:'server'} ">
-        <td class = "table-cell">{{ boq.projectId }}</td>
-        <td class = "table-cell">{{ boq.boQDepartmentName }}</td>
-        <td class = "table-cell">{{ boq.version }}</td>
-        <td class = "table-cell">{{ boq.totalVersions }}</td>
-         <td class = "table-cell">
-           <img src="assets/edit.svg" style="width:30px">
-           <!-- <img src="assets/delete.svg" (click) = "deleteBoQ(boq)" style="width:30px"> -->
-           <button style="background-color:red;" class="btn-primary"  (click) = "getBoQ(boq)" data-toggle="modal" data-target=".bd-example-modal-sm">
-            <img src="assets/delete.svg" style="width:30px" >
-          </button>
-        </td>
-     </tr>
-  </tbody>
- </table>
- </div>
+    <table class="table" id="tableboq">
+      <thead>
+        <tr>
+          <th>BoQ Id</th>
+          <th>Project Name</th>
+          <th>Current Version</th>
+          <th>Total Versions</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let boq of boqs.boqs | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: boqs.totalItems, id:'server'} ">
+          <td class="table-cell"></td>
+          <td class="table-cell">{{ boq.projectName }}</td>
+          <td class="table-cell">{{ boq.version }}</td>
+          <td class="table-cell">{{ boq.totalVersions }}</td>
+          <td class="table-cell">
+
+            <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
+              <div>
+                <span>
+                  <p class="fa fa-info-circle fa-tooltip"></p>
+                </span>
+                <div class="tooltip-text-regisnation">View</div>
+              </div>
+            </tooltip-content>
+            <button class="btn-primary" tooltipPlacement="right" [tooltip]="screeningOption1">
+                <a href="#/product">
+              <img src="assets/view.svg" style="width:30px"></a>
+            </button>
+
+            <tooltip-content #screeningOptions class="recommended-programs-tooltip">
+              <div>
+                <span>
+                  <p class="fa fa-info-circle fa-tooltip"></p>
+                </span>
+                <div class="tooltip-text-regisnation">Delete</div>
+              </div>
+            </tooltip-content>
+            <button style="background-color:red;" class="btn-primary" (click)="getBoQ(boq)" data-toggle="modal" data-target=".bd-example-modal-sm">
+              <img src="assets/delete.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions">
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
 </div>
 <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
-      <div class="modal-header" style="background-color: #428bca;">
+      <div class="modal-header" style="background-color: #428bca;">Delete
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -47,11 +68,11 @@
           <div class="container-fluid rounded" style="background-color:white;">
             <div class="section-wrpr">
               <div class="small-wrpr" style="margin-top: 10px; margin-left:20px;">
-                  <div class="content-wrpr">
-                      Are you sure?
-                  </div>
+                <div class="content-wrpr">
+                  Are you sure?
+                </div>
                 <button class="close" data-dismiss="modal" style="background-color:red;">
-                  <img  src="assets/delete.svg" (click) = "deleteBoQ(currentBoQId)" style="width:30px">
+                  <img src="assets/delete.svg" (click)="deleteBoQ(currentBoQId)" style="width:30px">
                 </button>
               </div>
               <div class="clearfix"></div>

@@ -1,44 +1,50 @@
-<div class="container-fluid digi-category rounded" >
-<div class="column">
-	<div class = "glyphicon glyphicon-cog">MANAGE CATEGORIES</div>
-	<a href="#/new-category" class="btn btn-primary round pull-right" role="button">+Add Category</a>
-</div>
+<div class="container-fluid digi-category rounded">
+  <div class="column">
+    <div class="glyphicon glyphicon-cog">MANAGE CATEGORIES</div>
+    <a href="#/new-category" class="btn btn-primary round pull-right" role="button">+Add Category</a>
+  </div>
 
-<table class="table ">
-  <thead>
-  <tr>
-  	<th>Category Name</th>
-    <th>Description</th>
-    <th>SubCategories</th>
-  </tr>
-  </thead>
-  <tbody>
+  <table class="table ">
+    <thead>
+      <tr>
+        <th>Category Name</th>
+        <th>Description</th>
+        <th>SubCategories</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
       <tr *ngFor="let category of categories.categories | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: categories.totalItems, id:'server'} ">
-        <td class = "table-cell" >{{ category.name }}</td>
-        <td class = "table-cell">{{ category.description }}</td>
-         <td class = "table-cell">
-          {{ category.subCategories }} 
-<!--             <select id="subCat-option" [ngClass]="pageMode" [(ngModel)]="subCats" name="subCat-option" multiple> -->
-<!--               <option *ngFor="let subCat of availableSubcat" [value]="subCat.id"> -->
-<!--                {{ subCat.name }}-->
- <!--              </option>-->
-<!--             </select>    -->
+        <td class="table-cell">{{ category.name }}</td>
+        <td class="table-cell">{{ category.description }}</td>
+        <td class="table-cell">{{ category.subCategories }}</td>
+        <td class="table-cell">
+          
+            <tooltip-content #screeningOptions class="recommended-programs-tooltip">
+                <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
+                  <div class="tooltip-text-regisnation">Edit</div>
+                </div>
+              </tooltip-content> 
+          <button  class="btn-primary" (click)="editCategory(category)" tooltipPlacement="right" [tooltip]="screeningOptions">
+              <img src="assets/edit.svg" style="width:30px" >
+            </button>
 
-  <!--        <span class="displayValue" [ngClass]="pageMode">{{category.subCategories }}</span>   --> 
-           </td>
-           <td>
-           <img src="assets/edit.svg" class="viewButton" [ngClass]="pageMode" style="width:30px" (click) = "editCategory(category)">
-       <!-- <img src="assets/delete.svg" (click) = "deleteCategory(category)" style="width:30px"> -->
-       <button style="background-color:red;" class="btn-primary"  (click) = "getCategory(category)" data-toggle="modal" data-target=".bd-example-modal-sm">
-        <img src="assets/delete.svg" style="width:30px">
-      </button>
-		 <button type="submit" class="editButton" [ngClass]="pageMode" (click) = "saveCategory(category)">Save</button>
-        <button class="editButton" [ngClass]="pageMode" (click)="cancelEdit()">Cancel</button>
-     
+
+          <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
+            <div>
+              <span>
+                <p class="fa fa-info-circle fa-tooltip"></p>
+              </span>
+              <div class="tooltip-text-regisnation">Delete</div>
+            </div>
+          </tooltip-content>
+          <button style="background-color:red;" class="btn-primary" (click)="getCategory(category)" data-toggle="modal" data-target=".bd-example-modal-sm">
+            <img src="assets/delete.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1">
+          </button>
         </td>
-     </tr>
-  </tbody>
- </table>
+      </tr>
+    </tbody>
+  </table>
   <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
 </div>
 <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -54,11 +60,11 @@
           <div class="container-fluid rounded" style="background-color:white;">
             <div class="section-wrpr">
               <div class="small-wrpr" style="margin-top: 10px; margin-left:20px;">
-                  <div class="content-wrpr">
-                      Are you sure?
-                  </div>
+                <div class="content-wrpr">
+                  Are you sure?
+                </div>
                 <button class="close" data-dismiss="modal" style="background-color:red;">
-                  <img  src="assets/delete.svg" (click) = "deleteCategory(currentCategoryId)" style="width:30px">
+                  <img src="assets/delete.svg" (click)="deleteCategory(currentCategoryId)" style="width:30px">
                 </button>
               </div>
               <div class="clearfix"></div>

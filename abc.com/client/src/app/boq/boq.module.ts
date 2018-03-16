@@ -8,6 +8,7 @@ import {HttpModule} from '@angular/http';
 import {NewBoQComponent} from './new/new-boq.component';
 import {BoQs} from './boqs';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { TooltipModule } from "ngx-tooltip";
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     BrowserModule,
     HttpModule,
     NgxPaginationModule,
+    TooltipModule
 //    NewBoQModule
   ],
   exports : [BoQComponent],
