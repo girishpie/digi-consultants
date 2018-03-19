@@ -12,7 +12,16 @@ public class Specification extends BasicInfo{
     private String id;
 	private String specificationName;
 	private String sectionId;
+	private String sectionName;
 	
+	public String getSectionName() {
+		return sectionName;
+	}
+
+	public void setSectionName(String sectionName) {
+		this.sectionName = sectionName;
+	}
+
 	public String getSectionId() {
 		return sectionId;
 	}
@@ -21,10 +30,11 @@ public class Specification extends BasicInfo{
 		this.sectionId = sectionId;
 	}
 
-	public Specification(String specificationName, String sectionId) {
+	public Specification(String specificationName, String sectionId, String sectionName) {
 
 		this.specificationName = specificationName;
 		this.sectionId = sectionId;
+		this.sectionName = sectionName ;
 	}
 
 	public String getId() {

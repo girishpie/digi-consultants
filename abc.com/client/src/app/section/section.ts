@@ -4,10 +4,12 @@ export class Section {
 
   private  id: string;
   private  sectionName: string;
+  private  specId: string;
   private  specificationName: string;
   private  boqId: string;
   private  productNames: Array<string>;
   private  drawingIds: Array<string>;
+  private  noOfProducts: number;
 
   constructor() {
   }
@@ -26,7 +28,13 @@ export class Section {
   public getSectionName (): string {
     return this.sectionName ;
   }
-  
+  public setSpecId ( specId: string ) {
+    this.specId = specId;
+  }
+  public getSpecId (): string {
+    return this.specId ;
+  }
+
   public setSpecificationName ( specificationName: string ) {
     this.specificationName = specificationName;
   }
@@ -51,5 +59,10 @@ export class Section {
   public getProductNames(): Array<string> {
     return this.productNames;
   }
-
+  public setNoOfProducts( NoOfProducts: number) {
+    this.noOfProducts = NoOfProducts;
+  }
+  public getNoOfProducts(): number {
+    return this.noOfProducts;
+  }
 }

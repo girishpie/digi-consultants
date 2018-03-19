@@ -43,9 +43,11 @@ export class SectionService {
           for ( i = 0 ; i < response.length ; i++) {
             const section: Section = new Section();
             section.setSectionName(response[i].sectionName);
+            section.setSpecId(response[i].specId);
             section.setSpecificationName(response[i].specificationName);
             section.setProductNames(response[i].productNames);
             section.setId(response[i].id);
+            section.setNoOfProducts(response[i].noOfProducts);
             sections.push(section);
           }
           this.sections.setSections(sections);
@@ -58,7 +60,8 @@ export class SectionService {
 
 
   public save(section: Section)  {
-    const endPoint = this.sectionUrl + section.getBoqId();
+    const endPoint = this.sectionUrl +  section.getBoqId() ;
+    // + section.getBoqId() ;
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     // Returns response

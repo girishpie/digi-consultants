@@ -30,8 +30,7 @@ export class NewPhaseComponent implements OnInit {
    
     this.phaseService.save(phase).subscribe(data => {
         console.log(data);
-       // phase.setId(data);
-       // this.phases.addPhase(phase);
+        window.history.back();
       this.stateService.go('phase');
       this.loading = false;
 

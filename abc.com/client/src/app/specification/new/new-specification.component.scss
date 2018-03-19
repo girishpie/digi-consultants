@@ -1,6 +1,9 @@
 * {
     box-sizing: border-box;
 }
+.form-control{
+    height:45px;
+}
 
 .input[type=text], select, textarea{
     width: 100%;

@@ -36,7 +36,7 @@ public class SpecificationController {
 
         }
         if(input.getSpecificationName() != null && !input.getSpecificationName().isEmpty()) {
-	        Specification specification = new Specification(input.getSpecificationName(), sectionId);
+	        Specification specification = new Specification(input.getSpecificationName(), sectionId,section.getSectionName());
 	        specification = specificationRepository.save(specification);
 	        section.setSpecId(specification.getId());
 	        sectionRepository.save(section);

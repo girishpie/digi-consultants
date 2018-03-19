@@ -23,8 +23,9 @@ public class Section extends BasicInfo{
 	    public Section() {
 	    	
 	    }
-		public Section(String sectionName, String boqId) {
+		public Section(String sectionName, String boqId, String SpecId) {
 			this.sectionName = sectionName;
+			this.specId = SpecId;
 			this.boqId = boqId;
 		}
 		public String getId() {
@@ -65,7 +66,7 @@ public class Section extends BasicInfo{
 		}
 		public void deleteProduct(String id2) {
 			for (int i = 0; i < this.productIds.size(); i++) {
-	            if (this.productIds.get(i) == id2) {
+	            if (this.productIds.get(i).equals(id2)) {
 	                this.productIds.remove(i);
 	            }
 	        }	

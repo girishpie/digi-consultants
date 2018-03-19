@@ -1,6 +1,9 @@
 import { BoQ } from '../../boq/boq';
 import { BoQs } from '../../boq/boqs';
 import { BoQService } from '../../boq/boq.service';
+import { Specification} from '../../specification/specification';
+import { Specifications} from '../../specification/specifications';
+import {SpecificationService} from '../../specification/specification.service';
 import { Section } from '../section';
 import { SectionService } from '../section.service';
 import { Sections } from '../sections';
@@ -19,23 +22,29 @@ export class NewSectionComponent implements OnInit {
    private availableBoQs: BoQ[];
    private sectionName: string ;
    private boqId: string ;
-  
+   private specificationName: string;
+   private specId: string;
+  private availableSpecifications: Specification[];
+
   constructor(private sectionService: SectionService, 
-              private boQService: BoQService, 
-              private sections: Sections,
+              private boQService: BoQService, private specificationService: SpecificationService,
+              private sections: Sections, private  specifications : Specifications,
               private boQs: BoQs,  public stateService: StateService)  {
   }
 
   ngOnInit() {
     this.getBoQs();
+    this.getSpecifications();
   }
 
   addNewSection(){
     let section: Section = new Section();
     section.setSectionName(this.sectionName);
     section.setBoqId(this.boqId);
+    section.setSpecId(this.specId);
+    console.log("Specification Id" + this.specId);
     this.sectionService.save(section).subscribe(data => {
-        console.log(data);
+       // console.log(data);
         //section.setId(data);
         //this.sections.addSection(section);
       this.stateService.go('section');
@@ -49,6 +58,13 @@ export class NewSectionComponent implements OnInit {
   getBoQs() {
     this.boQService.getBoQs(null).subscribe( data => {
       this.availableBoQs = this.boQs.getBoQs();
+    }, error => {
+      window.alert(error._body);
+    });
+  }
+  getSpecifications(){
+    this.specificationService.getSpecifications(null).subscribe( data => {
+      this.availableSpecifications = this.specifications.getSpecifications();
     }, error => {
       window.alert(error._body);
     });

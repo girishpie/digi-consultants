@@ -24,9 +24,9 @@
                   <div class="tooltip-text-regisnation">Edit</div>
                 </div>
             </tooltip-content>
-            <button style="background-color:#428bca;" class="btn-primary">
-              <img src="assets/edit.svg" (click) = "updateRole(role)" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions">
-           </button>
+            <button [disabled]="!isValid" class="btn-primary" (click)="updateRole(role)">
+              <img src="assets/edit.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions">
+            </button>
       <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
           <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
             <div class="tooltip-text-regisnation">Delete</div>

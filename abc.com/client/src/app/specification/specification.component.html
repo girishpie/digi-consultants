@@ -18,7 +18,7 @@
       <tbody>
         <tr *ngFor="let specification of specifications.specifications| filter:filter ">
             <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="specification.specificationName" (input)="specification.specificationName=$event.target.textContent">{{specification.specificationName}}</td>
-            <td class = "table-cell">{{specification.sectionId}}</td>
+            <td class = "table-cell">{{specification.sectionName}}</td>
             <td class = "table-cell"></td>
              <td class = "table-cell">
                   <tooltip-content #screeningOptions class="recommended-programs-tooltip">

@@ -81,8 +81,8 @@ import { SpecificationModule} from '../specification/specification.module';
 import { SpecificationComponent} from '../specification/specification.component';
 import { NewSpecificationModule} from '../specification/new/new-specification.module';
 import { NewSpecificationComponent} from '../specification/new/new-specification.component';
-import { CompanyListComponent} from '../companylist/companylist.component';
-import { CompanyListModule } from '../companylist/compnylist.module';
+// import { CompanyListComponent} from '../companylist/companylist.component';
+// import { CompanyListModule } from '../companylist/compnylist.module';
 import { OfficeComponent} from '../office/office.component';
 import { OfficeModule} from '../office/office.module';
 import { NewOfficeModule} from '../office/new-office/new-office.module';
@@ -134,7 +134,7 @@ const newRequestState = {name:'new-request', url:'/new-request', component: NewR
 const projectlistState ={ name: 'projectlist', url:'/projectlist', component:ProjectListComponent};
 const specificationState={ name:'specification', url:'/specification', component:SpecificationComponent};
 const NewSpecificationState={ name:'new-specification', url:'/new-specification', component:NewSpecificationComponent};
-const companylistState ={ name:'companylist', url:'/companylist', component:CompanyListComponent};
+// const companylistState ={ name:'companylist', url:'/companylist', component:CompanyListComponent};
 const officeState ={ name :'office', url:'/office', component: OfficeComponent};
 const newofficeState ={ name:'new-office', url:'/new-office', component:NewOfficeComponent};
 const drawingState = { name: 'drawing', url: '/drawing',  component: DrawingComponent };
@@ -190,7 +190,6 @@ const newDrawingState = { name: 'new-drawing', url: '/new-drawing',  component: 
     ProjectListModule,
     SpecificationModule,
     NewSpecificationModule,
-    CompanyListModule,
     OfficeModule,
     NewOfficeModule,
     OverviewModule,
@@ -200,8 +199,8 @@ const newDrawingState = { name: 'new-drawing', url: '/new-drawing',  component: 
       newPhaseState, documentState, newDocumentState,drawingState,newDrawingState, boqState, newBoQState, departmentState, newDepartmentState,
       sectionState, newSectionState, productState, newProductState, categoryState, newCategoryState,
       subcategoryState, newSubcategoryState, employeeState, newEmployeeState, meetingState, newMeetingState,
-    qualityState,newQualityState,requestState,newRequestState,projectlistState,specificationState,NewSpecificationState,companylistState,officeState,
-    newofficeState,overviewState], useHash: true })
+    qualityState,newQualityState,requestState,newRequestState,projectlistState,specificationState,NewSpecificationState,officeState,
+    newofficeState,overviewState,], useHash: true })
   ],
   exports : [HomeComponent],
   providers: [QueryParamsService],

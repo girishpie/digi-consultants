@@ -60,13 +60,6 @@ export class SectionComponent implements OnInit {
     onRowClick(event){
      this.isValid = true;
     } 
-
-
-  // public deleteSection(section: Section) {
-  //   this.sectionService.delete(section.getId()).subscribe(data => {
-
-  //   });
-  // }
   
   public deleteSection(id: string) {
     //.alert("Are You Sure You want to delete?");

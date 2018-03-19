@@ -10,18 +10,47 @@ public class SectionDto {
 	private List<String> drawingIds = new ArrayList<String>();
 	private String boqId;
 	private String specificationName;
+	private String specId;
 	private List<String> productNames = new ArrayList<String>();
+	private int NoOfProducts;
   
-	public SectionDto(Section section, String specificationName, List<String> productNames) {
+	public SectionDto(Section section,String specId, String specificationName, List<String> productNames, int NoOfProducts) {
 		this.id = section.getId();
 		this.sectionName = section.getSectionName();
 		this.drawingIds = section.getDrawingIds();
 		this.boqId = section.getBoqId();
 		this.specificationName = specificationName;
 		this.productNames = productNames;
+		this.NoOfProducts = NoOfProducts;
+		this.specId = specId;
 	}
 
 	
+	
+	public String getSpecId() {
+		return specId;
+	}
+
+
+
+	public void setSpecId(String specId) {
+		this.specId = specId;
+	}
+
+
+
+	public int getNoOfProducts() {
+		return NoOfProducts;
+	}
+
+
+
+	public void setNoOfProducts(int noOfProducts) {
+		NoOfProducts = noOfProducts;
+	}
+
+
+
 	public String getId() {
 		return id;
 	}

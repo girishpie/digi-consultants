@@ -15,6 +15,16 @@
               </option>
             </select>
           </div>
+
+          <div class="form-group" >
+            <label for="specification-option" class="form-control-label">Specification:</label>
+            <select id="specification-option" class="form-control"   [(ngModel)]="specId" name="specifications">
+              <option *ngFor="let specification of availableSpecifications" [value]="specification.Id">
+                {{ specification.specificationName }}
+              </option>
+            </select>
+          </div>
+
         </form>
       </div>
       <div class="modal-footer">

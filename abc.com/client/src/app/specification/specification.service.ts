@@ -42,11 +42,12 @@ export class SpecificationService {
           const specifications: Array<Specification> =  new Array<Specification>();
           for ( i = 0 ; i < response.length ; i++) {
             const specification: Specification = new Specification();
-            specification.setId(response[i].Id);
+            specification.setId(response[i].id);
             specification.setSpecificationName(response[i].specificationName);
             specification.setSectionName(response[i].sectionName);
             specification.setDOB(response[i].DOB);
             specification.setSectionId(response[i].sectionId);
+            specification.setSectionName(response[i].sectionName);
             specification.setAnswer(response[i].answer);
             specifications.push(specification);
         
@@ -83,7 +84,7 @@ export class SpecificationService {
     return this.http.delete(endPoint)
       .map(res => {
           const res1 = res.json();
-          this.specifications.deleteSpecification(res1.id);
+          this.specifications.deleteSpecification(res1.response);
         }
       );
   }

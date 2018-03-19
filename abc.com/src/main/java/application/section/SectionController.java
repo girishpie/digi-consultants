@@ -51,7 +51,7 @@ public class SectionController {
 
         }
         if(input.getSectionName() != null && !input.getSectionName().isEmpty()) {
-	        Section section = new Section(input.getSectionName(), boqId);
+	        Section section = new Section(input.getSectionName(), boqId, input.getSpecId());
 	        Section sec = sectionRepository.save(section);
 	        boq.addSection(sec.getId());
 	        boqRepository.save(boq);
@@ -123,11 +123,12 @@ public class SectionController {
 	        	}
         	}
         	String specName = ""; 
-        	if(sections.get(i).getSpecId() != null) {
+        	if(!(sections.get(i).getSpecId().equals(""))) {
+        		//sections.get(i).getSpecId() != null
         		Specification specification = specificationRepository.findById(sections.get(i).getSpecId());
         		specName = specification.getSpecificationName();
         	}
-        	SectionDto sectionDto = new SectionDto(sections.get(i), specName , productNames);
+        	SectionDto sectionDto = new SectionDto(sections.get(i), sections.get(i).getSpecId(), specName , productNames, productNames.size());
         	
         	sectionDtos.add(sectionDto);
         }
@@ -154,7 +155,8 @@ public class SectionController {
     		Specification specification = specificationRepository.findById(section.getSpecId());
     		specName = specification.getSpecificationName();
     	}
-    	SectionDto sectionDto = new SectionDto(section, specName, productNames);
+    	
+    	SectionDto sectionDto = new SectionDto(section,section.getSpecId(), specName, productNames, productNames.size());
 
        
         return ResponseWrapper.getResponse( new RestResponse(sectionDto));

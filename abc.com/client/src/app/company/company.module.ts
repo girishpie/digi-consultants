@@ -16,7 +16,7 @@ import { TooltipModule } from "ngx-tooltip";
 
 @NgModule({
   declarations: [
-    CompanyComponent
+    CompanyComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,7 +29,8 @@ import { TooltipModule } from "ngx-tooltip";
     EmployeeModule,
     OfficeModule,
     // NewOfficeModule,
-    TooltipModule
+    TooltipModule,
+   
   ],
   exports : [CompanyComponent],
   providers: [Companies,

@@ -11,7 +11,7 @@
   <tr>
     <th>Section Name</th>
     <th>Specification</th>
-    <th>Products</th>
+    <th>No. of Products</th>
     <th>Actions</th>
   </tr>
   </thead>
@@ -19,14 +19,14 @@
       <tr *ngFor="let section of sections.sections| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: sections.totalItems, id:'server'} ">
         <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="section.sectionName" (input)="section.sectionName=$event.target.textContent">{{ section.sectionName }}</td>
         <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="section.specificationName" (input)="section.specificationName=$event.target.textContent">{{ section.specificationName }}</td>
-        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="section.productNames" (input)="section.productNames=$event.target.textContent">{{ section.productNames }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="section.noOfProducts" (input)="section.noOfProducts=$event.target.textContent">{{ section.noOfProducts }}</td>
  		<td class = "table-cell">
         <tooltip-content #screeningOptions class="recommended-programs-tooltip">
             <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
               <div class="tooltip-text-regisnation">Edit</div>
             </div>
         </tooltip-content>
-        <button [disabled]="!isValid" class="btn-primary" (click) = "updateCompany(company)">
+        <button [disabled]="!isValid" class="btn-primary" (click) = "updateSection(section)">
             <img src="assets/edit.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions"></button> 
             <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
                 <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
