@@ -11,7 +11,7 @@ import {Globals} from "../globals/globals";
 export class BoQService {
 
   private boqUrl = this.globals.getBackendUrl() +  'boq/';
-
+  private boq = this.globals.getBackendUrl() +  'boq/';
   constructor(private http: Http, private  boqs: BoQs, private globals: Globals ) {
 
   }
