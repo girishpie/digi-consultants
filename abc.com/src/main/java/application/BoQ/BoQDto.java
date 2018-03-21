@@ -14,7 +14,7 @@ public class BoQDto {
 	private String projectName;
 	private String boqNumber;
 	
-	public BoQDto(BoQ boQ, String departmentName, String projectId, String projectName, String BoqNumber) {
+	public BoQDto(BoQ boQ, String departmentName, String projectId, String projectName, String boqNumber) {
 		this.id = boQ.getId();
 		this.departmentName = departmentName;
 		this.sectionIds = boQ.getSectionIds();

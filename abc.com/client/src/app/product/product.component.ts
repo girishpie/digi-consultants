@@ -8,6 +8,9 @@ import {QueryParams} from "../home/query-obeservables/query-params";
 import { Section } from '../section/section';
 import { Sections } from '../section/sections';
 import { SectionService } from '../section/section.service';
+import { BoQ } from '../boq/boq';
+import { BoQs } from '../boq/boqs';
+import { BoQService } from '../boq/boq.service';
 
 @Component({
   selector: 'product',
@@ -17,6 +20,8 @@ import { SectionService } from '../section/section.service';
 
 export class ProductComponent implements OnInit {
 
+  currentBoQId: string;
+  //currentBoQNumber:String;
   private subscription: Subscription;
   private currentSearchString: string;
   private currentPage = 1;
@@ -45,6 +50,7 @@ export class ProductComponent implements OnInit {
           this.getProducts(queryParam);
         }
       );
+     
   }
 
   public getProducts(queryParams: QueryParams) {
@@ -65,11 +71,6 @@ export class ProductComponent implements OnInit {
      this.isValid = true;
     } 
 
-  // public deleteProduct(product: Product) {
-  //   this.productService.delete(product.getId()).subscribe(data => {
-
-  //   });
-  // }
   public deleteProduct(id: string) {
     //.alert("Are You Sure You want to delete?");
     console.log("Id "+ id);
@@ -86,7 +87,6 @@ export class ProductComponent implements OnInit {
     this.currentPage = page;
     this.queryParamsService.setPageNumber( page - 1);
   }
-
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();

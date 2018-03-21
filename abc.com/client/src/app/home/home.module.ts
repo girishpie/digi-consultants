@@ -200,7 +200,7 @@ const newDrawingState = { name: 'new-drawing', url: '/new-drawing',  component: 
       sectionState, newSectionState, productState, newProductState, categoryState, newCategoryState,
       subcategoryState, newSubcategoryState, employeeState, newEmployeeState, meetingState, newMeetingState,
     qualityState,newQualityState,requestState,newRequestState,projectlistState,specificationState,NewSpecificationState,officeState,
-    newofficeState,overviewState,], useHash: true })
+    newofficeState,overviewState], useHash: true })
   ],
   exports : [HomeComponent],
   providers: [QueryParamsService],

@@ -16,6 +16,7 @@ export class NewCompanyComponent implements OnInit {
 
    private companyName: string ;
    private address: string ;
+   private contact: string;
 
 
   constructor(private companyService: CompanyService,
@@ -31,6 +32,7 @@ export class NewCompanyComponent implements OnInit {
     let company: Company = new Company();
     company.setCompanyName(this.companyName);
     company.setAddress(this.address);
+    company.setContact(this.contact);
     this.companyService.save(company).subscribe(data => {
         console.log(data);
        // company.setId(data);

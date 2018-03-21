@@ -51,7 +51,7 @@ public class BoQController {
 
         }
         
-        int size = boQRepository.findAll().size();
+        int size = boQRepository.findAll().size()+1;
 		String numberAsString = String.valueOf(size);
 		StringBuilder sb = new StringBuilder();
 		while (sb.length() + numberAsString.length() < 3) {
@@ -60,7 +60,7 @@ public class BoQController {
 		sb.append(size);
 		String paddedNumberAsString = sb.toString();
 		String year = Integer.toString(Calendar.getInstance().get(Calendar.YEAR)).substring(2);
-		String boqNumber = year + paddedNumberAsString;
+		String boqNumber = "JOB_"+ year + paddedNumberAsString;
         
         BoQ boq = new BoQ(bodDepartId,boqNumber);  
         int majorVersion = 1;

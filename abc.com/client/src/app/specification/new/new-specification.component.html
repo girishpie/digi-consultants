@@ -27,17 +27,17 @@
           <label for="specification-answer"  class="form-control-label">Answers:</label>
         </div>
         <div class="col-75">
-          <input type="text" class="form-control" id="apecification-answer" name="answer" [(ngModel)]="answer">
+          <input type="text" class="form-control" id="specification-answer" name="answer" [(ngModel)]="answer">
         </div>
       </div>
-      <div class="form-group" >
+      <!-- <div class="form-group" >
         <label for="section-option" class="form-control-label">Sections:</label>
         <select id="section-option" class="form-control"   [(ngModel)]="sectionId" name="sections">
           <option *ngFor="let section of availableSections" [value]="section.id">
             {{ section.sectionName }}
           </option>
         </select>            
-      </div>
+      </div> -->
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="goBack()">Cancel</button>
         <button type="button" class="btn btn-primary" (click)="addNewSpecification()" >Add</button>
@@ -102,7 +102,7 @@
           </div>
       </div>
 
-      <div *ngIf='showDetailsA'>
+      <!-- <div *ngIf='showDetailsA'>
           <div class="container-fluid rounded" style="background-color:white;">
               <form style=" margin-left:5px;margin-right:5px;">
               <div class="row">  
@@ -116,7 +116,7 @@
               </div>
               </form>
           </div>    
-      </div>    
+      </div>     -->
    
 
 

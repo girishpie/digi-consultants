@@ -13,7 +13,26 @@ public class Specification extends BasicInfo{
 	private String specificationName;
 	private String sectionId;
 	private String sectionName;
+	private String label;
+	private String answer;
 	
+	
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
+	public String getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+
 	public String getSectionName() {
 		return sectionName;
 	}
@@ -30,11 +49,11 @@ public class Specification extends BasicInfo{
 		this.sectionId = sectionId;
 	}
 
-	public Specification(String specificationName, String sectionId, String sectionName) {
+	public Specification(String specificationName, String label, String answer) {
 
 		this.specificationName = specificationName;
-		this.sectionId = sectionId;
-		this.sectionName = sectionName ;
+		this.label = label;
+		this.answer = answer ;
 	}
 
 	public String getId() {

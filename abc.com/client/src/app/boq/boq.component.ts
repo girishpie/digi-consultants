@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Inject, ElementRef, ViewChild} from '@angular/core';
+import {Component, OnInit, Inject, ElementRef, ViewChild, Output} from '@angular/core';
 import {BoQService} from './boq.service';
 import {BoQ} from './boq';
 import {BoQs} from "./boqs";
@@ -20,7 +20,9 @@ export class BoQComponent implements OnInit {
   private currentSearchString: string;
   private currentPage = 1;
   currentBoQId: string;
-    @ViewChild('table') el: ElementRef;
+  @Output('currentBoQNumber') currentBoQNumber:String;
+    
+  @ViewChild('table') el: ElementRef;
   constructor(private boqService: BoQService,
               private boqs: BoQs, public element: ElementRef,
               private queryParamsService: QueryParamsService)  {
@@ -51,13 +53,7 @@ export class BoQComponent implements OnInit {
 
   }
 
-  // public deleteBoQ(boq: BoQ) {
-  //   this.boqService.delete(boq.getId()).subscribe(data => {
-
-  //   });
-  // }
   public deleteBoQ(id: string) {
-    //.alert("Are You Sure You want to delete?");
     console.log("Id "+ id);
      this.boqService.delete(id).subscribe(data => {
      });
@@ -66,8 +62,12 @@ export class BoQComponent implements OnInit {
 
    public getBoQ(boq:BoQ) {
     this.currentBoQId = boq.getId();
+    console.log("In BoQ" + boq.getBoQNumber());
+    this.currentBoQNumber = boq.getBoQNumber();
   }
   
+  
+
   public exportAsPdf(){
   		let pdf = new jsPDF('p','pt','a4');
 		let elementHandler = {

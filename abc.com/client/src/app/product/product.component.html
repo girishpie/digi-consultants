@@ -1,7 +1,7 @@
 <div class="container-fluid digi-product rounded">
   <div class="column">
     <div class="glyphicon glyphicon-cog">MANAGE PRODUCTS</div>
-    <div>BOQ id-</div>
+    <div>BOQ id- {{ currentBoQNumber }}</div>
     <br>
     <label for="section-option" class="form-control-label">Section:</label>
     <select style="display: initial;width: 50%;" item-width="50%" id="section-option" class="form-control" [(ngModel)]="sectionId"
@@ -17,7 +17,7 @@
     <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search">
   </nav>
   <table class="table ">
-    <thead> 
+    <thead>
       <tr>
         <th>Product Name</th>
         <th>Unit</th>

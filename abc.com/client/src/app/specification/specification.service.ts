@@ -62,7 +62,7 @@ export class SpecificationService {
 
 
   public save(specification: Specification)  {
-    const endPoint = this.specificationUrl + specification.getSectionId();
+    const endPoint = this.specificationUrl;
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     let options = new RequestOptions({ headers: headers });

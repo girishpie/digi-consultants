@@ -19,7 +19,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let boq of boqs.boqs | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: boqs.totalItems, id:'server'} ">
-          <td class="table-cell">{{ boq.boQNumber }}</td>
+          <td class="table-cell">{{ boq.boqNumber }}</td>
           <td class="table-cell">{{ boq.projectName }}</td>
           <td class="table-cell">{{ boq.boQDepartmentName }}</td>
           <td class="table-cell">{{ boq.version }}</td>
@@ -34,7 +34,7 @@
                 <div class="tooltip-text-regisnation">View</div>
               </div>
             </tooltip-content>
-            <button class="btn-primary" tooltipPlacement="right" [tooltip]="screeningOption1">
+            <button class="btn-primary" (click)="getBoQ(boq)" tooltipPlacement="right" [tooltip]="screeningOption1">
                 <a href="#/product">
               <img src="assets/view.svg" style="width:30px"></a>
             </button>

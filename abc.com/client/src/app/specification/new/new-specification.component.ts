@@ -25,6 +25,7 @@ export class NewSpecificationComponent implements OnInit {
     private specificationName: string;
     private sectionId: string;
     private answer: string;
+    private label: string;
     showDetails: boolean = false;
     showDetailsA: boolean = false;
     showDetailsB: boolean = false;
@@ -53,10 +54,11 @@ export class NewSpecificationComponent implements OnInit {
      let specification: Specification = new Specification();
      specification.setId(this.Id);
      specification.setSpecificationName(this.specificationName);
-     specification.setDOB(this.DOB);
+    //  specification.setDOB(this.DOB);
      specification.setSectionId(this.sectionId);
      specification.setAnswer(this.answer);
-   this.specificationService.save(specification).subscribe(data => {
+     specification.setLabel(this.label);
+    this.specificationService.save(specification).subscribe(data => {
         console.log(data);
        this.stateService.go('specification');
    

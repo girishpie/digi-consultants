@@ -10,14 +10,20 @@
     <thead>
       <tr>
         <th>Company Name</th>
-        <th>Address</th>
+        <th>Employee</th>
+        <th>Location</th>
+        <th>Contact</th>
+        <th>No. of Offices</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let company of companies.companies| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: companies.totalItems, id:'server'} ">
         <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="company.companyName" (input)="company.companyName=$event.target.textContent">{{ company.companyName }}</td>
+        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="company.noOfEmployee" (input)="company.noOfEmployee=$event.target.textContent">{{ company.noOfEmployee }}</td>
         <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="company.address" (input)="company.address=$event.target.textContent">{{ company.address }}</td>
+        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="company.contact" (input)="company.contact=$event.target.textContent">{{ company.contact }}</td>
+        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="company.noOfoffice" (input)="company.noOfoffice=$event.target.textContent">{{ company.noOfoffice }}</td> 
         <td class="table-cell">
           <tooltip-content #screeningOptions class="recommended-programs-tooltip">
             <div>

@@ -26,20 +26,48 @@ public class Company extends BasicInfo{
     @NotNull
     private String companyName;
     private String address;
-
+    private String contact;
 
     private List<String> employeeIds = new ArrayList<String>();
     private List<String> clientIds = new ArrayList<String>();
     private List<String> officeIds = new ArrayList<String>();
 
+    private int noOfEmployee;
+    private int noOfoffice;
     public Company() {}
 
-    public Company(String companyName, String address) {
+    public Company(String companyName, String address, String contact) {
         this.companyName = companyName;
         this.address = address;
+        this.contact = contact;
     }
 
-    public void setId(String id) {
+    
+    public int getNoOfEmployee() {
+		return noOfEmployee;
+	}
+
+	public void setNoOfEmployee(int noOfEmployee) {
+		this.noOfEmployee = noOfEmployee;
+	}
+
+	public int getNoOfoffice() {
+		return noOfoffice;
+	}
+
+	public void setNoOfoffice(int noOfoffice) {
+		this.noOfoffice = noOfoffice;
+	}
+
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
+
+	public void setId(String id) {
         this.id = id;
     }
 
@@ -115,6 +143,14 @@ public class Company extends BasicInfo{
                 this.employeeIds.remove(i);
             }
         }
+	}
+
+	public List<String> getOfficeIds() {
+		return officeIds;
+	}
+
+	public void setOfficeIds(List<String> officeIds) {
+		this.officeIds = officeIds;
 	}
 
 	public void addDepartment(String id2) {

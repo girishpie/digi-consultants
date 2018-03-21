@@ -28,18 +28,12 @@ public class SpecificationController {
     }
 
     @PreAuthorize("hasAuthority('CREATE_SPECIFICATION')")
-    @RequestMapping(value = "/{sectionId}", method = RequestMethod.POST)
-    ResponseEntity<?> add(@PathVariable String sectionId , @RequestBody Specification input ) {
-        Section section = sectionRepository.findById(sectionId);
-        if(section == null){
-            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "SECTION_NOT_FOUND", sectionId));
-
-        }
+    @RequestMapping( method = RequestMethod.POST)
+    ResponseEntity<?> add(@RequestBody Specification input ) {
+        
         if(input.getSpecificationName() != null && !input.getSpecificationName().isEmpty()) {
-	        Specification specification = new Specification(input.getSpecificationName(), sectionId,section.getSectionName());
+	        Specification specification = new Specification(input.getSpecificationName(), input.getLabel(), input.getAnswer());
 	        specification = specificationRepository.save(specification);
-	        section.setSpecId(specification.getId());
-	        sectionRepository.save(section);
 	        return ResponseWrapper.getResponse(new RestResponse(specification.getId()));
         }
         else
@@ -55,6 +49,13 @@ public class SpecificationController {
         RestError restError ;
         if(specification == null){
             return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND , "SPECIFICATION_NOT_FOUND", id));
+        }
+        List<Section> sections = sectionRepository.findAll();
+        for(int i = 0; i<sections.size();i++) {
+             if((sections.get(i) != null) && (sections.get(i).getSpecId().equals(id))){
+                 sections.get(i).setSpecId("");
+                 sectionRepository.save(sections.get(i));
+             }
         }
         Section section = sectionRepository.findById(specification.getSectionId());
         if(section != null){

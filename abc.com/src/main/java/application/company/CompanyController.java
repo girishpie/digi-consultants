@@ -29,7 +29,7 @@ public class CompanyController {
     ResponseEntity<IResponse> add(@RequestBody Company input) {
     	if(input.getCompanyName() != null && !input.getCompanyName().isEmpty()) {
     		Company company = companyRepository.save(new Company(input.getCompanyName(),
-    				input.getAddress()));
+    				input.getAddress(), input.getContact()));
     		return ResponseWrapper.getResponse(new RestResponse( company.getId()));
     	}else {
     		return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST,"COMPANY_NAME_NULL"));
@@ -68,6 +68,10 @@ public class CompanyController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<IResponse> getAll() {
         List<Company> companies = companyRepository.findAll();
+        for(int i= 0 ; i<companies.size(); i++) {
+        	companies.get(i).setNoOfEmployee(companies.get(i).getEmployeeIds().size());
+        	companies.get(i).setNoOfoffice(companies.get(i).getOfficeIds().size());
+        }
         if (companies.isEmpty()) {
             return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "COMPANIES_NOT_FOUND"));
         }

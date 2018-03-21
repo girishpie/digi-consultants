@@ -54,6 +54,10 @@ public class SectionController {
 	        Section section = new Section(input.getSectionName(), boqId, input.getSpecId());
 	        Section sec = sectionRepository.save(section);
 	        boq.addSection(sec.getId());
+	        Specification specification = specificationRepository.findById(input.getSpecId());
+	        specification.setSectionId(sec.getId());
+	        specification.setSectionName(sec.getSectionName());
+	        specificationRepository.save(specification);
 	        boqRepository.save(boq);
 	        return ResponseWrapper.getResponse(new RestResponse(sec.getId()));
         }
@@ -71,6 +75,9 @@ public class SectionController {
         if(section == null){
             return ResponseWrapper.getResponse( new RestError( HttpStatus.NOT_FOUND, "SECTION_NOT_FOUND", id));
         }
+        Specification specification = specificationRepository.findById(section.getSpecId());
+        specification.setSectionId("");
+        specification.setSectionName("");
         BoQ boq = boqRepository.findById(section.getBoqId());
         if(boq != null){
         	 boq.deleteSection(id);
@@ -124,7 +131,6 @@ public class SectionController {
         	}
         	String specName = ""; 
         	if(!(sections.get(i).getSpecId().equals(""))) {
-        		//sections.get(i).getSpecId() != null
         		Specification specification = specificationRepository.findById(sections.get(i).getSpecId());
         		specName = specification.getSpecificationName();
         	}

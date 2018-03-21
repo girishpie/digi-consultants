@@ -41,12 +41,12 @@ export class BoQService {
           const boqs: Array<BoQ> =  new Array<BoQ>();
           for ( i = 0 ; i < response.length ; i++) {
             const boq: BoQ = new BoQ();
+            boq.setId(response[i].id);
             boq.setProjectName(response[i].projectName);
             boq.setBoQDepartmentName(response[i].departmentName);
             boq.setVersion(response[i].version);
             boq.setTotalVersions(response[i].totalVersions);
             boq.setBoQNumber(response[i].boqNumber);
-            boq.setId(response[i].id);
             boqs.push(boq);
           }
           this.boqs.setBoQs(boqs);

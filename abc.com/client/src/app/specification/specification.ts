@@ -5,6 +5,7 @@ export class Specification
     private  Id: string;
     private  specificationName: string;
     private  sectionId: string;
+    private  label : string;
     private  answer : string;
     private  DOB:Date;
     private  sectionName:string;
@@ -51,18 +52,26 @@ export class Specification
     {
       return answer = answer ;
     }
-    public getAnwer(): string 
+    public getAnswer(): string 
     { 
       return this.answer ;
     }
-    public setSectionName ( sectionsId: string ) 
+    public setSectionName ( sectionsName: string ) 
     {
-      this.sectionId = sectionsId;
+      this.sectionName = sectionsName;
     }
 
     public getSectionName(): string 
     {
-      return this.sectionId ;
+      return this.sectionName ;
     }
-  
+    
+    public setLabel (label: string) 
+    {
+      return label = label ;
+    }
+    public getLabel(): string 
+    { 
+      return this.label ;
+    }
 }

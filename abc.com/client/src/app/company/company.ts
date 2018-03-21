@@ -8,7 +8,9 @@ export class Company {
   private  employeeNames: Array<string>;
   private  clientNames: Array<string>;
   private  officeNames: Array<string>;
-
+  private  noOfoffice: number;
+  private  noOfEmployee: number;
+  private  contact: string;
   constructor() {
   }
   public setId ( id: string ) {
@@ -17,7 +19,13 @@ export class Company {
   public getId (): string {
     return this.id ;
   }
-   public setAddress ( address: string ) {
+   public setContact ( contact: string ) {
+    this.contact = contact;
+  }
+  public getContact (): string {
+    return this.contact ;
+  }
+  public setAddress ( address: string ) {
     this.address = address;
   }
   public getAddress (): string {
@@ -47,5 +55,19 @@ export class Company {
   }
   public getOfficeNames(): Array<string> {
     return this.officeNames;
+  }
+
+  public setNoofOffices( noOfoffice: number ) {
+    this.noOfoffice = noOfoffice;
+  }
+  public getNoOfoffice(): number {
+    return this.noOfoffice;
+  }
+  
+  public setNoOfEmployee( noOfEmployee: number ) {
+    this.noOfEmployee = noOfEmployee;
+  }
+  public getNoOfEmployee(): number {
+    return this.noOfEmployee;
   }
  }
