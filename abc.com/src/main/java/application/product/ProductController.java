@@ -131,7 +131,12 @@ public class ProductController {
 	        	for(int i = 0; i < products.size(); i++ ) {
 	        		if(products.get(i).getSectionId() == sectionId) {
 	        			String productCat = "";
-			        	Section section = sectionRepository.findById(products.get(i).getSectionId());
+			        	String sectionName = "";
+			        	if(!(products.get(i).getSectionId().equals(""))) {
+			        		Section section = sectionRepository.findById(products.get(i).getSectionId());
+			        		sectionName = section.getSectionName();
+			        	}
+	        			
 			        	
 			        	if(products.get(i).getProductCatId() != null) {
 			        		Category category = categoryRepository.findById(products.get(i).getProductCatId());
@@ -141,14 +146,14 @@ public class ProductController {
 //			        			productSubCat = subCategory.getName();
 //			        		}
 			        	}
-				        ProductDto productDto = new ProductDto(products.get(i), section.getSectionName(), productCat);
+				        ProductDto productDto = new ProductDto(products.get(i), sectionName, productCat);
 				        productDtos.add(productDto);
 	        		}
 		        }
 	        }
 	        else {
 		        for(int i = 0; i < products.size(); i++ ) {
-		        	Section section = sectionRepository.findById(products.get(i).getSectionId());
+		        	//Section section = sectionRepository.findById(products.get(i).getSectionId());
 		        	String productCat = "", productSubCat = "";
 		        	if(products.get(i).getProductCatId() != null) {
 		        		Category category = categoryRepository.findById(products.get(i).getProductCatId());
@@ -158,7 +163,12 @@ public class ProductController {
 //		        			productSubCat = subCategory.getName();
 //		        		}
 		        	}
-			        ProductDto productDto = new ProductDto(products.get(i), section.getSectionName(), productCat);
+		        	String sectionName = "";
+		        	if(!(products.get(i).getSectionId().equals(""))) {
+		        		Section section = sectionRepository.findById(products.get(i).getSectionId());
+		        		sectionName = section.getSectionName();
+		        	}
+			        ProductDto productDto = new ProductDto(products.get(i), sectionName, productCat);
 			        productDtos.add(productDto);
 		        }
 	        }
@@ -172,7 +182,12 @@ public class ProductController {
 	        if (product == null) {
 	            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "PRODUCT_NOT_FOUND", id));
 	        }
-	        Section section = sectionRepository.findById(product.getSectionId());
+	        String sectionName = "";
+        	if(!(product.getSectionId().equals(""))) {
+        		Section section = sectionRepository.findById(product.getSectionId());
+        		sectionName = section.getSectionName();
+        	}
+	        //Section section = sectionRepository.findById(product.getSectionId());
 	        String productCat = "", productSubCat = "";
         	if(product.getProductCatId() != null) {
         		Category category = categoryRepository.findById(product.getProductCatId());
@@ -182,7 +197,7 @@ public class ProductController {
 //        			productSubCat = subCategory.getName();
 //        		}
         	}
-	        ProductDto productDto = new ProductDto(product, section.getSectionName(), productCat);
+	        ProductDto productDto = new ProductDto(product, sectionName, productCat);
 	        return ResponseWrapper.getResponse( new RestResponse(productDto));
 	    }
 }

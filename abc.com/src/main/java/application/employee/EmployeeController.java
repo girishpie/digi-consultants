@@ -171,19 +171,7 @@ public class EmployeeController {
         return ResponseWrapper.getResponse(new RestResponse(employeeDtos));
 
     }
-
-    @PreAuthorize("hasAuthority('READ_EMPLOYEE')")
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> get(@PathVariable("id") String id) {
-    	Employee employee = employeeRepository.findById(id);
-        if (employee == null) {
-            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "EMPLOYEE_NOT_FOUND", id));
-        }
-        Company company = companyRepository.findById(employee.getCompanyId());
-        EmployeeDto employeeDto = new EmployeeDto(employee, company.getCompanyName());
-        return ResponseWrapper.getResponse( new RestResponse(employeeDto));
-    }
-    
+        
     @PreAuthorize("hasAuthority('READ_EMPLOYEE')")
     @RequestMapping(value = "/{projectId}",method = RequestMethod.GET)
     public ResponseEntity<?> getAllEmployeeByProject(@PathVariable("projectId") String projectId) {

@@ -1,5 +1,15 @@
 <div class="container-fluid rounded" style="background-color:white;">
-  <div class="glyphicon glyphicon-cog">ADD COMPANY</div>
+    <br>
+    <div class="column">
+      <div class="glyphicon glyphicon-cog">ADD COMPANY</div>
+    </div>
+    <br>
+  </div>
+  <hr style="margin-top: 5px;margin-bottom: 0px;">
+
+
+<div class="container-fluid rounded" style="background-color:white;">
+  <br>
   <div>
     <form>
       <div class="form-group">
@@ -14,19 +24,16 @@
         <input type="text" class="form-control" id="address" [(ngModel)]="address" name="first">
       </div>
       <div class="form-group">
-        <label for="contact" class="form-control-label">Contact:</label>
+        <label class="form-control-label">Contact:</label>
         <br>
         <div class="form-group">
           <form>
             <div class="form-row">
               <div class="col-7">
-                <input type="text" class="form-control" placeholder="Email" id="contact" [(ngModel)]="contact" name="contact">
+                <input type="text" class="form-control" placeholder="email" id="email" [(ngModel)]="email" name="email">
               </div>
               <div class="col">
-                <input type="text" class="form-control" placeholder="Mobile" id="contact" [(ngModel)]="contact" name="contact">
-              </div>
-              <div class="col">
-                <input type="text" class="form-control" placeholder="Telephone" id="contact" [(ngModel)]="contact" name="contact">
+                <input type="number" maxlength="10" class="form-control" placeholder="phone" id="phone" [(ngModel)]="phone" name="phone">
               </div>
             </div>
           </form>

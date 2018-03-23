@@ -1,41 +1,52 @@
-<div class="container-fluid digi-request rounded" >
-    <div class="column">
-    <div class = "glyphicon glyphicon-cog">CHANGE REQUEST</div>
-        <a href="#/new-request" class="btn btn-primary round pull-right" role="button">+Create New</a>
-    </div>
-    <nav class="navbar">
-      <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search" >
-    </nav>
+<div class="container-fluid  rounded">
+  <br>
+  <div class="column">
+    <div class="glyphicon glyphicon-cog">CHANGE REQUEST</div>
+    <a href="#/new-request" class="btn btn-primary round pull-right" role="button">+Create New</a>
+  </div>
+  <br>
+</div>
+<hr style="margin-top: 3px;
+  margin-bottom: 1px;">
+
+<div class="container-fluid digi-request rounded">
+ <br>
+  <nav class="navbar">
+    <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search">
+  </nav>
   <table class="table">
-      <thead>
-        <tr>
-          <th>Short Description</th>
-          <th>Status</th>
-          <th>Raised by</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-            <tr *ngFor="let request of requests.requests| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: requests.totalItems, id:'server'} ">
-                 
-                    <td class = "table-cell" >{{ request.shortDescription }}</td>
-                    <td class = "table-cell" >{{ request.status }}</td>
-                    <td class = "table-cell" >{{ request.assignee }}</td>
-                    <td class="table-cell" >{{ request.remarks }}</td>
-                    <td class = "table-cell">
-                        <tooltip-content #screeningOptions class="recommended-programs-tooltip">
-                            <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
-                              <div class="tooltip-text-regisnation">Delete</div>
-                            </div>
-                        </tooltip-content>
-                     <button style="background-color:red;" class="btn-primary"  (click) = "getRequest(request)" data-toggle="modal" data-target=".bd-example-modal-sm">
-                      <img src="assets/delete.svg"  style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions">
-                    </button>  
-                    </td>
-            </tr>
-      </tbody>
+    <thead>
+      <tr>
+        <th>Short Description</th>
+        <th>Status</th>
+        <th>Raised by</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of requests.requests| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: requests.totalItems, id:'server'} ">
+
+        <td class="table-cell">{{ request.shortDescription }}</td>
+        <td class="table-cell">{{ request.status }}</td>
+        <td class="table-cell">{{ request.assignee }}</td>
+        <td class="table-cell">{{ request.remarks }}</td>
+        <td class="table-cell">
+          <tooltip-content #screeningOptions class="recommended-programs-tooltip">
+            <div>
+              <span>
+                <p class="fa fa-info-circle fa-tooltip"></p>
+              </span>
+              <div class="tooltip-text-regisnation">Delete</div>
+            </div>
+          </tooltip-content>
+          <button style="background-color:red;" class="btn-primary" (click)="getRequest(request)" data-toggle="modal" data-target=".bd-example-modal-sm">
+            <img src="assets/delete.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions">
+          </button>
+        </td>
+      </tr>
+    </tbody>
   </table>
-  <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>     
+  <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
 </div>
 <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
@@ -50,11 +61,11 @@
           <div class="container-fluid rounded" style="background-color:white;">
             <div class="section-wrpr">
               <div class="small-wrpr" style="margin-top: 10px; margin-left:20px;">
-                  <div class="content-wrpr">
-                      Are you sure?
-                  </div>
+                <div class="content-wrpr">
+                  Are you sure?
+                </div>
                 <button class="close" data-dismiss="modal" style="background-color:red;">
-                  <img  src="assets/delete.svg" (click) = "deleteRequest(currentRequestId)" style="width:30px">
+                  <img src="assets/delete.svg" (click)="deleteRequest(currentRequestId)" style="width:30px">
                 </button>
               </div>
               <div class="clearfix"></div>
@@ -65,6 +76,4 @@
       </div>
     </div>
   </div>
-</div>   
-
-   
+</div>

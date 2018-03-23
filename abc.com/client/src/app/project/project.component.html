@@ -1,8 +1,16 @@
-<div class="container-fluid digi-project rounded">
-  <div class="column">
-    <div class="glyphicon glyphicon-cog">MANAGE PROJECTS</div>
-    <a href="#/new-project" class="btn btn-primary round pull-right" role="button">+Add Project</a>
+<div class="container-fluid rounded ">
+    <br>
+    <div class="column">
+        <div class="glyphicon glyphicon-cog">MANAGE PROJECTS</div>
+        <a href="#/new-project" class="btn btn-primary round pull-right" role="button">+Add Project</a>
+      </div>
+    <br>
   </div>
+  <hr style="margin-top: 3px;
+  margin-bottom: 1px;">
+
+<div class="container-fluid digi-project rounded">
+ <br>
   <nav class="navbar">
     <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search">
   </nav>
@@ -14,16 +22,18 @@
         <th>Site Address</th>
         <th>Description</th>
         <th>Start Date</th>
+        <th>Phase</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let project of projects.projects| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: projects.totalItems, id:'server'} ">
         <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="project.projectName" (input)="project.projectName=$event.target.textContent">{{ project.projectName }}</td>
-        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="project.jobNumber" (input)="project.jobNumber=$event.target.textContent">{{ project.jobNumber }}</td>
+        <td class="table-cell" >{{ project.jobNumber }}</td>
         <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="project.siteAddress" (input)="project.siteAddress=$event.target.textContent">{{ project.siteAddress }}</td>
         <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="project.description" (input)="project.description=$event.target.textContent">{{ project.description }}</td>
         <td class="table-cell">{{ project.startDate | date:'MM/dd/yyyy' }}</td>
+        <td class="table-cell">{{ project.phase }}</td>
         <td class="table-cell">
           <tooltip-content #screeningOptions class="recommended-programs-tooltip">
             <div>
@@ -44,7 +54,7 @@
               <div class="tooltip-text-regisnation">Delete</div>
             </div>
           </tooltip-content>
-          <button style="background-color:red;" class="btn-primary" (click)="getProject(project)" data-toggle="modal" data-target=".bd-example-modal-sm">
+          <button style="background-color:red;" class="btn-primary" (click)="getProject(project)" data-toggle="modal" data-target=".bd1-example-modal-sm">
             <img src="assets/delete.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1">
           </button>
         </td>
@@ -53,7 +63,7 @@
   </table>
   <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
 </div>
-<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal fade bd1-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header" style="background-color: #428bca;">

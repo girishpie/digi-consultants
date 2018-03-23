@@ -10,7 +10,8 @@ export class Company {
   private  officeNames: Array<string>;
   private  noOfoffice: number;
   private  noOfEmployee: number;
-  private  contact: string;
+  private  email: string;
+  private  phone: number;
   constructor() {
   }
   public setId ( id: string ) {
@@ -19,11 +20,17 @@ export class Company {
   public getId (): string {
     return this.id ;
   }
-   public setContact ( contact: string ) {
-    this.contact = contact;
+   public setEmail ( email: string ) {
+    this.email = email;
   }
-  public getContact (): string {
-    return this.contact ;
+  public getEmail (): string {
+    return this.email ;
+  }
+  public setPhone ( phone: number ) {
+    this.phone = phone;
+  }
+  public getPhone (): number {
+    return this.phone ;
   }
   public setAddress ( address: string ) {
     this.address = address;

@@ -33,7 +33,7 @@ export class BoQComponent implements OnInit {
     this.subscription = this.queryParamsService.getQueryParams()
       .subscribe(
         queryParam => {
-          console.log(queryParam);
+          // console.log(queryParam);
           if (this.currentSearchString !== queryParam.searchString ) {
             queryParam.pageNumber = 0;
             this.currentPage = 1;
@@ -54,15 +54,15 @@ export class BoQComponent implements OnInit {
   }
 
   public deleteBoQ(id: string) {
-    console.log("Id "+ id);
+    // console.log("Id "+ id);
      this.boqService.delete(id).subscribe(data => {
      });
-     console.log("delete");
+    //  console.log("delete");
    }
 
    public getBoQ(boq:BoQ) {
     this.currentBoQId = boq.getId();
-    console.log("In BoQ" + boq.getBoQNumber());
+    // console.log("In BoQ" + boq.getBoQNumber());
     this.currentBoQNumber = boq.getBoQNumber();
   }
   
@@ -91,18 +91,14 @@ export class BoQComponent implements OnInit {
     this.queryParamsService.setPageNumber( page - 1);
   }
 
+  setSelectedBoQNumber(boQNumber:string){
+    this.boqService.setSelectedBoQNumber(boQNumber);
+    // console.log("Selected BoQNumber " + boQNumber);
+  }
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();
   }
-  // public updateBoQ(boq: BoQ) {
-  //   this.loading = true;
-  //   this.boqService.update(boq).subscribe(data => {
-	// 	 this.loading = false;
-  //   });
-  // }
-  //   onRowClick(event){
-  //    this.isValid = true;
-  //   } 
+
 }
 

@@ -34,7 +34,7 @@ export class RoleService {
             const role: Role = new Role();
             role.setId(response[i].id);
             role.setName(response[i].name);
-            role.setLastUpdated(response[i].lastUpdated);
+            role.setLastUpadated(response[i].lastUpadated);
             role.setPermissions(response[i].permissions);
             roles.push(role);
           }

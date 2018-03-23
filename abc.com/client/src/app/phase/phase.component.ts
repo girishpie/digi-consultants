@@ -35,7 +35,7 @@ export class PhaseComponent implements OnInit {
     this.subscription = this.queryParamsService.getQueryParams()
       .subscribe(
         queryParam => {
-          console.log(queryParam);
+          // console.log(queryParam);
           if (this.currentSearchString !== queryParam.searchString ) {
             queryParam.pageNumber = 0;
             this.currentPage = 1;
@@ -63,10 +63,10 @@ export class PhaseComponent implements OnInit {
   // }
   public deletePhase(id: string) {
     //.alert("Are You Sure You want to delete?");
-    console.log("Id "+ id);
+    // console.log("Id "+ id);
      this.phaseService.delete(id).subscribe(data => {
      });
-     console.log("delete");
+    //  console.log("delete");
    }
 
   public getPhase(phase: Phase) {

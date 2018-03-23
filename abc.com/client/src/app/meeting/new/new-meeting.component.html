@@ -1,3 +1,12 @@
+<div class="container-fluid digi-section " style="background-color:white;">
+        <br>
+        <div class="column">
+            <div class = "glyphicon glyphicon-cog">ADD Meeting</div>
+        </div>
+        <br>
+      </div>
+      <hr style="margin-top: 5px;margin-bottom: 0px;">
+      
 <div class="container-fluid rounded" style="background-color:white;">
     <form >
         <div class="form-group">
@@ -9,7 +18,7 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="meeting-tittle" class="form-control-label">Tittle</label>
+            <label for="meeting-tittle" class="form-control-label">Title</label>
             <input type="text" class="form-control" id="meeting-tittle" [(ngModel)]="tittle" name="tittle">
           </div>
           <div class="form-group">
@@ -41,20 +50,20 @@
             <input type="text" class="form-control" id="meeting-venue" name="venue" [(ngModel)]="venue">
           </td>
         </tr>
-            <tr>
+            <!-- <tr>
                 <td>Meeting Commenced:
                 </td>
                 <td>
                     <input type="text" class="form-control" id="meeting-commenced" name="type" [(ngModel)]="meetingCommenced">
                 </td>
-            </tr>
-            <tr>
+            </tr> -->
+            <!-- <tr>
                 <td>Meeting Adjourned:
                 </td>
                 <td>
                     <input type="text" class="form-control" id="meeting-adjourned" name="type" [(ngModel)]="meetingAdjourned">
                 </td>
-            </tr>
+            </tr> -->
             <tr>
                 <td>Meeting No:
                 </td>
@@ -65,14 +74,14 @@
 
         </table>
 
-        <table class="table ">
+        <!-- <table class="table ">
             <thead>
             <tr>
                 <th>Sl No</th>
                 <th>Name</th>
                 <th>Company</th>
                 <th>Role</th>
-                <th>Initials</th>
+                <th>References</th>
                 <th>Present</th>
                 <th>Absent</th>
                 <th>Appologies</th>
@@ -81,7 +90,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let employee of this.employees">
+            <tr *ngFor="let employee of employees">
                 <td class = "table-cell"></td>
                 <td class = "table-cell">{{employee.firstname}}</td>
                 <td class = "table-cell">{{employee.companyName}}</td>
@@ -103,7 +112,7 @@
                 <td class = "table-cell"></td>
             </tr>
             </tbody>
-        </table>
+        </table> -->
 
         <label style="text-decoration: underline;">Discussed Items</label>
         <table class="table ">

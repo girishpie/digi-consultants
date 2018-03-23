@@ -31,7 +31,7 @@ export class DocumentComponent implements OnInit {
     this.subscription = this.queryParamsService.getQueryParams()
       .subscribe(
         queryParam => {
-          console.log(queryParam);
+          // console.log(queryParam);
           if (this.currentSearchString !== queryParam.searchString ) {
             queryParam.pageNumber = 0;
             this.currentPage = 1;
@@ -62,10 +62,10 @@ export class DocumentComponent implements OnInit {
     
   public deleteDocument(id: string) {
     //.alert("Are You Sure You want to delete?");
-    console.log("Id "+ id);
+    // console.log("Id "+ id);
      this.documentService.delete(id).subscribe(data => {
      });
-     console.log("delete");
+    //  console.log("delete");
    }
    public getDocument(document: Document) {
     this.currentDocumentId = document.getId();
@@ -80,5 +80,12 @@ export class DocumentComponent implements OnInit {
     // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();
   }
+  downloadFile(document: Document) {
+    // console.log("In Dowload Document");
+    this.documentService.getDocument(document).subscribe(
+        (data) => {
+        
+        });
+    }
 }
 

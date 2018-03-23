@@ -35,7 +35,7 @@ export class NewDocumentComponent implements OnInit {
     let document: Document = new Document();
     document.setProjectId(this.projectId);
     this.documentService.save(event, document ).subscribe(data => {
-        console.log(data);
+        // console.log(data);
          this.stateService.go('document');
     }, error => {
       window.alert(error._body);

@@ -50,7 +50,7 @@ export class NewProjectComponent implements OnInit {
     project.setClientId(this.clientId);
     project.setPhase(this.phase);
     this.projectService.save(project).subscribe(data => {
-        console.log(data);
+        // console.log(data);
         //project.setId(data);
         //this.projects.addProject(project);
       this.stateService.go('project');
@@ -66,7 +66,7 @@ export class NewProjectComponent implements OnInit {
     this.phaseService.getPhases(null).subscribe( data => {
       this.availablePhases = this.phases.getPhases();
     }, error => {
-      console.log(error._body.toString() + " No phases found");
+      // console.log(error._body.toString() + " No phases found");
     });
   }
   

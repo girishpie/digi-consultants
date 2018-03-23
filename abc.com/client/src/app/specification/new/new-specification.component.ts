@@ -59,7 +59,7 @@ export class NewSpecificationComponent implements OnInit {
      specification.setAnswer(this.answer);
      specification.setLabel(this.label);
     this.specificationService.save(specification).subscribe(data => {
-        console.log(data);
+        // console.log(data);
        this.stateService.go('specification');
    
      }, error => {

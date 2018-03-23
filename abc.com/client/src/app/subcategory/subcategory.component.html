@@ -1,50 +1,66 @@
-<div class="container-fluid digi-subcategory rounded" >
-<div class="column">
-	<div class = "glyphicon glyphicon-cog">MANAGE SUBCATEGORIES</div>
-	<a href="#/new-subcategory" class="btn btn-primary round pull-right" role="button">+Add Subcategory</a></div>
-<div class="column">
-	<nav class="navbar">
-    <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search" >
-  </nav>
-</div>
-<table class="table ">
-  <thead>
-  <tr>
-  	<th>SubCategory Name</th>
-    <th>Description</th>
-    <th>Parent Category</th>
-    <th>Actions</th>
-  </tr>
-  </thead>
-  <tbody>
-      <tr *ngFor="let subcategory of subcategories.subcategories| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: subcategories.totalItems, id:'server'} ">
-        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="subcategory.name" (input)="subcategory.name=$event.target.textContent">{{ subcategory.name }}</td>
-        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="subcategory.description" (input)="subcategory.description=$event.target.textContent">{{ subcategory.description }}</td>
-        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="subcategory.parentName" (input)="subcategory.parentName=$event.target.textContent">{{ subcategory.parentName }}</td>
-         <td class = "table-cell">
+<div class="container-fluid  rounded">
+  <br>
+  <div class="column">
+    <div class="column">
+      <div class="glyphicon glyphicon-cog">MANAGE SUBCATEGORIES</div>
+      <a href="#/new-subcategory" class="btn btn-primary round pull-right" role="button">+Add Subcategory</a>
+    </div>
+    <br>
+  </div>
+  <hr style="margin-top: 3px;margin-bottom: 1px;">
+<br>
+  <div class="container-fluid digi-subcategory rounded">
+   <br>
+    <div class="column">
+      <nav class="navbar">
+        <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search">
+      </nav>
+    </div>
+    <table class="table ">
+      <thead>
+        <tr>
+          <th>SubCategory Name</th>
+          <th>Description</th>
+          <th>Parent Category</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let subcategory of subcategories.subcategories| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: subcategories.totalItems, id:'server'} ">
+          <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="subcategory.name" (input)="subcategory.name=$event.target.textContent">{{ subcategory.name }}</td>
+          <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="subcategory.description" (input)="subcategory.description=$event.target.textContent">{{ subcategory.description }}</td>
+          <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="subcategory.parentName" (input)="subcategory.parentName=$event.target.textContent">{{ subcategory.parentName }}</td>
+          <td class="table-cell">
             <tooltip-content #screeningOptions class="recommended-programs-tooltip">
-                <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
-                  <div class="tooltip-text-regisnation">Edit</div>
-                </div>
+              <div>
+                <span>
+                  <p class="fa fa-info-circle fa-tooltip"></p>
+                </span>
+                <div class="tooltip-text-regisnation">Edit</div>
+              </div>
             </tooltip-content>
-            <button [disabled]="!isValid" class="btn-primary" (click) = "updatesubcategory(subcategory)">
-                <img src="assets/edit.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions"></button>
-                
-              <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
-                    <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
-                      <div class="tooltip-text-regisnation">Delete</div>
-                    </div>
-              </tooltip-content>
-			      <button style="background-color:red;" class="btn-primary"  (click) = "getSubcategory(subcategory)" data-toggle="modal" data-target=".bd-example-modal-sm" >
+            <button [disabled]="!isValid" class="btn-primary" (click)="updatesubcategory(subcategory)">
+              <img src="assets/edit.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions">
+            </button>
+
+            <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
+              <div>
+                <span>
+                  <p class="fa fa-info-circle fa-tooltip"></p>
+                </span>
+                <div class="tooltip-text-regisnation">Delete</div>
+              </div>
+            </tooltip-content>
+            <button style="background-color:red;" class="btn-primary" (click)="getSubcategory(subcategory)" data-toggle="modal" data-target=".bd-example-modal-sm">
               <img src="assets/delete.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1">
             </button>
-        </td>
-     </tr>
-  </tbody>
- </table>
-  <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
-</div>
-<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+  </div>
+  <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-header" style="background-color: #428bca;">
@@ -57,11 +73,11 @@
             <div class="container-fluid rounded" style="background-color:white;">
               <div class="section-wrpr">
                 <div class="small-wrpr" style="margin-top: 10px; margin-left:20px;">
-                    <div class="content-wrpr">
-                        Are you sure?
-                    </div>
+                  <div class="content-wrpr">
+                    Are you sure?
+                  </div>
                   <button class="close" data-dismiss="modal" style="background-color:red;">
-                    <img  src="assets/delete.svg" (click) = "deleteSubcategory(currentSubcategoryId)" style="width:30px">
+                    <img src="assets/delete.svg" (click)="deleteSubcategory(currentSubcategoryId)" style="width:30px">
                   </button>
                 </div>
                 <div class="clearfix"></div>

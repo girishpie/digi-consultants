@@ -11,10 +11,19 @@ import {Globals} from '../globals/globals';
 export class ProductService {
 
   private productUrl = this.globals.getBackendUrl() +  'product/';
+  selectedSection:string;
 
   constructor(private http: Http, private  products: Products, private globals: Globals ) {
 
   }
+
+  public setSelectedSection ( selectedSection: string ) {
+    this.selectedSection = selectedSection;
+  }
+  public getSelectedSection (): string {
+    return this.selectedSection ;
+  }
+
 
   public getProducts(queryParams: QueryParams, sectionId: string)  {
 

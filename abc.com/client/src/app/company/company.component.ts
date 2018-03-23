@@ -31,8 +31,8 @@ export class CompanyComponent implements OnInit {
 
   public getCompany(company: Company) {
     this.currentCompanyId = company.getId();
-    console.log(company.getCompanyName());
-    console.log(company.getAddress());
+    // console.log(company.getCompanyName());
+    // console.log(company.getAddress());
     this.currentCompanyName = company.getCompanyName();
     this.currentCompanyAddress = company.getAddress();
   }
@@ -43,7 +43,7 @@ export class CompanyComponent implements OnInit {
     this.subscription = this.queryParamsService.getQueryParams()
       .subscribe(
         queryParam => {
-          console.log(queryParam);
+          // console.log(queryParam);
           if (this.currentSearchString !== queryParam.searchString ) {
             queryParam.pageNumber = 0;
             this.currentPage = 1;
@@ -74,10 +74,10 @@ export class CompanyComponent implements OnInit {
 
   public deleteCompany(id: string) {
     //.alert("Are You Sure You want to delete?");
-    console.log("Id "+ id);
+    // console.log("Id "+ id);
      this.companyService.delete(id).subscribe(data => {
      });
-     console.log("delete");
+    //  console.log("delete");
    }
 
   getPage(page: number ){

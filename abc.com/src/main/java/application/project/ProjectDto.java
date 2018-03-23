@@ -19,11 +19,12 @@ public class ProjectDto {
 	private Date startDate;
 	private String description;
 	private String clientName;
+	private String phase;
 	private List<EmployeeDto> employees = new ArrayList<EmployeeDto>();
 	
  	public ProjectDto(Project project, String clientName,
 		EmployeeRepository employeeRepository,
-		CompanyRepository companyRepository) {
+		CompanyRepository companyRepository, String phase) {
 		this.id = project.getId();
 		this.projectName = project.getProjectName();
 		this.jobNumber = project.getJobNumber();
@@ -38,6 +39,7 @@ public class ProjectDto {
 			EmployeeDto empDto = new EmployeeDto(emp,company.getCompanyName());
 			this.employees.add(empDto);
 		}
+		this.phase = phase;
 	}
 	public String getId() {
 		return this.id;
@@ -55,6 +57,12 @@ public class ProjectDto {
 		this.projectName = projectName;
 	}
 
+	public String getPhase() {
+		return phase;
+	}
+	public void setPhase(String phase) {
+		this.phase = phase;
+	}
 	public String getJobNumber() {
 		return jobNumber;
 	}

@@ -43,7 +43,7 @@ office.setFax(this.fax);
 office.setCompanyId(this.companyId);
 
 this.officeService.save(office).subscribe(data => {
-  console.log(data);
+  // console.log(data);
   office.setId(data);
   this.offices.addOffice(office);
   this.stateService.go('office');

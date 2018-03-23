@@ -35,9 +35,6 @@ export class NewDepartmentComponent implements OnInit {
     department.setDepartmentName(this.name);
     department.setProjectId(this.projectId);
     this.departmentService.save(department).subscribe(data => {
-        console.log(data);
-       // department.setId(data);
-       // this.departments.addDepartment(department);
       this.stateService.go('department');
 
     }, error => {

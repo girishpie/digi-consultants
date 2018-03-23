@@ -1,9 +1,16 @@
-
-<div class="container-fluid rounded" style="background-color:white;">
+<div class="container-fluid digi-specification rounded" >
+    <br>
+    <div class="column">
+        <div class = "glyphicon glyphicon-cog">ADD SPECIFICATION</div>
+    </div>
+    <br>
+  </div>
+  <hr style="margin-top: 5px;margin-bottom: 0px;">
+<div class="container-fluid rounded" style="background-color:white;"><br>
   <form style=" margin-left:5px;margin-right:5px;">
     <div class="row">  
     <div class="col-75 form-group">
-          <label for="specification-specificationName" class="form-control-label">Specification Tittle</label>
+          <label for="specification-specificationName" class="form-control-label">Specification Title</label>
           <input type="text" class="form-control" id="specification-specificationName" [(ngModel)]="specificationName" name="specificationName">
         </div>
         <div class="tab">
@@ -30,14 +37,7 @@
           <input type="text" class="form-control" id="specification-answer" name="answer" [(ngModel)]="answer">
         </div>
       </div>
-      <!-- <div class="form-group" >
-        <label for="section-option" class="form-control-label">Sections:</label>
-        <select id="section-option" class="form-control"   [(ngModel)]="sectionId" name="sections">
-          <option *ngFor="let section of availableSections" [value]="section.id">
-            {{ section.sectionName }}
-          </option>
-        </select>            
-      </div> -->
+      
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="goBack()">Cancel</button>
         <button type="button" class="btn btn-primary" (click)="addNewSpecification()" >Add</button>
@@ -51,7 +51,7 @@
             <form style=" margin-left:5px;margin-right:5px;">
               <div class="row">  
                   <div class="col-75 form-group">
-                        <label for="specification-SpecificationName" class="form-control-label">New Tittle</label>
+                        <label for="specification-SpecificationName" class="form-control-label">New Title</label>
                         <input type="text" class="form-control" id="specification-SpecificationName" [(ngModel)]="SpecificationName" name="SpecificationName">
                       </div>
                   </div>
@@ -67,7 +67,7 @@
             <form style=" margin-left:5px;margin-right:5px;">
               <div class="row">  
               <div class="col-75 form-group">
-                    <label for="specification-SpecificationName" class="form-control-label">Specification Tittle</label>
+                    <label for="specification-SpecificationName" class="form-control-label">Specification Title</label>
                     <input type="text" class="form-control" id="specification-SpecificationName" [(ngModel)]="SpecificationName" name="SpecificationName">
                   </div>
                   <div class="tab">

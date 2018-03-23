@@ -1,15 +1,16 @@
-<div class="container-fluid digi-quality rounded" >
+<div class="container-fluid rounded">
+    <br>
     <div class="column">
         <div class = "glyphicon glyphicon-cog">QUALITY CONTROL SHEETS</div><br>
-        <!-- <label for="project-option" class="form-control-label" >Project:</label>
-        <select width = "50%" id="project-option" class="form-control"   [(ngModel)]="projectId" name="pojects">
-          <option *ngFor="let project of availableProjects" [value]="project.id">
-                   {{ project.ProjectName }} 
-          </option> 
-        </select>
-         -->
         <a href="#/new-quality" class="btn btn-primary round pull-right" role="button">+Add Request</a>
     </div>
+    <br>
+  </div>
+  <hr style="margin-top: 3px;
+  margin-bottom: 1px;">
+
+<div class="container-fluid digi-quality rounded" >
+    <br>
     <nav class="navbar">
       <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search" >
     </nav>
@@ -22,8 +23,6 @@
         <th>Short Description</th> 
         <th>Project Name</th>   
         <th>Actions</th>
-        <!-- <th>Date Rectified</th> -->
-        <!-- <th>Raised By</th> -->
       </tr>
       </thead>
        <tbody>
@@ -33,8 +32,6 @@
             <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="quality.targetEnddate" (input)="quality.targetEnddate=$event.target.textContent">{{quality.targetEnddate}}</td>
             <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="quality.description" (input)="quality.description=$event.target.textContent">{{quality.Description}}</td>
             <td class = "table-cell" >{{project.projectName}} </td>
-            <!-- <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="quality.Rectified" (input)="quality.Rectified=$event.target.textContent">{{quality.Rectified}}</td>
-            <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="quality.Action" (input)="quality.Action=$event.target.textContent">{{quality.Action}}</td> -->
              <td class = "table-cell">
                 <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
                     <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>

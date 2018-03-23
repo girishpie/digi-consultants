@@ -1,8 +1,15 @@
-<div class="container-fluid rounded"  style="background-color:white;">
-  <!-- <div class = "glyphicon glyphicon-cog">ADD Request</div> -->
+<div class="container-fluid digi-section rounded" >
+    <br>
+    <div class="column">
+      <div class="glyphicon glyphicon-cog">Generate New Request</div>
+    </div>
+    <br>
+  </div>
+  <hr style="margin-top: 5px;margin-bottom: 0px;">
+
+<div class="container-fluid rounded" >
+  <br>
         <form>
-           <label>Generate New Request </label>
-           
            <div class="form-group">
              <label for="request-shortDescription" class="form-control-label">Short Description:</label>
              <input type="text" class="form-control" id="request-shortDescription" [(ngModel)]="shortDescription" name="shortDescription">
@@ -10,7 +17,6 @@
           <div class="form-group">
             <label for="request-status" class="form-control-label">Status:</label>
             <select id="request-option" class="form-control"   [(ngModel)]="status" name="status">
-            	<option selected></option>
 			  	<option value="open">OPEN</option>
           <option value="inprogress">IN PROGRESS</option>
           <option value="completed">CLOSED</option>

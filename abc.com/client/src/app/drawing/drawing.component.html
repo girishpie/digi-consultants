@@ -1,8 +1,15 @@
-<div class="container-fluid digi-drawing rounded" >
-<div class="column">
-<div class = "glyphicon glyphicon-cog">Drawings - All Drawing</div>
-	<a href="#/new-drawing" class="btn btn-primary round pull-right" role="button">+Add Drawing</a>
+<div class="container-fluid rounded " ><br>
+  <div class="column">
+      <div class = "glyphicon glyphicon-cog">Drawings - All Drawing</div>
+      <a href="#/new-drawing" class="btn btn-primary round pull-right" role="button">+Add Drawing</a>
+    </div>
+    <br>
 </div>
+<hr style= "margin-top: 3px;
+margin-bottom: 1px;">
+
+<div class="container-fluid digi-drawing rounded" >
+<br>
 <nav class="navbar">
   <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search" >
 </nav>
@@ -19,27 +26,27 @@
   </thead>
   <tbody>
       <tr *ngFor="let drawing of drawings.drawings| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: drawings.totalItems, id:'server'} ">
-        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="drawing.displayName" (input)="drawing.displayName=$event.target.textContent">{{ drawing.displayName }}</td>
-        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="drawing.projectName" (input)="drawing.projectName=$event.target.textContent">{{ drawing.projectName }}</td>
-        <td class = "table-cell"  contenteditable='true' (input)="onRowClick($event)" [textContent]="drawing.createdBy" (input)="drawing.createdBy=$event.target.textContent">{{ drawing.createdBy }}</td>
-         <td class = "table-cell"  contenteditable='true' (input)="onRowClick($event)" [textContent]="drawing.version" (input)="drawing.version=$event.target.textContent">{{ drawing.version }}</td>
+        <td class = "table-cell" >{{ drawing.displayName }}</td>
+        <td class = "table-cell" >{{ drawing.projectName }}</td>
+        <td class = "table-cell" >{{ drawing.createdBy }}</td>
+         <td class = "table-cell">{{ drawing.version }}</td>
         <td class = "table-cell">{{ drawing.creationTime |  date:'MM/dd/yyyy'}}</td>
          <td class = "table-cell">
             <tooltip-content #screeningOptions class="recommended-programs-tooltip">
                 <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
-                  <div class="tooltip-text-regisnation">Edit</div>
+                  <div class="tooltip-text-regisnation">View</div>
                 </div>
               </tooltip-content>
-            <button [disabled]="!isValid" class="btn-primary" (click) = "updateDrawing(drawing)">
-            <img src="assets/edit.svg" style="width:30px"  tooltipPlacement="right" [tooltip]="screeningOptions"></button> 
-            <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
+            <button  class="btn-primary" (click) = "downloadFile(drawing)">
+            <img src="assets/view.svg" style="width:30px"  tooltipPlacement="right" [tooltip]="screeningOptions"></button> 
+            <!-- <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
                 <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
                   <div class="tooltip-text-regisnation">Delete</div>
                 </div>
               </tooltip-content>
             <button style="background-color:red;" class="btn-primary"  (click) = "getDrawing(drawing)" data-toggle="modal" data-target=".bd-example-modal-sm">
               <img src="assets/delete.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1">
-            </button>
+            </button> -->
           </td>
      </tr>
   </tbody>

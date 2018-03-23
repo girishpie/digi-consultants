@@ -130,7 +130,7 @@ public class BoQController {
         for(int i = 0; i < boqs.size(); i++ ) {
         	BoQDepartment boQDepartment = boqDepartmentRepository.findById(boqs.get(i).getBoqDepartmentId());
         	Project project = projectRepository.findById(boQDepartment.getProjectId());
-        	BoQDto boQDto = new BoQDto(boqs.get(i), boQDepartment.getDepartmentName(), boQDepartment.getProjectId(),project.getProjectName(),boqs.get(i).getBoqNumber());
+        	BoQDto boQDto = new BoQDto(boqs.get(i), boQDepartment.getDepartmentName(), project.getProjectNumber(),project.getProjectName(),boqs.get(i).getBoqNumber());
         	boQDtos.add(boQDto);
         }
         return ResponseWrapper.getResponse(new RestResponse(boQDtos));
@@ -146,7 +146,7 @@ public class BoQController {
         }
         BoQDepartment boQDepartment = boqDepartmentRepository.findById(boq.getBoqDepartmentId());
         Project project = projectRepository.findById(boQDepartment.getProjectId());
-    	BoQDto boQDto = new BoQDto(boq, boQDepartment.getDepartmentName(), boQDepartment.getProjectId(),project.getProjectName(),boq.getBoqNumber());
+    	BoQDto boQDto = new BoQDto(boq, boQDepartment.getDepartmentName(), project.getProjectNumber(),project.getProjectName(),boq.getBoqNumber());
         return ResponseWrapper.getResponse( new RestResponse(boQDto));
     }
 }

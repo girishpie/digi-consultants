@@ -10,18 +10,18 @@ public class BoQDto {
 	private List<String> sectionIds = new ArrayList<String>();
 	private int version;
 	private int totalVersions;
-	private String projectId;
+	private String projectNumber;
 	private String projectName;
 	private String boqNumber;
 	
-	public BoQDto(BoQ boQ, String departmentName, String projectId, String projectName, String boqNumber) {
+	public BoQDto(BoQ boQ, String departmentName, String projectNumber, String projectName, String boqNumber) {
 		this.id = boQ.getId();
 		this.departmentName = departmentName;
 		this.sectionIds = boQ.getSectionIds();
 		BoQVersion boQVersion = boQ.getLatestVersion();
 		this.version = boQVersion.getVersionNumber();
 		this.totalVersions = boQ.getVersions().size();
-		this.projectId = projectId;
+		this.projectNumber = projectNumber;
 		this.projectName = projectName;
 		this.boqNumber = boqNumber;
 	}
@@ -42,15 +42,17 @@ public class BoQDto {
 		this.id = id;
 	}
 	
-	public String getProjectId() {
-		return projectId;
+
+        
+        public String getProjectNumber() {
+		return projectNumber;
 	}
 
-	public void setProjectId(String projectId) {
-		this.projectId = projectId;
+	public void setProjectNumber(String projectNumber) {
+		this.projectNumber = projectNumber;
 	}
-        
-        public String getProjectName() {
+
+		public String getProjectName() {
 		return projectName;
 	}
 

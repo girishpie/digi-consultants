@@ -1,6 +1,15 @@
+<div class="container-fluid  rounded" style="background-color:white;">
+    <br>
+    <div class="column">
+        <div class = "glyphicon glyphicon-cog">ADD CATEGORY</div>
+    </div>
+    <br>
+  </div>
+  <hr style="margin-top: 5px;margin-bottom: 0px;">
+  
 <div class="container-fluid rounded" style="background-color:white;">
- 	<div class = "glyphicon glyphicon-cog">ADD PRODUCT</div>
-      <div >
+  <br>
+ 	<div >
         <form>
 
           <div class="form-group">
@@ -10,7 +19,7 @@
 
           <div class="form-group">
             <label for="description" class="form-control-label">Description:</label>
-            <input type="textarea" class="form-control" id="description" [(ngModel)]="description" name="first">
+            <input type="textarea" style="width: 100%;" cols="50" rows="7" class="form-control" id="description" [(ngModel)]="description" name="first">
           </div>
           <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="goBack()">Cancel</button>

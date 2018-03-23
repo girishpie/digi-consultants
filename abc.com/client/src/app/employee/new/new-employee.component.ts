@@ -36,7 +36,7 @@ export class NewEmployeeComponent implements OnInit {
   private telephone: string;
   private mobile: string;
   private companyId: string;
-  private projectIds: string[];
+  private projectId: string;
   private file: File;
 
   constructor(private employeeService: EmployeeService, private companyService: CompanyService, private projectService: ProjectService,
@@ -65,10 +65,10 @@ export class NewEmployeeComponent implements OnInit {
     employee.setEmail(this.email);
     // employee.setDOB(new Date(this.DOB));
     employee.setCompanyId(this.companyId);
-    employee.setProjectIds(this.projectIds);
+    employee.setProjectIds(this.projectId);
 
     this.employeeService.save(employee, this.file).subscribe(data => {
-      console.log(data);
+      // console.log(data);
       employee.setId(data);
       this.employees.addEmployee(employee);
       this.stateService.go('employee');

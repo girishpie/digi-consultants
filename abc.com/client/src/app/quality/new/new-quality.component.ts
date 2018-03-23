@@ -44,11 +44,9 @@ export class NewQualityComponent implements OnInit {
     quality.setTitle(this.assignee);
     quality.setStatus(this.status);
     quality.setOpened(this.targetEnddate);
-    // quality.setDescription(this.Description);
-    // quality.setRectified(this.Rectified);
     quality.setProjectId(this.projectId);
     this.qualityservice.save(quality).subscribe(data => {
-        console.log(data);
+        // console.log(data);
         quality.setId(data);
         this.qualities.addQuality(quality);
          this.stateService.go('quality');

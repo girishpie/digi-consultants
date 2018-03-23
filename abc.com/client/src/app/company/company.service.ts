@@ -48,7 +48,8 @@ export class CompanyService {
             company.setClientNames(response[i].clientNames);
             company.setOfficeNames(response[i].officeNames);
             company.setId(response[i].id);
-            company.setContact(response[i].contact);
+            company.setEmail(response[i].email);
+            company.setPhone(response[i].phone);
             company.setNoOfEmployee(response[i].noOfEmployee);
             company.setNoofOffices(response[i].noOfoffice);
             companies.push(company);

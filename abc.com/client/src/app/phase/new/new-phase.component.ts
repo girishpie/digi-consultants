@@ -5,11 +5,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import {StateService } from '@uirouter/angular';
 import { PhaseComponent } from '../phase.component';
 
-//declare var jQuery:any;
+
 const phaseState = { name: 'phase', url: '/phase',  component: PhaseComponent };
 @Component({
   selector: 'new-phase',
-  templateUrl: './new-phase.component.html'
+  templateUrl: './new-phase.component.html',
+  styleUrls: ['./new-phase.component.scss']
+
 })
 export class NewPhaseComponent implements OnInit {
 
@@ -29,7 +31,7 @@ export class NewPhaseComponent implements OnInit {
     phase.setName(this.name);
    
     this.phaseService.save(phase).subscribe(data => {
-        console.log(data);
+        // console.log(data);
         window.history.back();
       this.stateService.go('phase');
       this.loading = false;

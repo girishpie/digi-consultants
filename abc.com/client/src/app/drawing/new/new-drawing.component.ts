@@ -35,7 +35,7 @@ export class NewDrawingComponent implements OnInit {
     let drawing: Drawing = new Drawing();
     drawing.setProjectId(this.projectId);
     this.drawingService.save(event, drawing ).subscribe(data => {
-        console.log(data);
+        // console.log(data);
          this.stateService.go('drawing');
     }, error => {
       window.alert(error._body);

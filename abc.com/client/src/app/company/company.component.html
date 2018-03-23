@@ -1,8 +1,14 @@
-<div class="container-fluid digi-company rounded">
+<div class="container-fluid digi-company rounded" ><br>
   <div class="column">
-    <div class="glyphicon glyphicon-cog">MANAGE COMPANY</div>
+    <div class = "glyphicon glyphicon-cog">MANAGE COMPANY</div>
     <a href="#/new-company" class="btn btn-primary round pull-right" role="button">+Add Company</a>
-  </div>
+    </div><br>
+</div>
+<hr style= "margin-top: 3px;
+margin-bottom: 1px;">
+
+<div class="container-fluid digi-company rounded">
+  <br>
   <nav class="navbar">
     <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search">
   </nav>
@@ -12,7 +18,8 @@
         <th>Company Name</th>
         <th>Employee</th>
         <th>Location</th>
-        <th>Contact</th>
+        <th >Email</th>
+        <th> Phone </th>
         <th>No. of Offices</th>
         <th>Actions</th>
       </tr>
@@ -20,10 +27,11 @@
     <tbody>
       <tr *ngFor="let company of companies.companies| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: companies.totalItems, id:'server'} ">
         <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="company.companyName" (input)="company.companyName=$event.target.textContent">{{ company.companyName }}</td>
-        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="company.noOfEmployee" (input)="company.noOfEmployee=$event.target.textContent">{{ company.noOfEmployee }}</td>
+        <td class="table-cell" >{{ company.noOfEmployee }}</td>
         <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="company.address" (input)="company.address=$event.target.textContent">{{ company.address }}</td>
-        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="company.contact" (input)="company.contact=$event.target.textContent">{{ company.contact }}</td>
-        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="company.noOfoffice" (input)="company.noOfoffice=$event.target.textContent">{{ company.noOfoffice }}</td> 
+        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="company.email" (input)="company.email=$event.target.textContent">{{ company.email }}</td>
+        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="company.phone" (input)="company.phone=$event.target.textContent">{{ company.phone }}</td>
+        <td class="table-cell" >{{ company.noOfoffice }}</td>
         <td class="table-cell">
           <tooltip-content #screeningOptions class="recommended-programs-tooltip">
             <div>
@@ -47,8 +55,7 @@
           <button class="btn-primary" (click)="getCompany(company)" data-toggle="modal" data-target=".bd-example-modal-lg">
             <img src="assets/view.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1">
           </button>
-         
-          <!-- <tooltip-content #screeningOption class="recommended-programs-tooltip">
+          <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
             <div>
               <span>
                 <p class="fa fa-info-circle fa-tooltip"></p>
@@ -56,16 +63,7 @@
               <div class="tooltip-text-regisnation">Delete</div>
             </div>
           </tooltip-content>
-          <button style="background-color:red;">
-            <img src="assets/delete.svg" (click)="deleteCompany(company)" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption">
-          </button> -->
-        
-          <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
-            <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
-              <div class="tooltip-text-regisnation">Delete</div>
-            </div>
-          </tooltip-content>
-          <button style="background-color:red;" class="btn-primary"  (click) = "getCompany(company)" data-toggle="modal" data-target=".bd-example-modal-sm">
+          <button style="background-color:red;" class="btn-primary" (click)="getCompany(company)" data-toggle="modal" data-target=".bd1-example-modal-sm">
             <img src="assets/delete.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1">
           </button>
 
@@ -142,7 +140,7 @@
   </div>
 </div>
 
-<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal fade bd1-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header" style="background-color: #428bca;">
@@ -155,11 +153,11 @@
           <div class="container-fluid rounded" style="background-color:white;">
             <div class="section-wrpr">
               <div class="small-wrpr" style="margin-top: 10px; margin-left:20px;">
-                  <div class="content-wrpr">
-                      Are you sure?
-                  </div>
+                <div class="content-wrpr">
+                  Are you sure?
+                </div>
                 <button class="close" data-dismiss="modal" style="background-color:red;">
-                  <img  src="assets/delete.svg" (click) = "deleteCompany(currentCompanyId)" style="width:30px">
+                  <img src="assets/delete.svg" (click)="deleteCompany(currentCompanyId)" style="width:30px">
                 </button>
               </div>
               <div class="clearfix"></div>

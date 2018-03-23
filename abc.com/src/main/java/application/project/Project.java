@@ -176,6 +176,17 @@ public class Project extends BasicInfo {
             }
         }
 	}
+	public void addEmployee(String id2) {
+		this.employeeIds.add(id2);
+		
+	}
 	
+	public void deleteEmployee(String id2) {
+		for (int i = 0; i < this.employeeIds.size(); i++) {
+            if (this.employeeIds.get(i).equals(id2)) {
+                this.employeeIds.remove(i);
+            }
+        }
+	}
 	
 }

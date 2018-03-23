@@ -47,6 +47,7 @@ export class SectionService {
             section.setSpecificationName(response[i].specificationName);
             section.setProductNames(response[i].productNames);
             section.setId(response[i].id);
+            section.setDescription(response[i].description);
             section.setNoOfProducts(response[i].noOfProducts);
             sections.push(section);
           }

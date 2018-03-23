@@ -11,9 +11,16 @@ import {Globals} from "../globals/globals";
 export class BoQService {
 
   private boqUrl = this.globals.getBackendUrl() +  'boq/';
-  
+  selectedBoQNumber: string;
   constructor(private http: Http, private  boqs: BoQs, private globals: Globals ) {
 
+  }
+
+  public setSelectedBoQNumber ( selectedBoQNumber: string ) {
+    this.selectedBoQNumber = selectedBoQNumber;
+  }
+  public getSelectedBoQNumber (): string {
+    return this.selectedBoQNumber ;
   }
 
   public getBoQs(queryParams: QueryParams)  {

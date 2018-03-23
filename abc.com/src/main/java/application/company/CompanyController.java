@@ -29,7 +29,7 @@ public class CompanyController {
     ResponseEntity<IResponse> add(@RequestBody Company input) {
     	if(input.getCompanyName() != null && !input.getCompanyName().isEmpty()) {
     		Company company = companyRepository.save(new Company(input.getCompanyName(),
-    				input.getAddress(), input.getContact()));
+    				input.getAddress(), input.getEmail(), input.getPhone()));
     		return ResponseWrapper.getResponse(new RestResponse( company.getId()));
     	}else {
     		return ResponseWrapper.getResponse(new RestError(HttpStatus.BAD_REQUEST,"COMPANY_NAME_NULL"));

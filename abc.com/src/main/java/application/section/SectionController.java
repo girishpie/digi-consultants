@@ -51,7 +51,7 @@ public class SectionController {
 
         }
         if(input.getSectionName() != null && !input.getSectionName().isEmpty()) {
-	        Section section = new Section(input.getSectionName(), boqId, input.getSpecId());
+	        Section section = new Section(input.getSectionName(), boqId, input.getSpecId(),input.getDescription());
 	        Section sec = sectionRepository.save(section);
 	        boq.addSection(sec.getId());
 	        Specification specification = specificationRepository.findById(input.getSpecId());
@@ -75,9 +75,18 @@ public class SectionController {
         if(section == null){
             return ResponseWrapper.getResponse( new RestError( HttpStatus.NOT_FOUND, "SECTION_NOT_FOUND", id));
         }
-        Specification specification = specificationRepository.findById(section.getSpecId());
-        specification.setSectionId("");
-        specification.setSectionName("");
+        if(!(section.getSpecId().equals(""))) {
+        	System.out.println("In delete Section Specificaion");
+	        Specification specification = specificationRepository.findById(section.getSpecId());
+	        specification.setSectionId("");
+	        specification.setSectionName("");
+        }
+        for(int i = 0; i < section.getProductIds().size(); i++ ) {
+        	Product product = productRepository.findById(section.getProductIds().get(i));
+        	if(product.getSectionId().equals(id)) {
+        		product.setSectionId("");
+        	}
+        }
         BoQ boq = boqRepository.findById(section.getBoqId());
         if(boq != null){
         	 boq.deleteSection(id);

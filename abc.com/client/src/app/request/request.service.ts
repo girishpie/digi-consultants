@@ -89,7 +89,7 @@ export class RequestService {
     return this.http.delete(endPoint)
       .map(res => {
           const res1 = res.json();
-          this.requests.deleteRequest(res1.id);
+          this.requests.deleteRequest(res1.response);
         }
       );
   }

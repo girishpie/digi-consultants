@@ -19,14 +19,16 @@ public class Section extends BasicInfo{
 	    private List<String> sectionIds = new ArrayList<String>();
 	    private String specId;
 	    private String boqId;
+	    private String description;
 	    
 	    public Section() {
 	    	
 	    }
-		public Section(String sectionName, String boqId, String SpecId) {
+		public Section(String sectionName, String boqId, String SpecId, String description) {
 			this.sectionName = sectionName;
 			this.specId = SpecId;
 			this.boqId = boqId;
+			this.description =description;
 		}
 		public String getId() {
 			return id;
@@ -76,5 +78,18 @@ public class Section extends BasicInfo{
 			productIds.add(id2);
 			
 		}
+		public List<String> getSectionIds() {
+			return sectionIds;
+		}
+		public void setSectionIds(List<String> sectionIds) {
+			this.sectionIds = sectionIds;
+		}
+		public String getDescription() {
+			return description;
+		}
+		public void setDescription(String description) {
+			this.description = description;
+		}
 
+		
 }

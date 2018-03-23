@@ -10,7 +10,7 @@ export class Section {
   private  productNames: Array<string>;
   private  drawingIds: Array<string>;
   private  noOfProducts: number;
-
+  private  description:string;
   constructor() {
   }
 
@@ -40,6 +40,12 @@ export class Section {
   }
   public getSpecificationName (): string {
     return this.specificationName ;
+  }
+  public setDescription ( description: string ) {
+    this.description = description;
+  }
+  public getDescription (): string {
+    return this.description ;
   }
   public setBoqId ( boqId: string ) {
     this.boqId = boqId;

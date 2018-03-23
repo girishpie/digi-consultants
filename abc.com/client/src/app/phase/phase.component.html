@@ -1,22 +1,30 @@
-<div class="container-fluid digi-phase rounded" >
-<div class="column">
-<div class = "glyphicon glyphicon-cog">MANAGE PHASES</div>
-	<a href="#/new-phase" class="btn btn-primary round pull-right" role="button">+Add Phase</a>
+<div class="container-fluid rounded  ">
+  <br>
+  <div class="column">
+    <div class="glyphicon glyphicon-cog">MANAGE PHASES</div>
+    <a href="#/new-phase" class="btn btn-primary round pull-right" role="button">+Add Phase</a>
+  </div>
+  <br>
 </div>
-<nav class="navbar">
-  <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search" >
-</nav>
-<table class="table table-bordered">
-  <thead>
-  <tr>
-    <th>Phase Name</th>
-     <th>Actions</th>
-  </tr>
-  </thead>
-  <tbody>
+<hr style="margin-top: 3px;
+margin-bottom: 1px;">
+
+<div class="container-fluid digi-phase rounded">
+<br>
+  <nav class="navbar">
+    <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search">
+  </nav>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Phase Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
       <tr *ngFor="let phase of phases.phases| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: phases.totalItems, id:'server'} ">
-        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="phase.name" (input)="phase.name=$event.target.textContent">{{ phase.name }}</td>
-         <td class = "table-cell">
+        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="phase.name" (input)="phase.name=$event.target.textContent">{{ phase.name }}</td>
+        <td class="table-cell">
           <tooltip-content #screeningOptions class="recommended-programs-tooltip">
             <div>
               <span>
@@ -25,11 +33,12 @@
               <div class="tooltip-text-regisnation">Delete</div>
             </div>
           </tooltip-content>
-          <button type="button" tooltipPlacement="right" [tooltip]="screeningOptions" class="btn btn-primary"  (click) = "getPhase(phase)" data-toggle="modal" data-target=".bd-example-modal-sm">
-            <span class="glyphicon glyphicon-remove" ></span>
+          <button type="button" tooltipPlacement="right" [tooltip]="screeningOptions" class="btn btn-primary" (click)="getPhase(phase)"
+            data-toggle="modal" data-target=".bd-example-modal-sm">
+            <span class="glyphicon glyphicon-remove"></span>
           </button>
-          <img src="assets/35.gif" *ngIf="loading" />
-          
+          <!-- <img src="assets/35.gif" *ngIf="loading" /> -->
+
           <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
             <div>
               <span>
@@ -38,14 +47,16 @@
               <div class="tooltip-text-regisnation">Edit</div>
             </div>
           </tooltip-content>
-          <button [disabled]="!isValid" class="btn btn-primary" (click) = "updatePhase(phase)" tooltipPlacement="right" [tooltip]="screeningOption1">
-            <span class="glyphicon glyphicon-edit"></span></button>
-            <img src="assets/edit.svg" *ngIf="loading" />
- 
+          <button type="button" class="btn btn-primary" (click)="updatePhase(phase)" tooltipPlacement="right" [tooltip]="screeningOption1">
+            <!-- [disabled]="!isValid" -->
+            <span class="glyphicon glyphicon-edit"></span>
+          </button>
+          <!-- <img src="assets/edit.svg" *ngIf="loading" /> -->
+
         </td>
-     </tr>
-  </tbody>
- </table>
+      </tr>
+    </tbody>
+  </table>
   <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
 </div>
 <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -61,11 +72,11 @@
           <div class="container-fluid rounded" style="background-color:white;">
             <div class="section-wrpr">
               <div class="small-wrpr" style="margin-top: 10px; margin-left:20px;">
-                  <div class="content-wrpr">
-                      Are you sure?
-                  </div>
+                <div class="content-wrpr">
+                  Are you sure?
+                </div>
                 <button class="close" data-dismiss="modal" style="background-color:red;">
-                  <img  src="assets/delete.svg" (click) = "deletePhase(currentPhaseId)" style="width:30px">
+                  <img src="assets/delete.svg" (click)="deletePhase(currentPhaseId)" style="width:30px">
                 </button>
               </div>
               <div class="clearfix"></div>

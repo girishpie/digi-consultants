@@ -96,59 +96,6 @@ public class DocumentController {
         }
     }
     
-    @PreAuthorize("hasAuthority('CREATE_DOCUMENT')")
-    @RequestMapping(value = "/drawing/{projectId}", headers = "content-type=multipart/*", method = RequestMethod.POST)
-    ResponseEntity<IResponse> addDrawing(@PathVariable("projectId") String projectId, @RequestParam("file")  MultipartFile file) {
-    	Project project = projectRepository.findById(projectId);
-        if(project == null){
-            return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "PROJECT_NOT_FOUND", projectId));
-
-        }
-        try {
-            //First store the file
-            String id = documentRepository.storeDocument(file.getOriginalFilename(),
-                                                        file.getContentType(),
-                                                        file.getInputStream());
-            //Make an entry to document catalog.
-            //first check if this document already has a version in the catalog.
-            DocumentCatalog catalog = documentCatalogRepository.findByDisplayName(file.getOriginalFilename());
-            //first time creation
-            int majorVersion = 1;
-            //no versions yet
-            if(catalog != null) {
-               List<Version> versions = catalog.getVersions();
-                majorVersion = versions.get(versions.size()-1).getVersionNumber() + 1;
-            } else {
-                catalog = new DocumentCatalog();
-                catalog.setDisplayName(file.getOriginalFilename());
-                catalog.setProjectId(projectId);
-            }
-            //create a new catalog
-            Version version = new Version();
-            version.setFileStoreId(id);
-            version.setVersionNumber(majorVersion);
-            catalog.addVersion(version);
-            catalog.setType("Drawing");
-            int size = documentCatalogRepository.findAll().size();
-			String numberAsString = String.valueOf(size);
-			StringBuilder sb = new StringBuilder();
-			while (sb.length() + numberAsString.length() < 3) {
-				sb.append('0');
-			}
-			sb.append(size);
-			String paddedNumberAsString = sb.toString();
-			// String value = String.format("%011d", size+1);
-			String year = Integer.toString(Calendar.getInstance().get(Calendar.YEAR)).substring(2);
-			String documentNumber = year + paddedNumberAsString;
-			catalog.setDocumentNumber(documentNumber);
-            catalog = documentCatalogRepository.save(catalog);
-            return ResponseWrapper.getResponse(new RestResponse(catalog));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseWrapper.getResponse(new RestError(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
-        }
-    }
 
     @PreAuthorize("hasAuthority('READ_DOCUMENT')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -163,7 +110,6 @@ public class DocumentController {
         }
         return  null;
     }
-
 
     @PreAuthorize("hasAuthority('READ_DOCUMENT')")
     @RequestMapping(value = "/{id}/{version}", method = RequestMethod.GET)
@@ -209,24 +155,4 @@ public class DocumentController {
         return ResponseWrapper.getResponse(new RestResponse(catalogDtos));
 
     }
-    
-    @PreAuthorize("hasAuthority('READ_DOCUMENT')")
-    @RequestMapping(value = "/drawings", method = RequestMethod.GET)
-    public ResponseEntity<?> getAllDrawings() {
-        List<DocumentCatalog> catalogs = documentCatalogRepository.findAll();
-        if (catalogs.isEmpty()) {
-            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "DOCUMENTS_NOT_FOUND"));
-         }
-        List<DocumentCatalogDto> catalogDtos = new ArrayList<DocumentCatalogDto>();
-        for(int i = 0; i < catalogs.size(); i++ ) {
-        	Project project = projectRepository.findById(catalogs.get(i).getProjectId());
-        	DocumentCatalogDto catalogDto = new DocumentCatalogDto(catalogs.get(i), project.getProjectName());
-        	if(catalogs.get(i).getType().equals("Drawing")) {
-        		catalogDtos.add(catalogDto);
-        	}
-        }
-        return ResponseWrapper.getResponse(new RestResponse(catalogDtos));
-
-    }
-
 }

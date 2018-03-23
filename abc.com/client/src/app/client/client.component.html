@@ -1,8 +1,14 @@
-<div class="container-fluid digi-client rounded">
+<div class="container-fluid digi-client rounded "><br>
   <div class="column">
-    <div class="glyphicon glyphicon-cog">MANAGE CLIENTS</div>
-    <a href="#/new-client" class="btn btn-primary round pull-right" role="button">+Add Client</a>
-  </div>
+    <div class = "glyphicon glyphicon-cog">MANAGE CLIENTS</div>
+    <a href="#/new-client" class="btn btn-primary round pull-right" role="button">+Add Client</a>    </div><br>
+</div>
+<hr style= "margin-top: 3px;
+margin-bottom: 1px;">
+
+
+<div class="container-fluid digi-client rounded">
+  <br>
   <table class="table">
     <thead>
       <tr>
@@ -17,7 +23,6 @@
         <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="client.name" (input)="client.name=$event.target.textContent">{{ client.name }}</td>
         <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="client.address" (input)="client.address=$event.target.textContent">{{ client.address }}</td>
         <td class="table-cell">{{ client.companyName }}</td>
-        <!-- <td class = "table-cell"  contenteditable='true' (input)="onRowClick($event)" [textContent]="client.projectNames" (input)="client.projectNames=$event.target.textContent">{{ client.projectNames }}</td> -->
         <td class="table-cell">
           <tooltip-content #screeningOptions class="recommended-programs-tooltip">
             <div>
@@ -30,17 +35,7 @@
           <button [disabled]="!isValid" class="btn-primary" (click)="updateClient(client)">
             <img src="assets/edit.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions">
           </button>
-          <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
-            <div>
-              <span>
-                <p class="fa fa-info-circle fa-tooltip"></p>
-              </span>
-              <div class="tooltip-text-regisnation">Edit</div>
-            </div>
-          </tooltip-content>
-          <button class="btn-primary">
-            <img src="assets/view.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1">
-          </button>
+          
           <tooltip-content #screeningOption2 class="recommended-programs-tooltip">
             <div>
               <span>

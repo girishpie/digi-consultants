@@ -5,18 +5,18 @@ import { StateService } from '@uirouter/angular';
 import { CompanyComponent } from '../company.component';
 import { Component, Input, OnInit } from '@angular/core';
 
-//declare var jQuery:any;
 const companyState = { name: 'company', url: '/company',  component: CompanyComponent };
 @Component({
   selector: 'new-company',
   templateUrl: './new-company.component.html',
-  styleUrls: []
+  styleUrls: ['./new-company.component.scss']
 })
 export class NewCompanyComponent implements OnInit {
 
    private companyName: string ;
    private address: string ;
-   private contact: string;
+   private email: string;
+   private phone:number;
 
 
   constructor(private companyService: CompanyService,
@@ -32,9 +32,11 @@ export class NewCompanyComponent implements OnInit {
     let company: Company = new Company();
     company.setCompanyName(this.companyName);
     company.setAddress(this.address);
-    company.setContact(this.contact);
+    company.setEmail(this.email);
+    company.setPhone(this.phone);
+    // console.log("Contact "+ this.email + "phone "+ this.phone );
     this.companyService.save(company).subscribe(data => {
-        console.log(data);
+        // console.log(data);
        // company.setId(data);
        // this.companies.addCompany(company);
       this.stateService.go('company');

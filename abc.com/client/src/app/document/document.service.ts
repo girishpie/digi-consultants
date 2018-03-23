@@ -96,4 +96,20 @@ export class DocumentService {
         }
       );
   }
+  public getDocument(document: Document)  {
+    const endPoint = this.documentUrl  + document.getId();
+      // Returns response
+    return this.http.get(endPoint)
+      .map(res => {
+          // var mediaType = "image/png";
+          // var blob = new Blob([res], {type: mediaType});
+          // var filename = 'test.pdf';
+          // saveAs(blob, filename);
+          var blob = new Blob([res], { type: 'image/png' });
+          var url= window.URL.createObjectURL(blob);
+          window.open(endPoint);
+        }
+      );
+  }
+
 }

@@ -16,7 +16,7 @@ const sectionState = { name: 'section', url: '/section',  component: SectionComp
 @Component({
   selector: 'new-section',
   templateUrl: './new-section.component.html',
-  //styleUrls: ['./new-section.component.scss']
+  styleUrls: ['./new-section.component.scss']
 })
 export class NewSectionComponent implements OnInit {
    private availableBoQs: BoQ[];
@@ -24,7 +24,9 @@ export class NewSectionComponent implements OnInit {
    private boqId: string ;
    private specificationName: string;
    private specId: string;
-  private availableSpecifications: Specification[];
+   private description:string;
+   private availableSpecifications: Specification[];
+
 
   constructor(private sectionService: SectionService, 
               private boQService: BoQService, private specificationService: SpecificationService,
@@ -42,7 +44,8 @@ export class NewSectionComponent implements OnInit {
     section.setSectionName(this.sectionName);
     section.setBoqId(this.boqId);
     section.setSpecId(this.specId);
-    console.log("Specification Id" + this.specId);
+    section.setDescription(this.description);
+    
     this.sectionService.save(section).subscribe(data => {
        // console.log(data);
         //section.setId(data);

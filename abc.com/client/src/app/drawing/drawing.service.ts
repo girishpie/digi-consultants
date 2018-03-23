@@ -11,7 +11,7 @@ import {Globals} from "../globals/globals";
 @Injectable()
 export class DrawingService {
 
-  private drawingUrl = this.globals.getBackendUrl() +  'document/';
+  private drawingUrl = this.globals.getBackendUrl() +  'drawing/';
 
   constructor(private http: Http, private  drawings: Drawings, private globals: Globals ) {
 
@@ -29,7 +29,7 @@ export class DrawingService {
         searchString = queryParams.searchString;
       }
     }
-    let endPoint = this.drawingUrl + 'drawings' + '?pageNumber=' + pageNumber + '&size=' + pageSize;
+    let endPoint = this.drawingUrl + '?pageNumber=' + pageNumber + '&size=' + pageSize;
     if (searchString) {
       endPoint += '&searchString=' + searchString;
     }
@@ -60,7 +60,7 @@ export class DrawingService {
 
 
   public save(event: any, drawing: Drawing)  {
-    const endPoint = this.drawingUrl +'drawing/' + drawing.getProjectId();
+    const endPoint = this.drawingUrl + drawing.getProjectId();
     let fileList: FileList = event.target.files;
     if(fileList.length > 0) {
       let file: File = fileList[0];
@@ -93,6 +93,21 @@ export class DrawingService {
     return this.http.patch(endPoint, drawing)
       .map(res => {
           const res1 = res.json();
+        }
+      );
+  }
+  public getDrawing(drawing: Drawing)  {
+    const endPoint = this.drawingUrl  + drawing.getId();
+      // Returns response
+    return this.http.get(endPoint)
+      .map(res => {
+          // var mediaType = "image/png";
+          // var blob = new Blob([res], {type: mediaType});
+          // var filename = 'test.pdf';
+          // saveAs(blob, filename);
+          var blob = new Blob([res], { type: 'image/png' });
+          var url= window.URL.createObjectURL(blob);
+          window.open(endPoint);
         }
       );
   }

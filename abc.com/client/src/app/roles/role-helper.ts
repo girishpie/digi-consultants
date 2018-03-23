@@ -60,6 +60,11 @@ export class RoleHelper {
     this.permissions.set('READ_DOCUMENT', 'Can view the list Documents');
     this.permissions.set('UPDATE_DOCUMENT', 'Can edit a Document');
 
+    this.permissions.set('CREATE_DRAWING', 'Can add a new Drawing');
+    this.permissions.set('DELETE_DRAWING', 'Can delete a Drawing');
+    this.permissions.set('READ_DRAWING', 'Can view the list Drawings');
+    this.permissions.set('UPDATE_DRAWING', 'Can edit a Drawing');
+
     this.permissions.set('CREATE_SPECIFICATION', 'Can add a new Specification');
     this.permissions.set('DELETE_SPECIFICATION', 'Can delete a Specification');
     this.permissions.set('READ_SPECIFICATION', 'Can view the list Specifications');

@@ -23,6 +23,8 @@ import application.client.ClientRepository;
 import application.company.CompanyRepository;
 import application.employee.Employee;
 import application.employee.EmployeeRepository;
+import application.phase.Phase;
+import application.phase.PhaseRepository;
 import application.response.IResponse;
 import application.response.ResponseWrapper;
 import application.response.RestError;
@@ -35,6 +37,8 @@ public class ProjectController {
 	@Autowired
 	private final ProjectRepository projectRepository;
 	@Autowired
+	private final PhaseRepository phaseRepository;
+	@Autowired
 	private final EmployeeRepository employeeRepository;
 	@Autowired
 	private final ClientRepository clientRepository;
@@ -42,11 +46,12 @@ public class ProjectController {
 	private final CompanyRepository companyRepository;
 
 	ProjectController(ClientRepository clientRepository, ProjectRepository projectRepository,
-			EmployeeRepository employeeRepository, CompanyRepository companyRepository) {
+			EmployeeRepository employeeRepository, CompanyRepository companyRepository,PhaseRepository phaseRepository ) {
 		this.projectRepository = projectRepository;
 		this.clientRepository = clientRepository;
 		this.employeeRepository = employeeRepository;
 		this.companyRepository = companyRepository;
+		this.phaseRepository = phaseRepository;
 	}
 
 	@PreAuthorize("hasAuthority('CREATE_PROJECT')")
@@ -96,6 +101,11 @@ public class ProjectController {
 			client.deleteProject(id);
 			clientRepository.save(client);
 		}
+//		for (int i = 0; i < project.getEmployeeIds().size(); i++) {
+//			Employee employee = employeeRepository.findById(project.getEmployeeIds().get(i));
+//			
+//		}
+		
 		long res = projectRepository.deleteById(id);
 
 		return ResponseWrapper.getResponse(new RestResponse(id));
@@ -168,11 +178,16 @@ public class ProjectController {
 		List<ProjectDto> projectDtos = new ArrayList<ProjectDto>();
 		for (int i = 0; i < projects.size(); i++) {
 			Client client = clientRepository.findById(projects.get(i).getClientId());
+			String phaseName = "";
+			if( projects.get(i).getPhase()!=null) {
+				phaseName = phaseRepository.findById(projects.get(i).getPhase()).getName();
+				
+			}
 			ProjectDto projectDto = null;
 			if (client == null) {
-				projectDto = new ProjectDto(projects.get(i), "", employeeRepository, companyRepository);
+				projectDto = new ProjectDto(projects.get(i), "", employeeRepository, companyRepository,phaseName );
 			} else {
-				projectDto = new ProjectDto(projects.get(i), client.getName(), employeeRepository, companyRepository);
+				projectDto = new ProjectDto(projects.get(i), client.getName(), employeeRepository, companyRepository, phaseName);
 			}
 			projectDtos.add(projectDto);
 		}
@@ -188,7 +203,8 @@ public class ProjectController {
 			return ResponseWrapper.getResponse(new RestError(HttpStatus.NOT_FOUND, "PROJECT_NOT_FOUND", id));
 		}
 		Client client = clientRepository.findById(project.getClientId());
-		ProjectDto projectDto = new ProjectDto(project, client.getName(), employeeRepository, companyRepository);
+		String phaseName = phaseRepository.findById(project.getPhase()).getName();
+		ProjectDto projectDto = new ProjectDto(project, client.getName(), employeeRepository, companyRepository,phaseName );
 
 		return ResponseWrapper.getResponse(new RestResponse(projectDto));
 	}

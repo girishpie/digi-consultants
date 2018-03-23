@@ -48,6 +48,7 @@ export class ProjectService {
             project.setSiteAddress(response[i].siteAddress);
             project.setDescription(response[i].description);
             project.setStartDate(new Date(response[i].startDate));
+            project.setPhase(response[i].phase);
             project.setClientName(response[i].clientName);
             project.setId(response[i].id);
             if(response[i].employees) {

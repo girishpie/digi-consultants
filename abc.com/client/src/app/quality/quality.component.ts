@@ -37,7 +37,7 @@ export class QualityComponent implements OnInit {
     this.subscription = this.queryParamsService.getQueryParams()
       .subscribe(
         queryParam => {
-          console.log(queryParam);
+          // console.log(queryParam);
           if (this.currentSearchString !== queryParam.searchString ) {
             queryParam.pageNumber = 0;
             this.currentPage = 1;
@@ -56,19 +56,13 @@ export class QualityComponent implements OnInit {
     });
 
   }
- 
-  // public deleteQuality(quality: Quality) {
-  //   this.qualityService.delete(quality.getId()).subscribe(data => {
-
-  //   });
-  // }
   
   public deleteQuality(id: string) {
     //.alert("Are You Sure You want to delete?");
-    console.log("Id "+ id);
+    // console.log("Id "+ id);
      this.qualityService.delete(id).subscribe(data => {
      });
-     console.log("delete");
+    //  console.log("delete");
    }
    public getQuality(quality: Quality) {
     this.currentQualityId = quality.getId();

@@ -1,9 +1,16 @@
-<div class="container-fluid digi-boq rounded">
+<div class="container-fluid digi-boq rounded"><br>
   <div class="column">
-    <div class="glyphicon glyphicon-cog">MANAGE BOQS</div>
+    <div class = "glyphicon glyphicon-cog">MANAGE BOQS</div>
     <a class="btn btn-primary round pull-right" role="button" (click)="exportAsPdf()">Export BoQ</a>
     <a href="#/new-boq" class="btn btn-primary round pull-right" role="button">+Add BoQ</a>
-  </div>
+    </div><br>
+</div>
+<hr style= "margin-top: 3px;
+margin-bottom: 1px;">
+
+
+<div class="container-fluid digi-boq rounded">
+ <br>
   <div id="boqs">
 
     <table class="table" id="tableboq">
@@ -35,7 +42,7 @@
               </div>
             </tooltip-content>
             <button class="btn-primary" (click)="getBoQ(boq)" tooltipPlacement="right" [tooltip]="screeningOption1">
-                <a href="#/product">
+                <a href="#/product" (click)="setSelectedBoQNumber(boq.boqNumber)">
               <img src="assets/view.svg" style="width:30px"></a>
             </button>
 

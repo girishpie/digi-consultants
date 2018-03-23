@@ -11,7 +11,7 @@ const categoryState = { name: 'category', url: '/category',  component: Category
 @Component({
   selector: 'new-category',
   templateUrl: './new-category.component.html',
-  styleUrls: []
+  styleUrls: ['./new-category.component.scss']
 })
 export class NewCategoryComponent implements OnInit {
   private name: string;
@@ -29,7 +29,7 @@ export class NewCategoryComponent implements OnInit {
     category.setName(this.name);
     category.setDescription(this.description);
     this.categoryService.save(category).subscribe(data => {
-       console.log(data);
+      //  console.log(data);
       this.stateService.go('category');
 
     }, error => {

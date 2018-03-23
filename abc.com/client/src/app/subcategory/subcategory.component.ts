@@ -29,7 +29,7 @@ export class SubcategoryComponent implements OnInit {
     this.subscription = this.queryParamsService.getQueryParams()
       .subscribe(
         queryParam => {
-          console.log(queryParam);
+          // console.log(queryParam);
           if (this.currentSearchString !== queryParam.searchString ) {
             queryParam.pageNumber = 0;
             this.currentPage = 1;
@@ -42,7 +42,7 @@ export class SubcategoryComponent implements OnInit {
 
   public getSubcategories(queryParams: QueryParams) {
     this.subcategoryService.getSubcategories(queryParams).subscribe(data => {
-     console.log(data);
+    //  console.log(data);
       },
     error => {
       window.alert(error._body);

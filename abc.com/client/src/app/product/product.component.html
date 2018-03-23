@@ -1,17 +1,31 @@
-<div class="container-fluid digi-product rounded">
-  <div class="column">
-    <div class="glyphicon glyphicon-cog">MANAGE PRODUCTS</div>
-    <div>BOQ id- {{ currentBoQNumber }}</div>
+<div class="container-fluid" style="background-color:white;">
     <br>
-    <label for="section-option" class="form-control-label">Section:</label>
-    <select style="display: initial;width: 50%;" item-width="50%" id="section-option" class="form-control" [(ngModel)]="sectionId"
-      name="sections">
-      <option *ngFor="let section of availableSections" [value]="section.id">
-        {{ section.sectionName }}
-      </option>
-    </select>
-    <a href="#/new-product" class="btn btn-primary round pull-right" role="button">+Add Product</a>
+    <div class="column">
+        <div class="glyphicon glyphicon-cog">MANAGE PRODUCTS</div>
+        <div >BOQ id- {{ currentBoQNumber }}</div>
+    <br>
   </div>
+  <hr style="margin-top: 3px;
+  margin-bottom: 1px;">
+
+  <div class="container-fluid" style="background-color:white;">
+      <br>
+      <div class="column">
+          <label for="section-option" class="form-control-label">Section:</label>
+          <select style="display: initial;width: 50%;" item-width="50%" id="section-option" class="form-control" [(ngModel)]="sectionId"
+            name="sections">
+            <option *ngFor="let section of availableSections" [value]="section.id" (click)="setSelectedSectionId(section.id)">
+              {{ section.sectionName }}
+            </option>
+          </select>
+          <a href="#/new-product" class="btn btn-primary round pull-right" role="button">+Add Product</a>
+        </div>
+      <br>
+    </div>
+    <hr style="margin-top: 3px;
+    margin-bottom: 1px;">
+
+<div class="container-fluid digi-product" style="background-color:white;">
   <br>
   <nav class="navbar">
     <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search">
@@ -34,7 +48,7 @@
         <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.unit" (input)="product.unit=$event.target.textContent">{{ product.unit }}</td>
         <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.quantity" (input)="product.quantity=$event.target.textContent">{{ product.quantity }}</td>
         <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.amount" (input)="product.amount=$event.target.textContent">{{ product.amount }}</td>
-        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.descrition" (input)="product.descrition=$event.target.textContent">{{ product.descrition }}</td>
+        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.description" (input)="product.description=$event.target.textContent">{{ product.description }}</td>
         <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="product.bimId" (input)="product.bimId=$event.target.textContent">{{ product.bimId }}</td>
         <td class="table-cell">
           <tooltip-content #screeningOptions class="recommended-programs-tooltip">

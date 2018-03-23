@@ -1,6 +1,3 @@
-/**
- * Created by gipai on 10/3/2017.
- */
 import { Component, Input } from '@angular/core';
 import {UserService} from '../user.service';
 import {RoleService} from '../../roles/role.service';
@@ -49,7 +46,6 @@ export class NewUserComponent implements OnInit {
     this.appliedRoles = new Array<string>();
 
     this.appliedRoles.push(this.userRole);
-    console.log(this.userId + this.password + this.userRole);
     let user: User = new User();
     user.setUserId(this.userId);
     user.setFirstName(this.firstName);
@@ -59,9 +55,6 @@ export class NewUserComponent implements OnInit {
     user.setPassword(this.password);
     user.setRoleIds(this.appliedRoles);
     this.userService.save(user).subscribe(data => {
-        console.log(data);
-       // user.setId(data);
-        //this.users.addUser(user);
       this.stateService.go('user');
 
     }, error => {

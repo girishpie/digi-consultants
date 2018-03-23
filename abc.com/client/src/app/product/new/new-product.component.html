@@ -1,6 +1,13 @@
-<div class="container-fluid rounded"  style="background-color:white;">
- 	<div class = "glyphicon glyphicon-cog">ADD PRODUCT</div>
-      <div >
+<div class="container-fluid rounded " style="background-color:white;" >
+    <br>
+    <div class="column">
+        <div class = "glyphicon glyphicon-cog">ADD PRODUCT</div>
+    </div>
+    <br>
+  </div>
+  <hr style="margin-top: 5px;margin-bottom: 0px;">
+<div class="container-fluid rounded "  style="background-color:white;" >
+<br>      <div >
         <form>
           <div class="form-group" >
             <label for="section-option" class="form-control-label">Sections:</label>
@@ -24,11 +31,11 @@
           </div>
           <div class="form-group">
             <label for="quantity" class="form-control-label">Quantity:</label>
-            <input type="text" class="form-control" id="quantity" [(ngModel)]="quantity" name="second">
+            <input type="number" class="form-control" id="quantity" [(ngModel)]="quantity" name="second">
           </div>
           <div class="form-group">
             <label for="amount" class="form-control-label">Amount:</label>
-            <input type="text" class="form-control" id="quantity" [(ngModel)]="amount" name="third">
+            <input type="number" class="form-control" id="quantity" [(ngModel)]="amount" name="third">
           </div>
           <div class="form-group">
             <label for="unit" class="form-control-label">Unit:</label>

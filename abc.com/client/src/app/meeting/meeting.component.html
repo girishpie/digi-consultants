@@ -1,80 +1,89 @@
-<div class="container-fluid digi-meeting rounded" >
-        <div class="column">
-        <div class = "glyphicon glyphicon-cog">MEETING</div>
-            <a href="#/new-meeting" class="btn btn-primary round pull-right" role="button">+Add Meeting</a>
-        </div>
-        <nav class="navbar">
-          <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search" >
-        </nav>
-        <table class="table">
-          <thead>
-          <tr>
-            <th>Meeting Objective</th>
-            <th>Venue</th>
-            <th>Uploaded by</th>
-            <th>Actions</th>
-          </tr>
-          </thead>
-          <tbody>
-              <tr *ngFor="let meeting of meetings.meetings| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: meetings.totalItems, id:'server'} ">
-                  <td class = "table-cell" >{{ meeting.objective }}</td>
-                  <!-- <td class = "table-cell" >{{ meeting.meetingType }}</td> -->
-                <td class = "table-cell" >{{ meeting.venue }}</td>
-                <!-- <td class = "table-cell">{{ meeting.ondate |  date:'MM/dd/yyyy'}}</td> -->
-                <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="meeting.createdBy" (input)="meeting.createdBy=$event.target.textContent">{{ meeting.createdBy }}</td>
-                <td class = "table-cell">
-                    <tooltip-content #screeningOptions class="recommended-programs-tooltip">
-                        <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
-                          <div class="tooltip-text-regisnation">Edit</div>
-                        </div>
-                      </tooltip-content>
-                   <img src="assets/edit.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions">
-                   
-                   <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
-                      <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
-                        <div class="tooltip-text-regisnation">Delete</div>
-                      </div>
-                    </tooltip-content>
-                   <!-- <img src="assets/delete.svg" (click) = "deleteMeeting(meeting)" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1"> -->
-                   <button style="background-color:red;" class="btn-primary"  (click) = "getMeeting(meeting)" data-toggle="modal" data-target=".bd-example-modal-sm">
-                      <img src="assets/delete.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1">
-                  </button>
-                  </td>
-             </tr>
-          </tbody>
-         </table>
-          <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
-        </div>
-        <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-              <div class="modal-header" style="background-color: #428bca;">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+<div class="container-fluid rounded ">
+  <br>
+  <div class="column">
+    <div class="glyphicon glyphicon-cog">MEETING</div>
+    <a href="#/new-meeting" class="btn btn-primary round pull-right" role="button">+Add Meeting</a>
+  </div>
+  <br>
+</div>
+<hr style="margin-top: 3px;
+  margin-bottom: 1px;">
+
+<div class="container-fluid digi-meeting rounded">
+  <br>
+  <nav class="navbar">
+    <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search">
+  </nav>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Meeting Objective</th>
+        <th>Venue</th>
+        <th>Uploaded by</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let meeting of meetings.meetings| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: meetings.totalItems, id:'server'} ">
+        <td class="table-cell">{{ meeting.objective }}</td>
+        <td class="table-cell">{{ meeting.venue }}</td>
+        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="meeting.createdBy" (input)="meeting.createdBy=$event.target.textContent">{{ meeting.createdBy }}</td>
+        <td class="table-cell">
+          <!-- <tooltip-content #screeningOptions class="recommended-programs-tooltip">
+            <div>
+              <span>
+                <p class="fa fa-info-circle fa-tooltip"></p>
+              </span>
+              <div class="tooltip-text-regisnation">Edit</div>
+            </div>
+          </tooltip-content>
+
+          <img src="assets/edit.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions"> -->
+
+          <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
+            <div>
+              <span>
+                <p class="fa fa-info-circle fa-tooltip"></p>
+              </span>
+              <div class="tooltip-text-regisnation">Delete</div>
+            </div>
+          </tooltip-content>
+          <!-- <img src="assets/delete.svg" (click) = "deleteMeeting(meeting)" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1"> -->
+          <button style="background-color:red;" class="btn-primary" (click)="getMeeting(meeting)" data-toggle="modal" data-target=".bd-example-modal-sm">
+            <img src="assets/delete.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1">
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+</div>
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #428bca;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="container-fluid rounded" style="background-color:white;">
+            <div class="section-wrpr">
+              <div class="small-wrpr" style="margin-top: 10px; margin-left:20px;">
+                <div class="content-wrpr">
+                  Are you sure?
+                </div>
+                <button class="close" data-dismiss="modal" style="background-color:red;">
+                  <img src="assets/delete.svg" (click)="deleteMeeting(currentMeetingId)" style="width:30px">
                 </button>
               </div>
-              <div class="modal-body">
-                <form>
-                  <div class="container-fluid rounded" style="background-color:white;">
-                    <div class="section-wrpr">
-                      <div class="small-wrpr" style="margin-top: 10px; margin-left:20px;">
-                          <div class="content-wrpr">
-                              Are you sure?
-                          </div>
-                        <button class="close" data-dismiss="modal" style="background-color:red;">
-                          <img  src="assets/delete.svg" (click) = "deleteMeeting(currentMeetingId)" style="width:30px">
-                        </button>
-                      </div>
-                      <div class="clearfix"></div>
-                      <hr>
-                    </div>
-                  </div>
-                </form>
-              </div>
+              <div class="clearfix"></div>
+              <hr>
             </div>
           </div>
-        </div>
-
-         
-       
-
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

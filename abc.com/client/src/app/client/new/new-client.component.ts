@@ -42,7 +42,7 @@ export class NewClientComponent implements OnInit {
     client.setCompanyId(this.companyId);
     client.setAddress(this.address);
     this.clientService.save(client).subscribe(data => {
-        console.log(data);
+        // console.log(data);
        // client.setId(data);
         //this.clients.addClient(client);
       this.stateService.go('client');

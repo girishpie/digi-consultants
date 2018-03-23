@@ -1,8 +1,14 @@
-<div class="container-fluid digi-document rounded" >
-<div class="column">
-<div class = "glyphicon glyphicon-cog">DOCUMENTS - All Documents</div>
-	<a href="#/new-document" class="btn btn-primary round pull-right" role="button">+Add Document</a>
+<div class="container-fluid rounded " ><br>
+  <div class="column">
+    <div class = "glyphicon glyphicon-cog">DOCUMENTS - All Documents</div>
+    <a href="#/new-document" class="btn btn-primary round pull-right" role="button">+Add Document</a>
+    </div><br>
 </div>
+<hr style= "margin-top: 3px;
+margin-bottom: 1px;">
+
+<div class="container-fluid digi-document rounded " >
+<br>
 <nav class="navbar">
   <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search" >
 </nav>
@@ -19,28 +25,28 @@
   </thead>
   <tbody>
       <tr *ngFor="let document of documents.documents| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: documents.totalItems, id:'server'} ">
-        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="document.displayName" (input)="document.displayName=$event.target.textContent">{{ document.displayName }}</td>
-        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="document.projectName" (input)="document.projectName=$event.target.textContent">{{ document.projectName }}</td>
-        <td class = "table-cell"  contenteditable='true' (input)="onRowClick($event)" [textContent]="document.createdBy" (input)="document.createdBy=$event.target.textContent">{{ document.createdBy }}</td>
-         <td class = "table-cell"  contenteditable='true' (input)="onRowClick($event)" [textContent]="document.version" (input)="document.version=$event.target.textContent">{{ document.version }}</td>
+        <td class = "table-cell" >{{ document.displayName }}</td>
+        <td class = "table-cell" >{{ document.projectName }}</td>
+        <td class = "table-cell" >{{ document.createdBy }}</td>
+         <td class = "table-cell" >{{ document.version }}</td>
         <td class = "table-cell">{{ document.creationTime |  date:'MM/dd/yyyy'}}</td>
          <td class = "table-cell">
             <tooltip-content #screeningOptions class="recommended-programs-tooltip">
                 <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
-                  <div class="tooltip-text-regisnation">Edit</div>
+                  <div class="tooltip-text-regisnation">download</div>
                 </div>
               </tooltip-content>
-            <button [disabled]="!isValid" class="btn-primary" (click) = "updateDocument(document)">
-            <img src="assets/edit.svg" style="width:30px"  tooltipPlacement="right" [tooltip]="screeningOptions"></button> 
-            <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
+            <button  class="btn-primary" (click) = "downloadFile(document)">
+            <img src="assets/view.svg" style="width:30px"  tooltipPlacement="right" [tooltip]="screeningOptions"></button> 
+            <!-- <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
                 <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
                   <div class="tooltip-text-regisnation">Delete</div>
                 </div>
               </tooltip-content>
-            <!-- <button style="background-color:red;"><img src="assets/delete.svg" (click) = "deleteDocument(document)" style="width:30px"  tooltipPlacement="right" [tooltip]="screeningOption1"></button> -->
+            <button style="background-color:red;"><img src="assets/delete.svg" (click) = "deleteDocument(document)" style="width:30px"  tooltipPlacement="right" [tooltip]="screeningOption1"></button> 
             <button style="background-color:red;" class="btn-primary"  (click) = "getDocument(document)" data-toggle="modal" data-target=".bd-example-modal-sm">
               <img src="assets/delete.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1">
-            </button>
+            </button> -->
           </td>
      </tr>
   </tbody>

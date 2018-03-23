@@ -6,7 +6,7 @@ export class Role {
 
   public  id: string;
   public  name: string;
-  public lastUpdated: string;
+  public lastUpadated: string;
   public  permissions: Array<string>;
 
 
@@ -22,12 +22,12 @@ export class Role {
     return this.name;
   }
 
-  public setLastUpdated ( lastUpdated: string ) {
-    this.lastUpdated = lastUpdated;
+  public setLastUpadated ( lastUpadated: string ) {
+    this.lastUpadated = lastUpadated;
   }
 
-  public getLastUpdated (): string {
-    return this.lastUpdated;
+  public getLastUpadated (): string {
+    return this.lastUpadated;
   }
 
   public setId ( id: string ) {

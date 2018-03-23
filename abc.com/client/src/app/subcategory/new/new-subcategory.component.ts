@@ -14,7 +14,7 @@ const subcategoryState = { name: 'subcategory', url: '/subcategory',  component:
 @Component({
   selector: 'new-subcategory',
   templateUrl: './new-subcategory.component.html',
-  styleUrls: []
+  styleUrls: ['./new-subcategory.component.scss']
 })
 export class NewSubcategoryComponent implements OnInit {
   private name: string;
@@ -37,7 +37,7 @@ export class NewSubcategoryComponent implements OnInit {
     category.setDescription(this.description);
     category.setCategoryId(this.categoryId);
     this.subcategoryService.save(category).subscribe(data => {
-        console.log(data);
+        // console.log(data);
       this.stateService.go('subcategory');
 
     }, error => {

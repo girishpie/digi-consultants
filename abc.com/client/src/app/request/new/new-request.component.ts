@@ -51,7 +51,7 @@ export class NewRequestComponent implements OnInit {
     request.setRemarks(this.remarks);
 
     this.requestService.save(request, this.file).subscribe(data => {
-      console.log(data);
+      // console.log(data);
       request.setId(data);
       this.requests.addRequest(request);
       this.stateService.go('request');
@@ -66,7 +66,7 @@ export class NewRequestComponent implements OnInit {
     this.projectService.getProjects(null).subscribe(data => {
 
     }, error => {
-      console.log(error._body.toString() + " No roles found");
+      // console.log(error._body.toString() + " No roles found");
     });
   }
 

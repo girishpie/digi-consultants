@@ -79,18 +79,14 @@ export class RoleComponent {
       this.roleService.patch(role).subscribe();
   }
   
-  // public deleteRole(role: Role) {
-  //   this.roleService.delete(role.getId()).subscribe(data => {
-
-  //   });
-  // }
+ 
   
   public deleteRole(id: string) {
     //.alert("Are You Sure You want to delete?");
-    console.log("Id "+ id);
+    // console.log("Id "+ id);
      this.roleService.delete(id).subscribe(data => {
      });
-     console.log("delete");
+    //  console.log("delete");
    }
   public getRole(role: Role) {
     this.currentRoleName = role.getName();

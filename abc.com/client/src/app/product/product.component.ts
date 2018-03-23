@@ -21,7 +21,7 @@ import { BoQService } from '../boq/boq.service';
 export class ProductComponent implements OnInit {
 
   currentBoQId: string;
-  //currentBoQNumber:String;
+  currentBoQNumber:String;
   private subscription: Subscription;
   private currentSearchString: string;
   private currentPage = 1;
@@ -31,7 +31,7 @@ export class ProductComponent implements OnInit {
   loading: boolean  = false;
   currentProductId: string;
   constructor(private productService: ProductService, private sectionService: SectionService,
-              private products: Products, private sections: Sections,
+              private products: Products, private sections: Sections, private boQService: BoQService,
               private queryParamsService: QueryParamsService)  {
     this.getProducts(null);
   }
@@ -41,7 +41,7 @@ export class ProductComponent implements OnInit {
     this.subscription = this.queryParamsService.getQueryParams()
       .subscribe(
         queryParam => {
-          console.log(queryParam);
+          // console.log(queryParam);
           if (this.currentSearchString !== queryParam.searchString ) {
             queryParam.pageNumber = 0;
             this.currentPage = 1;
@@ -50,6 +50,7 @@ export class ProductComponent implements OnInit {
           this.getProducts(queryParam);
         }
       );
+      this.currentBoQNumber = this.boQService.getSelectedBoQNumber();
      
   }
 
@@ -73,10 +74,10 @@ export class ProductComponent implements OnInit {
 
   public deleteProduct(id: string) {
     //.alert("Are You Sure You want to delete?");
-    console.log("Id "+ id);
+    // console.log("Id "+ id);
      this.productService.delete(id).subscribe(data => {
      });
-     console.log("delete");
+    //  console.log("delete");
    }
 
   public getProduct(product: Product) {
@@ -97,6 +98,11 @@ export class ProductComponent implements OnInit {
     }, error => {
       window.alert(error._body);
     });
+  }
+
+  setSelectedSectionId(sectionId:string){
+    this.productService.setSelectedSection(sectionId);
+    console.log("Selected Section " + sectionId);
   }
 }
 

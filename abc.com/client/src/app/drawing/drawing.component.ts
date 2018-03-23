@@ -31,7 +31,7 @@ export class DrawingComponent implements OnInit {
     this.subscription = this.queryParamsService.getQueryParams()
       .subscribe(
         queryParam => {
-          console.log(queryParam);
+          // console.log(queryParam);
           if (this.currentSearchString !== queryParam.searchString ) {
             queryParam.pageNumber = 0;
             this.currentPage = 1;
@@ -62,10 +62,10 @@ export class DrawingComponent implements OnInit {
     
   public deleteDrawing(id: string) {
     //.alert("Are You Sure You want to delete?");
-    console.log("Id "+ id);
+    // console.log("Id "+ id);
      this.drawingService.delete(id).subscribe(data => {
      });
-     console.log("delete");
+    //  console.log("delete");
    }
    public getDrawing(drawing: Drawing) {
     this.currentDrawingId = drawing.getId();
@@ -80,5 +80,12 @@ export class DrawingComponent implements OnInit {
     // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();
   }
+  downloadFile(drawing: Drawing) {
+    // console.log("In Dowload Document");
+    this.drawingService.getDrawing(drawing).subscribe(
+        (data) => {
+        
+        });
+    }
 }
 
