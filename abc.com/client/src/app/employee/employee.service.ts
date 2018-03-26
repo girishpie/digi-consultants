@@ -59,35 +59,6 @@ export class EmployeeService {
       );
   }
 
-  public getEmployeeByProject(projectId:string)  {
-
-    
-    let endPoint = this.employeeUrl + projectId;
-   
-    // Returns response
-    return this.http.get(endPoint)
-      .map(res => {
-          const res1 = res.json();
-          const response = res1.response;
-          let i = 0;
-          const employees: Array<Employee> =  new Array<Employee>();
-          for ( i = 0 ; i < response.length ; i++) {
-            const employee: Employee = new Employee();
-            employee.setFirstname(response[i].firstname);
-            employee.setRole(response[i].role);
-            employee.setTelephone(response[i].telephone);
-            employee.setCompanyName(response[i].companyName);
-            employee.setNoOfProjects(response[i].noOfProjects);
-            employee.setId(response[i].id);
-            employees.push(employee);
-          }
-          this.employees.setEmployees(employees);
-          this.employees.setTotalItems(res1.totalElements);
-          return true;
-        }
-      );
-  }
-
 
 
   public save(employee: Employee, file:File)  {

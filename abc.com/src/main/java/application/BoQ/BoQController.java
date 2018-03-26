@@ -129,8 +129,15 @@ public class BoQController {
         List<BoQDto> boQDtos = new ArrayList<BoQDto>();
         for(int i = 0; i < boqs.size(); i++ ) {
         	BoQDepartment boQDepartment = boqDepartmentRepository.findById(boqs.get(i).getBoqDepartmentId());
-        	Project project = projectRepository.findById(boQDepartment.getProjectId());
-        	BoQDto boQDto = new BoQDto(boqs.get(i), boQDepartment.getDepartmentName(), project.getProjectNumber(),project.getProjectName(),boqs.get(i).getBoqNumber());
+        	String projectNumber = "";
+        	String projectName = "";
+        	if(!(boQDepartment.getProjectId().equals("")) || (boQDepartment.getProjectId()!= null)) {
+        		Project project = projectRepository.findById(boQDepartment.getProjectId());
+        		projectName = project.getProjectName();
+        		projectNumber = project.getProjectNumber();
+        	}
+        	
+        	BoQDto boQDto = new BoQDto(boqs.get(i), boQDepartment.getDepartmentName(), projectNumber,projectName,boqs.get(i).getBoqNumber());
         	boQDtos.add(boQDto);
         }
         return ResponseWrapper.getResponse(new RestResponse(boQDtos));
@@ -145,8 +152,15 @@ public class BoQController {
             return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "BOQ_NOT_FOUND", id));
         }
         BoQDepartment boQDepartment = boqDepartmentRepository.findById(boq.getBoqDepartmentId());
+        String projectNumber = "";
+    	String projectName = "";
+    	if(!(boQDepartment.getProjectId().equals("")) || (boQDepartment.getProjectId()!= null)) {
+    		Project project = projectRepository.findById(boQDepartment.getProjectId());
+    		projectName = project.getProjectName();
+    		projectNumber = project.getProjectNumber();
+    	}
         Project project = projectRepository.findById(boQDepartment.getProjectId());
-    	BoQDto boQDto = new BoQDto(boq, boQDepartment.getDepartmentName(), project.getProjectNumber(),project.getProjectName(),boq.getBoqNumber());
+    	BoQDto boQDto = new BoQDto(boq, boQDepartment.getDepartmentName(), projectNumber,projectName,boq.getBoqNumber());
         return ResponseWrapper.getResponse( new RestResponse(boQDto));
     }
 }

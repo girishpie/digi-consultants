@@ -1,65 +1,50 @@
-<div class="container-fluid  rounded">
-  <br>
-  <div class="column">
-    <div class="glyphicon glyphicon-cog">MANAGE EMPLOYEES</div>
-    <a href="#/new-employee" class="btn btn-primary round pull-right" role="button">+Add Employee</a>
-  </div>
-  <br>
+<div class="container-fluid digi-employee rounded" >
+<div class="column">
+	<div class = "glyphicon glyphicon-cog">MANAGE EMPLOYEES</div>
+	<a href="#/new-employee" class="btn btn-primary round pull-right" role="button">+Add Employee</a>
 </div>
-<hr style="margin-top: 3px;
-margin-bottom: 1px;">
-
-<div class="container-fluid digi-employee rounded">
-  <br>
-  <nav class="navbar">
-    <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search">
-  </nav>
-  <table class="table ">
-    <thead>
-      <tr>
-        <th>Employee Name</th>
-        <th>Role</th>
-        <th>Phone</th>
-        <th>Company</th>
-        <th>Projects</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
+<nav class="navbar">
+  <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search" >
+</nav>
+<table class="table ">
+  <thead>
+  <tr>
+    <th>Employee Name</th>
+    <th>Role</th>
+    <th>Phone</th>
+    <th>Company</th> 
+    <th>Projects</th>  
+    <th>Actions</th>  
+  </tr>
+  </thead>
+  <tbody>
       <tr *ngFor="let employee of employees.employees| filter:filter | paginate: { itemsPerPage: 10, currentPage: currentPage, totalItems: employees.totalItems, id:'server'} ">
-        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="employee.firstname" (input)="employee.firstname=$event.target.textContent">{{ employee.firstname }}</td>
-        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="employee.role" (input)="employee.role=$event.target.textContent">{{ employee.role }}</td>
-        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="employee.telephone" (input)="employee.telephone=$event.target.textContent">{{ employee.telephone }} </td>
-        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="employee.companyName" (input)="employee.companyName=$event.target.textContent">{{ employee.companyName }}</td>
-        <td class="table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="employee.noOfProjects" (input)="employee.noOfProjects=$event.target.textContent">{{ employee.noOfProjects }}</td>
-        <td class="table-cell">
-          <tooltip-content #screeningOptions class="recommended-programs-tooltip">
-            <div>
-              <span>
-                <p class="fa fa-info-circle fa-tooltip"></p>
-              </span>
-              <div class="tooltip-text-regisnation">Edit</div>
-            </div>
-          </tooltip-content>
-          <button [disabled]="!isValid" class="btn-primary" (click)="updateEmployee(employee)">
-            <img src="assets/edit.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOptions">
-          </button>
-          <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
-            <div>
-              <span>
-                <p class="fa fa-info-circle fa-tooltip"></p>
-              </span>
-              <div class="tooltip-text-regisnation">Delete</div>
-            </div>
-          </tooltip-content>
-          <!-- <button style="background-color:red;"><img src="assets/delete.svg" (click) = "deleteEmployee(employee)" style="width:30px"  tooltipPlacement="right" [tooltip]="screeningOption1"></button> -->
-          <button style="background-color:red;" class="btn-primary" (click)="getEmployee(employee)" data-toggle="modal" data-target=".bd-example-modal-sm">
-            <img src="assets/delete.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1">
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+        <td class = "table-cell"  contenteditable='true' (input)="onRowClick($event)" [textContent]="employee.firstname" (input)="employee.firstname=$event.target.textContent">{{ employee.firstname }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="employee.role" (input)="employee.role=$event.target.textContent">{{ employee.role }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="employee.telephone" (input)="employee.telephone=$event.target.textContent">{{ employee.telephone }} </td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="employee.companyName" (input)="employee.companyName=$event.target.textContent">{{ employee.companyName }}</td>
+        <td class = "table-cell" contenteditable='true' (input)="onRowClick($event)" [textContent]="employee.noOfProjects" (input)="employee.noOfProjects=$event.target.textContent">{{ employee.noOfProjects }}</td>
+        <td class = "table-cell">
+            <tooltip-content #screeningOptions class="recommended-programs-tooltip">
+                <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
+                  <div class="tooltip-text-regisnation">Edit</div>
+                </div>
+              </tooltip-content>
+            <button [disabled]="!isValid" class="btn-primary" (click) = "updateEmployee(employee)">
+                <img src="assets/edit.svg" style="width:30px"  tooltipPlacement="right" [tooltip]="screeningOptions"></button> 
+                <tooltip-content #screeningOption1 class="recommended-programs-tooltip">
+                    <div><span><p class="fa fa-info-circle fa-tooltip" ></p></span>
+                      <div class="tooltip-text-regisnation">Delete</div>
+                    </div>
+                  </tooltip-content>   
+		        <!-- <button style="background-color:red;"><img src="assets/delete.svg" (click) = "deleteEmployee(employee)" style="width:30px"  tooltipPlacement="right" [tooltip]="screeningOption1"></button> -->
+            <button style="background-color:red;" class="btn-primary"  (click) = "getEmployee(employee)" data-toggle="modal" data-target=".bd-example-modal-sm">
+              <img src="assets/delete.svg" style="width:30px" tooltipPlacement="right" [tooltip]="screeningOption1">
+            </button>
+          </td>
+     </tr>
+  </tbody>
+ </table>
   <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
 </div>
 <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -75,11 +60,11 @@ margin-bottom: 1px;">
           <div class="container-fluid rounded" style="background-color:white;">
             <div class="section-wrpr">
               <div class="small-wrpr" style="margin-top: 10px; margin-left:20px;">
-                <div class="content-wrpr">
-                  Are you sure?
-                </div>
+                  <div class="content-wrpr">
+                      Are you sure?
+                  </div>
                 <button class="close" data-dismiss="modal" style="background-color:red;">
-                  <img src="assets/delete.svg" (click)="deleteEmployee(currentEmployeeId)" style="width:30px">
+                  <img  src="assets/delete.svg" (click) = "deleteEmployee(currentEmployeeId)" style="width:30px">
                 </button>
               </div>
               <div class="clearfix"></div>

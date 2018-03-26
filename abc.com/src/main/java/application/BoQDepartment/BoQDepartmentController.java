@@ -101,8 +101,12 @@ import application.response.RestResponse;
 	         }
 	        List<BoQDepartmentDto> boqDepartmentDtos = new ArrayList<BoQDepartmentDto>();
 	        for(int i = 0; i < boqDepartments.size(); i++ ) {
-	        	Project project = projectRepository.findById(boqDepartments.get(i).getProjectId());
-	        	BoQDepartmentDto boqDepartmentDto = new BoQDepartmentDto(boqDepartments.get(i), project.getProjectName());
+	        	String projectName = "";
+	        	if(!(boqDepartments.get(i).getProjectId().equals(""))) {
+	        		Project project = projectRepository.findById(boqDepartments.get(i).getProjectId());
+	        		projectName = project.getProjectName();
+	        	}
+	        	BoQDepartmentDto boqDepartmentDto = new BoQDepartmentDto(boqDepartments.get(i), projectName);
 	            boqDepartmentDtos.add(boqDepartmentDto);
 	        }
 	        return ResponseWrapper.getResponse(new RestResponse(boqDepartmentDtos));
@@ -116,8 +120,12 @@ import application.response.RestResponse;
 	        if (boqDepartment == null) {
 	            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "BOQDEPARTMENT_NOT_EXSITS"));
 	        }
-	        Project project = projectRepository.findById(boqDepartment.getProjectId());
-	        BoQDepartmentDto boqDepartmentDto = new BoQDepartmentDto(boqDepartment, project.getProjectName());
+	        String projectName = "";
+	    	if(!(boqDepartment.getProjectId().equals(""))) {
+	    		Project project = projectRepository.findById(boqDepartment.getProjectId());
+	    		projectName = project.getProjectName();
+	    	}
+	        BoQDepartmentDto boqDepartmentDto = new BoQDepartmentDto(boqDepartment, projectName);
 	        return ResponseWrapper.getResponse( new RestResponse(boqDepartmentDto));
 	    }
 	}

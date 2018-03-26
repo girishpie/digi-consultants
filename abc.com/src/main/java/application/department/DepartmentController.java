@@ -84,11 +84,11 @@ public class DepartmentController {
     @PreAuthorize("hasAuthority('READ_DEPARTMENT')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> getAll() {
-        List<Department> companies = departmentRepository.findAll();
-        if (companies.isEmpty()) {
+        List<Department> departments = departmentRepository.findAll();
+        if (departments.isEmpty()) {
             return ResponseWrapper.getResponse( new RestError("No departments exist", HttpStatus.NOT_FOUND));
          }
-        return ResponseWrapper.getResponse(new RestResponse(companies));
+        return ResponseWrapper.getResponse(new RestResponse(departments));
 
     }
 

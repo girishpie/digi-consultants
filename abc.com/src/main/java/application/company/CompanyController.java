@@ -3,9 +3,14 @@
  */
 package application.company;
 
+import application.client.Client;
+import application.client.ClientRepository;
+import application.employee.Employee;
+import application.employee.EmployeeRepository;
+import application.office.Office;
+import application.office.OfficeRepository;
 import application.response.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,11 +22,20 @@ import java.util.*;
 public class CompanyController {
 
     private final CompanyRepository companyRepository;
-
-
     @Autowired
-    CompanyController(CompanyRepository companyRepository) {
+    private final ClientRepository clientRepository;
+    @Autowired
+    private final EmployeeRepository employeeRepository;
+    @Autowired
+    private final OfficeRepository officeRepository;
+    
+    @Autowired
+    CompanyController(CompanyRepository companyRepository,ClientRepository clientRepository,EmployeeRepository employeeRepository,
+    		OfficeRepository officeRepository) {
         this.companyRepository = companyRepository;
+        this.clientRepository = clientRepository;
+        this.employeeRepository = employeeRepository;
+        this.officeRepository = officeRepository;
     }
 
     @PreAuthorize("hasAuthority('CREATE_COMPANY')")
@@ -39,7 +53,28 @@ public class CompanyController {
     @PreAuthorize("hasAuthority('DELETE_COMPANY')")
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
     ResponseEntity<IResponse> delete(@PathVariable String id) {
+    	Company company = companyRepository.findById(id);
+    	for(int i = 0; i<company.getClientIds().size();i++) {
+    		Client client = clientRepository.findById(company.getClientIds().get(i));
+    		if(client.getCompanyId().equals(id)) {
+    			clientRepository.delete(client);
+    		}
+    	}
+    	for(int i = 0; i<company.getEmployeeIds().size();i++) {
+    		Employee employee = employeeRepository.findById(company.getEmployeeIds().get(i));
+    		if(employee.getCompanyId().equals(id)) {
+    			employeeRepository.delete(employee);
+    		}
+    	}
+    	for(int i = 0; i<company.getOfficeIds().size();i++) {
+    		Office office = officeRepository.findById(company.getOfficeIds().get(i));
+    		if(office.getCompanyId().equals(id)) {
+    			officeRepository.delete(office);
+    		}
+    	}
+    	
         long res = companyRepository.deleteById(id);
+        
         return ResponseWrapper.getResponse( new RestResponse( id));
     }
 

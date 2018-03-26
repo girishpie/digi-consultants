@@ -1,6 +1,5 @@
 package application.qualityControl;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -126,8 +124,13 @@ public class QualityControlController {
          }
         List<QualityControlDto> qcDtos = new ArrayList<QualityControlDto>();
         for(int i = 0; i < qcs.size(); i++ ) {
-        	Project project = projectRepository.findById(qcs.get(i).getProjectId());
-        	QualityControlDto qcDto = new QualityControlDto(qcs.get(i), project.getProjectName());
+        	String projectName = "";
+        	if(!(qcs.get(i).getProjectId().equals(""))) {
+        		Project project = projectRepository.findById(qcs.get(i).getProjectId());
+        		projectName = project.getProjectName();
+        	}
+        	
+        	QualityControlDto qcDto = new QualityControlDto(qcs.get(i), projectName);
         	qcDtos.add(qcDto);
         }
         return ResponseWrapper.getResponse(new RestResponse(qcDtos));
@@ -141,8 +144,14 @@ public class QualityControlController {
     	if (qc == null) {
             return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "CR_NOT_FOUND", id));
         }
-    	Project project = projectRepository.findById(qc.getProjectId());
-    	QualityControlDto qcDto = new QualityControlDto(qc, project.getProjectName());
+    	String projectName = "";
+    	if(!(qc.getProjectId().equals(""))) {
+    		Project project = projectRepository.findById(qc.getProjectId());
+    		projectName = project.getProjectName();
+    	}
+    	
+    	
+    	QualityControlDto qcDto = new QualityControlDto(qc, projectName);
         
         return ResponseWrapper.getResponse( new RestResponse(qcDto));
     }

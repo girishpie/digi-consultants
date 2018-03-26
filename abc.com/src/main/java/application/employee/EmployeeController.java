@@ -73,7 +73,8 @@ public class EmployeeController {
 		            }
 	        	}
 		        Employee employee = new Employee(input.getImgId(), input.getFirstname(), input.getLastname(), input.getDOB(), input.getGender(), input.getRole(), input.getEmail(),
-		    			input.getAddress(), input.getCity(), input.getCountry(), input.getMobile(), input.getTelephone(), input.getCompanyId(), input.getProjectIds());
+		    			input.getAddress(), input.getCity(), input.getCountry(), input.getMobile(), input.getTelephone(), input.getCompanyId());
+		       // employee.addProject(input.getProjectIds().get(0));
 		        Employee emp = employeeRepository.save(employee);
 		        company.addEmployee(emp.getId());
 		        companyRepository.save(company);

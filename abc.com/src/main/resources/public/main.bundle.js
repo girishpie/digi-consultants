@@ -4598,11 +4598,11 @@ var Employee = (function () {
     Employee.prototype.getCompanyId = function () {
         return this.companyId;
     };
-    Employee.prototype.setProjectIds = function (projectIds) {
-        this.projectIds = projectIds;
+    Employee.prototype.setProjectId = function (projectId) {
+        this.projectId = projectId;
     };
-    Employee.prototype.getProjectIds = function () {
-        return this.projectIds;
+    Employee.prototype.getProjectId = function () {
+        return this.projectId;
     };
     Employee.prototype.setNoOfProjects = function (noOfProjects) {
         this.noOfProjects = noOfProjects;
@@ -4730,6 +4730,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 //declare var jQuery:any;
 var employeeState = { name: 'employee', url: '/employee', component: __WEBPACK_IMPORTED_MODULE_7__employee_component__["a" /* EmployeeComponent */] };
 var NewEmployeeComponent = (function () {
+    //private projectIds:Array<string>;
     function NewEmployeeComponent(employeeService, companyService, projectService, employees, companies, projects, stateService) {
         this.employeeService = employeeService;
         this.companyService = companyService;
@@ -4760,7 +4761,8 @@ var NewEmployeeComponent = (function () {
         employee.setEmail(this.email);
         // employee.setDOB(new Date(this.DOB));
         employee.setCompanyId(this.companyId);
-        employee.setProjectIds(this.projectId);
+        // this.projectIds.push(this.projectId);
+        employee.setProjectId(this.projectId);
         this.employeeService.save(employee, this.file).subscribe(function (data) {
             // console.log(data);
             employee.setId(data);

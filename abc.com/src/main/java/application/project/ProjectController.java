@@ -21,10 +21,18 @@ import org.springframework.web.bind.annotation.RestController;
 import application.client.Client;
 import application.client.ClientRepository;
 import application.company.CompanyRepository;
+import application.dms.DocumentCatalog;
+import application.dms.DocumentCatalogRepository;
+import application.drawing.DrawingCatalog;
+import application.drawing.DrawingCatalogRepository;
 import application.employee.Employee;
 import application.employee.EmployeeRepository;
+import application.mom.Mom;
+import application.mom.MomRepository;
 import application.phase.Phase;
 import application.phase.PhaseRepository;
+import application.qualityControl.QualityControl;
+import application.qualityControl.QualityControlRepository;
 import application.response.IResponse;
 import application.response.ResponseWrapper;
 import application.response.RestError;
@@ -44,14 +52,28 @@ public class ProjectController {
 	private final ClientRepository clientRepository;
 	@Autowired
 	private final CompanyRepository companyRepository;
+	@Autowired
+	private final QualityControlRepository qualityControlRepository;
+	@Autowired
+	private final MomRepository momRepository;
+	@Autowired
+	private final DocumentCatalogRepository documentCatalogRepository;
+	@Autowired
+	private final DrawingCatalogRepository drawingCatalogRepository;
 
 	ProjectController(ClientRepository clientRepository, ProjectRepository projectRepository,
-			EmployeeRepository employeeRepository, CompanyRepository companyRepository,PhaseRepository phaseRepository ) {
+			EmployeeRepository employeeRepository, CompanyRepository companyRepository,PhaseRepository phaseRepository,
+			QualityControlRepository qualityControlRepository,MomRepository momRepository,
+			DocumentCatalogRepository documentCatalogRepository, DrawingCatalogRepository drawingCatalogRepository) {
 		this.projectRepository = projectRepository;
 		this.clientRepository = clientRepository;
 		this.employeeRepository = employeeRepository;
 		this.companyRepository = companyRepository;
 		this.phaseRepository = phaseRepository;
+		this.qualityControlRepository = qualityControlRepository;
+		this.momRepository = momRepository;
+		this.documentCatalogRepository = documentCatalogRepository;
+		this.drawingCatalogRepository = drawingCatalogRepository;
 	}
 
 	@PreAuthorize("hasAuthority('CREATE_PROJECT')")
@@ -90,6 +112,7 @@ public class ProjectController {
 	@PreAuthorize("hasAuthority('DELETE_PROJECT')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	ResponseEntity<?> delete(@PathVariable String id) {
+		int i;
 		Project project = projectRepository.findById(id);
 		RestError restError;
 		if (project == null) {
@@ -101,12 +124,42 @@ public class ProjectController {
 			client.deleteProject(id);
 			clientRepository.save(client);
 		}
-//		for (int i = 0; i < project.getEmployeeIds().size(); i++) {
-//			Employee employee = employeeRepository.findById(project.getEmployeeIds().get(i));
-//			
-//		}
+		for (i = 0; i < project.getEmployeeIds().size(); i++) {
+			Employee employee = employeeRepository.findById(project.getEmployeeIds().get(i));
+			for (int j = 0; j < employee.getProjectIds().size(); j++) {
+				if(employee.getProjectIds().get(j).equals(id)) {
+					employee.deleteProject(id);
+				}
+			}
+		}
+		for (i = 0; i < project.getCrIds().size(); i++) {
+			QualityControl qualityControl = qualityControlRepository.findById(project.getCrIds().get(i));
+			if(qualityControl.getProjectId().equals(id)) {
+				qualityControl.setProjectId("");
+			}	
+		}
+		for (i = 0; i < project.getMeetingIds().size(); i++) {
+			Mom mom = momRepository.findById(project.getCrIds().get(i));
+			if(mom.getProjectId().equals(id)) {
+				mom.setProjectId("");
+			}	
+		}
+		for (i = 0; i < project.getBoqDepartmentIds().size(); i++) {
+			Mom mom = momRepository.findById(project.getCrIds().get(i));
+			if(mom.getProjectId().equals(id)) {
+				mom.setProjectId("");
+			}	
+		}
+		DrawingCatalog drawingCatalog = drawingCatalogRepository.findByProjectId(id);
+		if(drawingCatalog!= null) {
+			drawingCatalogRepository.delete(drawingCatalog.getId());
+		}
 		
-		long res = projectRepository.deleteById(id);
+		DocumentCatalog documentCatalog = documentCatalogRepository.findByProjectId(id);
+		if(documentCatalog!= null) {
+			documentCatalogRepository.delete(documentCatalog.getId());
+		}
+		projectRepository.deleteById(id);
 
 		return ResponseWrapper.getResponse(new RestResponse(id));
 

@@ -12,5 +12,6 @@ public interface DocumentCatalogRepository extends MongoRepository<DocumentCatal
 
     DocumentCatalog findByDisplayName(String originalFilename);
     DocumentCatalog findById(String id);
+    DocumentCatalog findByProjectId(String id);
 
 }

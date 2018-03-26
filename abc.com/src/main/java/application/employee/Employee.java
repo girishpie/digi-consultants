@@ -32,7 +32,7 @@ public class Employee extends BasicInfo{
 	public Employee() {};
 	
 	public Employee(String imgId, String firstname, String lastname, Date dOB, String gender, String role, String email,
-			String address, String city, String country, String mobile, String telephone, String companyId, List<String> projectIds ) {
+			String address, String city, String country, String mobile, String telephone, String companyId) {
 		this.imgId = imgId;
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -46,7 +46,7 @@ public class Employee extends BasicInfo{
 		this.mobile = mobile;
 		this.telephone = telephone;
 		this.companyId = companyId;
-		this.projectIds = projectIds;
+		
 	}
 
 	public String getId() {

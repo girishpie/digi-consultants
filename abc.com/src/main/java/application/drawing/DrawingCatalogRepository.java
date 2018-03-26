@@ -12,5 +12,5 @@ public interface DrawingCatalogRepository extends MongoRepository<DrawingCatalog
 
     DrawingCatalog findByDisplayName(String originalFilename);
     DrawingCatalog findById(String id);
-
+    DrawingCatalog findByProjectId(String id);
 }
