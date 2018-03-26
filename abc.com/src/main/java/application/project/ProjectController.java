@@ -2,22 +2,20 @@ package application.project;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import application.BoQDepartment.BoQDepartment;
+import application.BoQDepartment.BoQDepartmentRepository;
 import application.client.Client;
 import application.client.ClientRepository;
 import application.company.CompanyRepository;
@@ -29,7 +27,6 @@ import application.employee.Employee;
 import application.employee.EmployeeRepository;
 import application.mom.Mom;
 import application.mom.MomRepository;
-import application.phase.Phase;
 import application.phase.PhaseRepository;
 import application.qualityControl.QualityControl;
 import application.qualityControl.QualityControlRepository;
@@ -42,6 +39,8 @@ import application.response.RestResponse;
 @RequestMapping("/api/project")
 public class ProjectController {
 
+	@Autowired
+	private final BoQDepartmentRepository boQDepartmentRepository;
 	@Autowired
 	private final ProjectRepository projectRepository;
 	@Autowired
@@ -64,7 +63,8 @@ public class ProjectController {
 	ProjectController(ClientRepository clientRepository, ProjectRepository projectRepository,
 			EmployeeRepository employeeRepository, CompanyRepository companyRepository,PhaseRepository phaseRepository,
 			QualityControlRepository qualityControlRepository,MomRepository momRepository,
-			DocumentCatalogRepository documentCatalogRepository, DrawingCatalogRepository drawingCatalogRepository) {
+			DocumentCatalogRepository documentCatalogRepository, DrawingCatalogRepository drawingCatalogRepository,
+			BoQDepartmentRepository boQDepartmentRepository) {
 		this.projectRepository = projectRepository;
 		this.clientRepository = clientRepository;
 		this.employeeRepository = employeeRepository;
@@ -74,6 +74,7 @@ public class ProjectController {
 		this.momRepository = momRepository;
 		this.documentCatalogRepository = documentCatalogRepository;
 		this.drawingCatalogRepository = drawingCatalogRepository;
+		this.boQDepartmentRepository = boQDepartmentRepository;
 	}
 
 	@PreAuthorize("hasAuthority('CREATE_PROJECT')")
@@ -114,47 +115,64 @@ public class ProjectController {
 	ResponseEntity<?> delete(@PathVariable String id) {
 		int i;
 		Project project = projectRepository.findById(id);
-		RestError restError;
+		//RestError restError;
 		if (project == null) {
 			return ResponseWrapper
 					.getResponse(new RestError("Project With: " + id + " does not exist", HttpStatus.NOT_FOUND));
 		}
-		Client client = clientRepository.findById(project.getClientId());
-		if (client != null) {
-			client.deleteProject(id);
-			clientRepository.save(client);
-		}
-		for (i = 0; i < project.getEmployeeIds().size(); i++) {
-			Employee employee = employeeRepository.findById(project.getEmployeeIds().get(i));
-			for (int j = 0; j < employee.getProjectIds().size(); j++) {
-				if(employee.getProjectIds().get(j).equals(id)) {
-					employee.deleteProject(id);
-				}
+		if(!(project.getClientId().equals(""))){
+			System.out.println("In Client");
+			Client client = clientRepository.findById(project.getClientId());
+			if (client != null) {
+				client.deleteProject(id);
+				clientRepository.save(client);
+				System.out.println("Project from Client Deleted");
 			}
 		}
+		
+		for (i = 0; i < project.getEmployeeIds().size(); i++) {
+			System.out.println("In Employee");
+			if(!(project.getEmployeeIds().get(i).equals(""))) {
+				Employee employee = employeeRepository.findById(project.getEmployeeIds().get(i));
+				for (int j = 0; j < employee.getProjectIds().size(); j++) {
+					if(employee.getProjectIds().get(j).equals(id)) {
+						employee.deleteProject(id);
+						System.out.println("Project from Employee Deleted");
+					}
+				}
+			}
+			
+		}
 		for (i = 0; i < project.getCrIds().size(); i++) {
+			System.out.println("In QC");
 			QualityControl qualityControl = qualityControlRepository.findById(project.getCrIds().get(i));
 			if(qualityControl.getProjectId().equals(id)) {
 				qualityControl.setProjectId("");
+				System.out.println("Project from Quality Control Deleted");
 			}	
 		}
-		for (i = 0; i < project.getMeetingIds().size(); i++) {
-			Mom mom = momRepository.findById(project.getCrIds().get(i));
-			if(mom.getProjectId().equals(id)) {
-				mom.setProjectId("");
-			}	
-		}
+//		for (i = 0; i < project.getMeetingIds().size(); i++) {
+//			System.out.println("In Meeting");
+//			Mom mom = momRepository.findById(project.getMeetingIds().get(i));
+//			if(mom.getProjectId().equals(id)) {
+//				mom.setProjectId("");
+//				System.out.println("Project from MOM Deleted");
+//			}	
+//		}
 		for (i = 0; i < project.getBoqDepartmentIds().size(); i++) {
-			Mom mom = momRepository.findById(project.getCrIds().get(i));
-			if(mom.getProjectId().equals(id)) {
-				mom.setProjectId("");
+			System.out.println("In BoQDept");
+			BoQDepartment boqDepartment = boQDepartmentRepository.findById(project.getBoqDepartmentIds().get(i));
+			if(boqDepartment.getProjectId().equals(id)) {
+				boqDepartment.setProjectId("");
+				System.out.println("Project from BoQDepartment Deleted");
 			}	
 		}
+		System.out.println("In Drawing");
 		DrawingCatalog drawingCatalog = drawingCatalogRepository.findByProjectId(id);
 		if(drawingCatalog!= null) {
 			drawingCatalogRepository.delete(drawingCatalog.getId());
 		}
-		
+		System.out.println("In Document");
 		DocumentCatalog documentCatalog = documentCatalogRepository.findByProjectId(id);
 		if(documentCatalog!= null) {
 			documentCatalogRepository.delete(documentCatalog.getId());

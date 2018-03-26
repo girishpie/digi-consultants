@@ -73,7 +73,7 @@ public class EmployeeController {
 		            }
 	        	}
 		        Employee employee = new Employee(input.getImgId(), input.getFirstname(), input.getLastname(), input.getDOB(), input.getGender(), input.getRole(), input.getEmail(),
-		    			input.getAddress(), input.getCity(), input.getCountry(), input.getMobile(), input.getTelephone(), input.getCompanyId());
+		    			input.getAddress(), input.getCity(), input.getCountry(), input.getMobile(), input.getTelephone(), input.getCompanyId(), input.getProjectIds());
 		       // employee.addProject(input.getProjectIds().get(0));
 		        Employee emp = employeeRepository.save(employee);
 		        company.addEmployee(emp.getId());
@@ -171,6 +171,17 @@ public class EmployeeController {
         }
         return ResponseWrapper.getResponse(new RestResponse(employeeDtos));
 
+    }
+       @PreAuthorize("hasAuthority('READ_EMPLOYEE')")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> get(@PathVariable("id") String id) {
+    	Employee employee = employeeRepository.findById(id);
+        if (employee == null) {
+            return ResponseWrapper.getResponse( new RestError(HttpStatus.NOT_FOUND, "EMPLOYEE_NOT_FOUND", id));
+        }
+        Company company = companyRepository.findById(employee.getCompanyId());
+        EmployeeDto employeeDto = new EmployeeDto(employee, company.getCompanyName());
+        return ResponseWrapper.getResponse( new RestResponse(employeeDto));
     }
         
     @PreAuthorize("hasAuthority('READ_EMPLOYEE')")

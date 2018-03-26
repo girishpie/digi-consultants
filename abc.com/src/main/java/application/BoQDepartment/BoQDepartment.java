@@ -1,8 +1,5 @@
 package application.BoQDepartment;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Id;
